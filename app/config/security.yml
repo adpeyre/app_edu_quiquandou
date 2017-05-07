@@ -3,9 +3,15 @@
 security:
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-    providers:
-        in_memory:
-            memory: ~
+    
+    encoders:
+        SchoolBundle\Entity\User: plaintext
+        
+    providers:        
+        userSchool: #nom arbitraire
+            entity:
+                class: SchoolBundle\Entity\User
+                property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,7 +20,9 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            pattern: ^/
+            anonymous: true
+            provider: userSchool
             # activate different ways to authenticate
 
             # http_basic: ~

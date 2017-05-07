@@ -3,6 +3,7 @@
 namespace SchoolBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="SchoolBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -20,6 +21,14 @@ class User
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=255)
+     */
+    private $username;
+
 
     /**
      * @var string
@@ -55,6 +64,12 @@ class User
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
+
+
+    /**
+    * @ORM\Column(name="roles", type="array")
+    */
+    private $roles = array();
 
 
     /**
@@ -185,6 +200,30 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+
+
+    public function getUsername(){
+        return $this->username;
+    }
+
+    public function setUsername($username){
+        return $this->username = $username;
+    }
+
+
+    public function getRoles(){
+        return $this->roles;
+    }
+
+
+    // For encoding password
+    public function getSalt(){
+        return null;
+    }
+
+    public function eraseCredentials(){
+
     }
 }
 
