@@ -1,0 +1,7 @@
+{
+  "name": "Opencomp",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "startbootstrap-sb-admin-2": "https://github.com/BlackrockDigital/startbootstrap-sb-admin-2.git#^3.3.7+1"
+  }
+}
