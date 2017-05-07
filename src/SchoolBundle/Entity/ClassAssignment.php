@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace SchoolBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ClassAssignment
  *
  * @ORM\Table(name="class_assignment")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ClassAssignmentRepository")
+ * @ORM\Entity(repositoryClass="SchoolBundle\Repository\ClassAssignmentRepository")
  */
 class ClassAssignment
 {
@@ -22,13 +22,13 @@ class ClassAssignment
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Classroom")
+     * @ORM\ManyToOne(targetEntity="SchoolBundle\Entity\Classroom")
      * @ORM\JoinColumn(nullable=false)
     */
     private $class;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Student")
+     * @ORM\ManyToOne(targetEntity="SchoolBundle\Entity\Student")
      * @ORM\JoinColumn(nullable=false)
     */
     private $student;

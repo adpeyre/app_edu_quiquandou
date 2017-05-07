@@ -1,3 +1,8 @@
+school:
+    resource: "@SchoolBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 exercice:
     resource: "@ExerciceBundle/Controller/"
     type:     annotation
