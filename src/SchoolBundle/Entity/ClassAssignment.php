@@ -28,10 +28,10 @@ class ClassAssignment
     private $class;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SchoolBundle\Entity\Student")
+     * @ORM\ManyToOne(targetEntity="SchoolBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
     */
-    private $student;
+    private $user;
 
 
     /**

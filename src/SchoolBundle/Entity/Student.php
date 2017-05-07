@@ -5,12 +5,12 @@ namespace SchoolBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Student
+ * User
  *
- * @ORM\Table(name="student")
- * @ORM\Entity(repositoryClass="SchoolBundle\Repository\StudentRepository")
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="SchoolBundle\Repository\UserRepository")
  */
-class Student
+class User
 {
     /**
      * @var int
@@ -24,16 +24,16 @@ class Student
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=255)
+     * @ORM\Column(name="first_name", type="string", length=255)
      */
-    private $firstname;
+    private $firstName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="last_name", type="string", length=255)
      */
-    private $name;
+    private $lastName;
 
     /**
      * @var \DateTime
@@ -41,6 +41,20 @@ class Student
      * @ORM\Column(name="birthDate", type="date", nullable=true)
      */
     private $birthDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mail", type="string", length=255, nullable=true, unique=true)
+     */
+    private $mail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
+     */
+    private $password;
 
 
     /**
@@ -58,11 +72,11 @@ class Student
      *
      * @param string $prenom
      *
-     * @return Student
+     * @return User
      */
-    public function setPrenom($prenom)
+    public function setFirstName($prenom)
     {
-        $this->prenom = $prenom;
+        $this->firstName = $firstName;
 
         return $this;
     }
@@ -72,9 +86,9 @@ class Student
      *
      * @return string
      */
-    public function getPrenom()
+    public function getFirstName()
     {
-        return $this->prenom;
+        return $this->firstName;
     }
 
     /**
@@ -82,11 +96,11 @@ class Student
      *
      * @param string $name
      *
-     * @return Student
+     * @return User
      */
-    public function setName($name)
+    public function setLastName($name)
     {
-        $this->name = $name;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -96,9 +110,9 @@ class Student
      *
      * @return string
      */
-    public function getName()
+    public function getLastName()
     {
-        return $this->name;
+        return $this->lastName;
     }
 
     /**
@@ -106,7 +120,7 @@ class Student
      *
      * @param \DateTime $birthDate
      *
-     * @return Student
+     * @return User
      */
     public function setBirthDate($birthDate)
     {
@@ -123,6 +137,54 @@ class Student
     public function getBirthDate()
     {
         return $this->birthDate;
+    }
+
+    /**
+     * Set mail
+     *
+     * @param string $mail
+     *
+     * @return Teacher
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * Get mail
+     *
+     * @return string
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return Teacher
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 }
 
