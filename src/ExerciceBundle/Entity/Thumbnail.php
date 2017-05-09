@@ -43,7 +43,8 @@ class Thumbnail
      * @Assert\NotBlank(message="Aucune image spécifiée")
      * @Assert\File(
      *     maxSize = "500k",
-     *     mimeTypes={ "image/jpeg", "image/png" })
+     *     maxSizeMessage = "L'image ne doit pas exéder un poids de {{limit}}",
+     *     mimeTypes={ "image/jpeg", "image/png" }),
      *     mimeTypesMessage = "Format invalide. Merci de choisir une image jpeg ou png."
      */
      private $image;
@@ -112,6 +113,15 @@ class Thumbnail
 
     public function setImage($image){
         return $this->image = $image;
+    }
+
+
+    public static function getTypesList(){
+        return array(
+            "qui" => 1,
+            "quand" =>2 ,
+            "ou" => 3
+        );
     }
 
 

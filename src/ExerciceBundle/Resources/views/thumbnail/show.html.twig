@@ -1,0 +1,40 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block content %}
+    <h1>Thumbnail</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ thumbnail.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ thumbnail.name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ thumbnail.type }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ thumbnail.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_thumbnail_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_thumbnail_edit', { 'id': thumbnail.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
