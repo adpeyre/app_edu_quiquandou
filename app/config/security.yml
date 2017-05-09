@@ -23,6 +23,9 @@ security:
             pattern: ^/
             anonymous: true
             provider: userSchool
+            form_login:
+                login_path: login
+                check_path: login #login_check
             # activate different ways to authenticate
 
             # http_basic: ~

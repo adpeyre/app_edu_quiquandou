@@ -25,7 +25,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
 
@@ -33,16 +33,16 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255)
      */
-    private $firstName;
+    private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="last_name", type="string", length=255)
+     * @ORM\Column(name="lastname", type="string", length=255)
      */
-    private $lastName;
+    private $lastname;
 
     /**
      * @var \DateTime
@@ -54,9 +54,9 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=255, nullable=true, unique=true)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true, unique=true)
      */
-    private $mail;
+    private $email;
 
     /**
      * @var string
@@ -89,9 +89,9 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setFirstName($prenom)
+    public function setFirstname($firstname)
     {
-        $this->firstName = $firstName;
+        $this->firstname = $firstname;
 
         return $this;
     }
@@ -101,9 +101,9 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getFirstName()
+    public function getFirstname()
     {
-        return $this->firstName;
+        return $this->firstname;
     }
 
     /**
@@ -113,9 +113,9 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setLastName($name)
+    public function setLastname($name)
     {
-        $this->lastName = $lastName;
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -125,9 +125,9 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getLastName()
+    public function getLastname()
     {
-        return $this->lastName;
+        return $this->lastname;
     }
 
     /**
@@ -161,9 +161,9 @@ class User implements UserInterface
      *
      * @return Teacher
      */
-    public function setMail($mail)
+    public function setEmail($email)
     {
-        $this->mail = $mail;
+        $this->email = $email;
 
         return $this;
     }
@@ -173,9 +173,9 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     /**
@@ -199,7 +199,9 @@ class User implements UserInterface
      */
     public function getPassword()
     {
-        return $this->password;
+       return (is_null($this->password)) ? 'no' : $this->password;
+
+        
     }
 
 
