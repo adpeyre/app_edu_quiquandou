@@ -3,6 +3,7 @@
 namespace ExerciceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Thumbnail
@@ -35,6 +36,17 @@ class Thumbnail
      */
     private $type;
 
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Aucune image spécifiée")
+     * @Assert\File(
+     *     maxSize = "500k",
+     *     mimeTypes={ "image/jpeg", "image/png" })
+     *     mimeTypesMessage = "Format invalide. Merci de choisir une image jpeg ou png."
+     */
+     private $image;
 
     /**
      * Get id
@@ -89,9 +101,19 @@ class Thumbnail
      *
      * @return int
      */
-    public function getType()
-    {
+    public function getType(){
         return $this->type;
     }
+
+
+    public function getImage(){
+        return $this->image;
+    }
+
+    public function setImage($image){
+        return $this->image = $image;
+    }
+
+
 }
 
