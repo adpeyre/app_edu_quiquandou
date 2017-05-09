@@ -1,55 +1,52 @@
 {% extends 'layout_admin.html.twig' %}
 
 {% block content %}
-    <h1>User</h1>
+    <h1>{{ user.firstname }} {{ user.lastname }}</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Birthdate</th>
-                <td>{% if user.birthDate %}{{ user.birthDate|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Informations générales</h3>
+            </div>
+            <div class="panel_body">
+                <table>
+                    <tbody>                
+                            <th>Login</th>
+                            <td>{{ user.username }}</td>
+                        </tr>                
+                        <tr>
+                            <th>Date de naissance</th>
+                            <td>{% if user.birthDate %}{{ user.birthDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{% if user.email is empty %} / {% else %} {{ user.email }} {% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Password</th>
+                            <td>{% if user.password is empty %} Pas de mot de passe {% else %} Mot de passe défini {% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Roles</th>
+                            <td>{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
 
     <ul>
         <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
+            <a href="{{ path('user_index') }}">Retourner à la liste des utilisateurs</a>
         </li>
         <li>
-            <a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a>
+            <a href="{{ path('user_edit', { 'id': user.id }) }}">Modifier cet utilisateur</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Supprimer cet utilisateur">
             {{ form_end(delete_form) }}
         </li>
     </ul>
