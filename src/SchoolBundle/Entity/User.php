@@ -67,9 +67,9 @@ class User implements UserInterface
 
 
     /**
-    * @ORM\Column(name="roles", type="array")
+    * @ORM\Column(name="role", type="string", length=255)
     */
-    private $roles = array();
+    private $role;
 
 
     /**
@@ -113,7 +113,7 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setLastname($name)
+    public function setLastname($lastname)
     {
         $this->lastname = $lastname;
 
@@ -214,8 +214,16 @@ class User implements UserInterface
     }
 
 
+    public function getRole(){
+        return $this->role;
+    }
+
     public function getRoles(){
-        return $this->roles;
+        return array($this->role);
+    }
+
+    public function setRole($role){
+        $this->role = $role;
     }
 
 
@@ -227,5 +235,13 @@ class User implements UserInterface
     public function eraseCredentials(){
 
     }
+
+    public function getRolesNames(){
+        return array(
+            "ADMIN" => "Administrateur",
+            "ANIMATOR" => "Animateur",
+            "USER" => "Utilisateur",        
+        );
+}
 }
 
