@@ -3,6 +3,7 @@
 namespace ExerciceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Exercice
@@ -25,9 +26,9 @@ class Exercice
      /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="title", type="string", length=100)
      */
-    private $text;
+    private $title;
 
 
 
@@ -42,6 +43,11 @@ class Exercice
      * @var int
      *
      * @ORM\Column(name="level", type="smallint")
+     *     
+     * @Assert\Choice(
+     *     callback = "getLevelsAvailable",
+     *     message = "Niveau selectionné invalide"
+     * )   
      */
     private $level;
 
@@ -72,6 +78,16 @@ class Exercice
     public function getId()
     {
         return $this->id;
+    }
+
+
+    public function getTitle(){
+        return $this->title;
+    }
+
+    public function setTitle($title){
+        $this->title = $title;
+        return $this;
     }
 
     /**
@@ -192,6 +208,22 @@ class Exercice
     public function getOu()
     {
         return $this->ou;
+    }
+
+
+    public static function getLevelsAvailable(){
+        return array(
+            '1 - Très facile'=>1,
+            '2 - Très facile' => 2,
+            '3 - Facile' => 3,
+            '4 - Facile' => 4,
+            '5 - Moyen' => 5,
+            '6 - Moyen' => 6,
+            '7 - Difficile' => 7,
+            '8 - Difficile' => 8,
+            '9 - Très difficile'=>9,
+            '10 - Très difficile'=>10            
+        );
     }
 }
 

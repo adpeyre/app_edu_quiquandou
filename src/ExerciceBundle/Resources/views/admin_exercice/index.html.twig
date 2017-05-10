@@ -1,32 +1,29 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout_admin.html.twig' %}
 
-{% block body %}
-    <h1>Exercices list</h1>
+{% block content %}
+    <h1>Liste des exercices</h1>
 
     <table>
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Text</th>
-                <th>Level</th>
+                <th>Titre de l'histoire</th>
+                <th>Texte de l'histoire</th>
+                <th>Niveau</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for exercice in exercices %}
             <tr>
-                <td><a href="{{ path('admin_exercice_show', { 'id': exercice.id }) }}">{{ exercice.id }}</a></td>
-                <td>{{ exercice.text }}</td>
+                <td>{{ exercice.title }}</td>
+                <td>{{ exercice.text |truncate(25, false, '...') }}</td>
                 <td>{{ exercice.level }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_exercice_show', { 'id': exercice.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_exercice_edit', { 'id': exercice.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                <td>            
+                    
+                
+                    <a href="{{ path('admin_exercice_edit', { 'id': exercice.id }) }}">Modifier</a> -
+                    <a href="{{ path('admin_exercice_delete', { 'id': exercice.id }) }}">Supprimer</a>
+                       
                 </td>
             </tr>
         {% endfor %}
@@ -35,7 +32,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('admin_exercice_new') }}">Create a new exercice</a>
+            <a href="{{ path('admin_exercice_new') }}">Créer un nouvel exercice</a>
         </li>
     </ul>
 {% endblock %}

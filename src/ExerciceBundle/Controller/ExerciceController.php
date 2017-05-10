@@ -26,7 +26,7 @@ class ExerciceController extends Controller
 
         $exercices = $em->getRepository('ExerciceBundle:Exercice')->findAll();
 
-        return $this->render('exercice/index.html.twig', array(
+        return $this->render('ExerciceBundle:admin_exercice:index.html.twig', array(
             'exercices' => $exercices,
         ));
     }
@@ -51,7 +51,7 @@ class ExerciceController extends Controller
             return $this->redirectToRoute('admin_exercice_show', array('id' => $exercice->getId()));
         }
 
-        return $this->render('exercice/new.html.twig', array(
+        return $this->render('ExerciceBundle:admin_exercice:new.html.twig', array(
             'exercice' => $exercice,
             'form' => $form->createView(),
         ));

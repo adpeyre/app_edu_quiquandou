@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout_admin.html.twig' %}
 
-{% block body %}
-    <h1>Exercice creation</h1>
+{% block content %}
+    <h1>Nouvel exercice</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Ajouter cet exercice" />
     {{ form_end(form) }}
 
     <ul>

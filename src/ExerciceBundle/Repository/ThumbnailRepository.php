@@ -2,6 +2,8 @@
 
 namespace ExerciceBundle\Repository;
 
+use ExerciceBundle\Entity\Thumbnail;
+
 /**
  * ThumbnailRepository
  *
@@ -10,4 +12,13 @@ namespace ExerciceBundle\Repository;
  */
 class ThumbnailRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getQui(){
+        return $this->createQueryBuilder('Thumbnail')->where('Thumbnail.type=1');
+    }
+    public function getQuand(){
+        return $this->createQueryBuilder('Thumbnail')->where('Thumbnail.type=2');
+    }
+    public function getOu(){
+        return $this->createQueryBuilder('Thumbnail')->where('Thumbnail.type=3');
+    }
 }

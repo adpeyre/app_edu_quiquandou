@@ -116,6 +116,10 @@ class Thumbnail
     }
 
 
+    public function __toString(){
+        return $this->getName();
+    }
+
     public static function getTypesList(){
         return array(
             "qui" => 1,
