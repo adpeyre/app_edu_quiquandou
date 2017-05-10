@@ -5,7 +5,7 @@
     
     <div class="table-responsive">
 
-    <table class="table table-bordered table-hover table-striped">
+    <table class="table table-bordered table-hover table-striped" id="dataTables-users">
         <thead>
             <tr>
                 <th>Id</th>
@@ -45,4 +45,16 @@
             <a href="{{ path('user_new') }}">Create a new user</a>
         </li>
     </ul>
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+    $('#dataTables-users').DataTable({
+        responsive: true
+    });
+});
+</script>
+
 {% endblock %}

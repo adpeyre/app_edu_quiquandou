@@ -21,6 +21,16 @@ class Exercice
      */
     private $id;
 
+
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="text", type="text")
+     */
+    private $text;
+
+
+
     /**
      * @var string
      *

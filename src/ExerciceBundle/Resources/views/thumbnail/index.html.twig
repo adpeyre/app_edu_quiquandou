@@ -5,17 +5,12 @@
     <div class="row">
         {% for thumbnail in thumbnails %}
         <div class="col-lg-2 " >
-            <div class="panel panel-default" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{ thumbnail.name }}</h3>
-                </div>
-                <div class="panel-body">
-                    
-                    <div><img class="img-responsive center-block" src="{{ asset(thumbnails_directory~'/' ~ thumbnail.image) }}" style="max-height:100px;"></div>
-                    <!--<div><a href="{{ path('admin_thumbnail_delete', { 'id': thumbnail.id }) }}">Supprimer</a></div>-->
-                </div>
-                <div class="panel-footer"><div>Type : {{ thumbnail.type }}</div></div>
-            </div>  
+            {% include 'ExerciceBundle:thumbnail:panel.html.twig' with {
+                'title': thumbnail.name,
+                'image':asset(thumbnails_directory ~'/' ~ thumbnail.image),
+                'footer':'Type : '~thumbnail.type~''
+                } only %}
+              
         </div>       
                             
         {% endfor %}
@@ -28,4 +23,6 @@
             <a href="{{ path('admin_thumbnail_new') }}">Ajouter une nouvelle vignette</a>
         </li>
     </ul>
+
+   {#<div><a href="{{ path('admin_thumbnail_delete', { 'id': thumbnail.id }) }}">Supprimer</a></div>#}
 {% endblock %}
