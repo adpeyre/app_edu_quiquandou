@@ -1,3 +1,7 @@
+school_classroom:
+    resource: "@SchoolBundle/Controller/ClassroomController.php"
+    type:     annotation
+
 exercice_thumbnail:
     resource: "@ExerciceBundle/Controller/ThumbnailController.php"
     type:     annotation

@@ -1,0 +1,16 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block content %}
+    <h1>Classroom creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_classroom_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}
