@@ -91,7 +91,7 @@ class ClassroomController extends Controller
             return $this->redirectToRoute('admin_classroom_edit', array('id' => $classroom->getId()));
         }
 
-        return $this->render('classroom/edit.html.twig', array(
+        return $this->render('SchoolBundle:classroom:edit.html.twig', array(
             'classroom' => $classroom,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
