@@ -2,7 +2,9 @@
 
 namespace SchoolBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class
@@ -25,6 +27,13 @@ class Classroom
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 30,
+     *      minMessage = "Le nom de la classe doit comporter au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom de la classe comporte trop de caractères"
+     * )
      */
     private $name;
 
@@ -32,6 +41,11 @@ class Classroom
      * @var string
      *
      * @ORM\Column(name="year", type="string", length=9)
+     *
+     * @Assert\Regex(
+     *     pattern     = "/^[0-9]{4}\-[0-9]{4}$/i", 
+     *     message = "L'année scolaire définie n'est pas correcte"   
+     * )
      */
     private $year;
 
@@ -93,5 +107,8 @@ class Classroom
     {
         return $this->year;
     }
+
+
+
 }
 

@@ -5,8 +5,7 @@
 
     <table>
         <thead>
-            <tr>
-                <th>Id</th>
+            <tr>                
                 <th>Name</th>
                 <th>Year</th>
                 <th>Actions</th>
@@ -14,8 +13,7 @@
         </thead>
         <tbody>
         {% for classroom in classrooms %}
-            <tr>
-                <td><a href="{{ path('admin_classroom_show', { 'id': classroom.id }) }}">{{ classroom.id }}</a></td>
+            <tr>                
                 <td>{{ classroom.name }}</td>
                 <td>{{ classroom.year }}</td>
                 <td>

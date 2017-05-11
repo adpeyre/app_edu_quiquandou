@@ -48,10 +48,10 @@ class ClassroomController extends Controller
             $em->persist($classroom);
             $em->flush();
 
-            return $this->redirectToRoute('admin_classroom_show', array('id' => $classroom->getId()));
+            return $this->redirectToRoute('admin_classroom_index');
         }
 
-        return $this->render('classroom/new.html.twig', array(
+        return $this->render('SchoolBundle:classroom:new.html.twig', array(
             'classroom' => $classroom,
             'form' => $form->createView(),
         ));
