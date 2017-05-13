@@ -21,6 +21,12 @@ class Feedback
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="ExerciceBundle\Entity\Exercice")
+     * @ORM\JoinColumn(nullable=true)
+    */
+    private $exercice;
+
+    /**
     *@ORM\Column(name="qui",type="smallint")
     */
     private $qui;

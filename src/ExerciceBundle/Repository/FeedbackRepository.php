@@ -10,4 +10,43 @@ namespace ExerciceBundle\Repository;
  */
 class FeedbackRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getNotDone($user){
+        
+        /*$qb = $this->createQueryBuilder('qqo');
+
+        $qb->innerJoin('qqo.feedback','f');
+        // ->addSelect('f')
+
+        $qb->where('f.user=:user')
+        ->setParameter('user',$user);
+
+        $qb->groupBy('qqo.exercice_id');
+
+        // Example - $qb->having('u.salary >= ?1')
+        // Example - $qb->having($qb->expr()->gte('u.salary', '?1'))
+        $qb->expr()->count('*')
+        $qb->having
+
+
+        $qb->setMaxResults(1);*/
+
+        /*SELECT e FROM ExerciceBundle:Exercice e
+        WHERE 
+        SELECT MIN(qqo.exercice_id)
+        FROM ExerciceBundle:Feedback qqo 
+        INNER JOIN AppBundle:Feedback f
+        WHERE f.user = :user
+        GROUP BY qqo.exercice_id*/
+
+        /*SELECT e FROM ExerciceBundle:Exercice e
+        (SELECT qqo.exercice_id, COUNT(qqo.exercice_id)
+        FROM ExerciceBundle:Feedback qqo 
+        INNER JOIN AppBundle:Feedback f
+        RIGHT JOIN ExerciceBundle:Exercice e
+        WHERE f.user = :user
+        GROUP BY qqo.exercice_id)*/
+
+        
+
+    }
 }
