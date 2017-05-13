@@ -1,0 +1,38 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block content %}
+    <h1>Liste des exercises</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Titre de l'histoire</th>
+                <th>Texte de l'histoire</th>
+                <th>Niveau</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for exercise in exercises %}
+            <tr>
+                <td>{{ exercise.title }}</td>
+                <td>{{ exercise.text |truncate(25, false, '...') }}</td>
+                <td>{{ exercise.level }}</td>
+                <td>            
+                    
+                
+                    <a href="{{ path('admin_exercise_edit', { 'id': exercise.id }) }}">Modifier</a> -
+                    <a href="{{ path('admin_exercise_delete', { 'id': exercise.id }) }}">Supprimer</a>
+                       
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_exercise_new') }}">Créer un nouvel exercise</a>
+        </li>
+    </ul>
+{% endblock %}

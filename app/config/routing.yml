@@ -2,8 +2,8 @@ school_classroom:
     resource: "@SchoolBundle/Controller/ClassroomController.php"
     type:     annotation
 
-exercice_thumbnail:
-    resource: "@ExerciceBundle/Controller/ThumbnailController.php"
+exercise_thumbnail:
+    resource: "@ExerciseBundle/Controller/ThumbnailController.php"
     type:     annotation
 
 school:
@@ -11,8 +11,8 @@ school:
     type:     annotation
     prefix:   /
 
-exercice:
-    resource: "@ExerciceBundle/Controller/"
+exercise:
+    resource: "@ExerciseBundle/Controller/"
     type:     annotation
     prefix:   /
 

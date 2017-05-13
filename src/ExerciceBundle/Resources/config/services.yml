@@ -1,8 +1,0 @@
-parameters:
-    thumbnails_directory: '%kernel.root_dir%/../web/exercice/thumbnails'
-    thumbnails_directory_view: 'exercice/thumbnails'
-
-services:
-#    exercice.example:
-#        class: ExerciceBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
