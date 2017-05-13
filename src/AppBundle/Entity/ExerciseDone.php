@@ -8,10 +8,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Feedback
  *
- * @ORM\Table(name="feedback")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\FeedbackRepository")
+ * @ORM\Table(name="exercise_done")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ExerciseDoneRepository")
  */
-class Feedback
+class ExerciseDone
 {
 
     /**

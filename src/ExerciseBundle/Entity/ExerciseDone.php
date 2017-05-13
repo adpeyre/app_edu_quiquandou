@@ -8,16 +8,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Feedback
  *
- * @ORM\Table(name="feedback_quiquandou")
- * @ORM\Entity(repositoryClass="ExerciseBundle\Repository\FeedbackRepository")
+ * @ORM\Table(name="exercise_done_quiquandou")
+ * @ORM\Entity(repositoryClass="ExerciseBundle\Repository\ExerciseDoneRepository")
  */
-class Feedback
+class ExerciseDone
 {
     /**
     * @ORM\Id
-    * @ORM\OneToOne(targetEntity="AppBundle\Entity\Feedback", cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="AppBundle\Entity\ExerciseDone", cascade={"persist"})
     */
-    private $feedback;
+    private $exerciseDone;
 
 
     /**
