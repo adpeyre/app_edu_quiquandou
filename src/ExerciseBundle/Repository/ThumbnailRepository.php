@@ -21,4 +21,8 @@ class ThumbnailRepository extends \Doctrine\ORM\EntityRepository
     public function getOu(){
         return $this->createQueryBuilder('Thumbnail')->where('Thumbnail.type=3');
     }
+
+    public function getRandom($type,$nb,$exclude=array()){
+        return $this->createQueryBuilder('Thumbnail')->where('Thumbnail.type=:type')->setParameters('type',$type);
+    }
 }

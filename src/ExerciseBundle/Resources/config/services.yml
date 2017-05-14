@@ -6,3 +6,6 @@ services:
 #    exercise.example:
 #        class: ExerciseBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    exercise.get_exercise:
+        class: ExerciseBundle\Service\GetExercise
+        arguments: ["@doctrine.orm.entity_manager"]

@@ -29,9 +29,9 @@ class DefaultController extends Controller
         // Init exercise (via service ?)
 
 
-
+        
         // récupérer un exercise (via un service)
-
+        $exercise = $this->get('exercise.get_exercise')->getOne();
 
         // récupérer la liste des vignettes à afficher. La vraie est noyée autour de mauvaises(via un service)
         
