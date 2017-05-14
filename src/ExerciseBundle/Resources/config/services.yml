@@ -9,3 +9,7 @@ services:
     exercise.get_exercise:
         class: ExerciseBundle\Service\GetExercise
         arguments: ["@doctrine.orm.entity_manager"]
+
+    exercise.mixing_thumbnails:
+        class: ExerciseBundle\Service\MixingThumbnails
+        arguments: ["@doctrine.orm.entity_manager"]

@@ -11,7 +11,12 @@ namespace ExerciseBundle\Repository;
 class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getNotDone($user){
-        
+        // Exception Doctrine\ORM\NoResultException
+        $qb = $this->_em->createQueryBuilder()  
+            ->select('e')
+            ->from('ExerciseBundle:Exercise','e')          
+            ->setMaxResults(1);
+        return $qb->getQuery()->getSingleResult();
         /*$qb = $this->createQueryBuilder('qqo');
 
         $qb->innerJoin('qqo.feedback','f');

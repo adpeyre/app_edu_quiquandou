@@ -12,13 +12,14 @@ class GetExercise
     public function __construct(EntityManager $em){
 
         $this->em = $em;
+        //user
     }
 
 
     public function getOne($difficult=null){
 
-        $exercise = $this->em->getRepository('ExerciseBundle:ExerciseDone')->getOne();
-
+        $exercise = $this->em->getRepository('ExerciseBundle:ExerciseDone')->getNotDone(null);
+        
         return $exercise;
 
         
