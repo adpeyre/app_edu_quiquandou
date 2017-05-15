@@ -44,6 +44,8 @@ class ThumbnailController extends Controller
     public function newAction(Request $request,Thumbnail $thumbnail=null)
     {
 
+        $imageForm = (count($request->files->all()) >= 1) ? $request->files->all()[\ExerciseBundle\Form\ThumbnailType::getPrefix()]['image'] : null;
+
         $deleteForm = null;
 
         // New thumbnail
@@ -54,32 +56,48 @@ class ThumbnailController extends Controller
             $deleteForm = $this->createDeleteForm($thumbnail)->createView();
         }
 
-        $form = $this->createForm('ExerciseBundle\Form\ThumbnailType', $thumbnail);
+        $options = array(
+            'required' => 
+                $request->get('_route') == 'admin_thumbnail_new' || 
+                (
+                    $request->get('_route') == 'admin_thumbnail_edit'
+                    && !empty($imageForm)
+                )
+        );
+       
+        //print_r($request->files->all());
+        
+        $form = $this->createForm('ExerciseBundle\Form\ThumbnailType', $thumbnail,$options);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ( $form->isSubmitted() && $form->isValid()) {
 
-            $file = $thumbnail->getImage();          
+
+
+            $file = $imageForm;          
 
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($thumbnail);
             $em->flush();
 
-             // Move the file to the directory where thumbnails are stored
-            try{
-                $this->get('app.uploader')->upload(
-                    $file,
-                    array(
-                        'filename'=>$thumbnail->getId(),
-                        'target_dir'=>$this->getParameter('thumbnails_directory')
-                    ) 
-                    
-                );
-            }
-            catch(Exception $e){
-                $em->remove($thumbnail);
-                $em->flush();
+
+            // Move the file to the directory where thumbnails are stored
+            if(!empty($file)){
+                try{
+                    $this->get('app.uploader')->upload(
+                        $file,
+                        array(
+                            'filename'=>$thumbnail->getId(),
+                            'target_dir'=>$this->getParameter('thumbnails_directory')
+                        ) 
+                        
+                    );
+                }
+                catch(Exception $e){
+                    $em->remove($thumbnail);
+                    $em->flush();
+                }
             }
 
             return $this->redirectToRoute('admin_thumbnail_index');
