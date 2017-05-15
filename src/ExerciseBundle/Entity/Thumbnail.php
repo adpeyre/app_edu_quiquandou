@@ -13,6 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Thumbnail
 {
+
+    const QUI = 1;
+    const QUAND = 2;
+    CONST OU = 3;
+
     /**
      * @var int
      *
@@ -38,13 +43,13 @@ class Thumbnail
 
 
     /**
-     * @ORM\Column(type="string")
+     * 
      *
      * @Assert\NotBlank(message="Aucune image spécifiée")
      * @Assert\File(
      *     maxSize = "500k",
      *     maxSizeMessage = "L'image ne doit pas exéder un poids de {{limit}}",
-     *     mimeTypes={ "image/jpeg", "image/png" }),
+     *     mimeTypes={ "image/jpeg", "image/png", "image/gif" }),
      *     mimeTypesMessage = "Format invalide. Merci de choisir une image jpeg ou png."
      */
      private $image;
@@ -115,6 +120,18 @@ class Thumbnail
         return $this->image = $image;
     }
 
+    public function getImageView(){
+        return $this->id;
+    }
+
+    public  function getTypeName(){
+        switch ($this->type){
+            case 1 : "qui";break;
+            case 2 : "quand"; break;
+            case 3 : "ou"; break;
+        }
+    }
+
 
     public function __toString(){
         return $this->getName();
@@ -124,7 +141,7 @@ class Thumbnail
         return array(
             "qui" => 1,
             "quand" =>2 ,
-            "ou" => 3
+            "où" => 3
         );
     }
 

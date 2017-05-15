@@ -2,20 +2,32 @@
 
 {% block content %}
     <h1>Liste des vignettes</h1>
-    <div class="row">
-        {% for thumbnail in thumbnails %}
-        <div class="col-lg-2 " >
-            {% include 'ExerciseBundle:thumbnail:panel.html.twig' with {
-                'title': thumbnail.name,
-                'image':asset(thumbnails_directory ~'/' ~ thumbnail.image),
-                'footer':'Type : '~thumbnail.type~''
-                } only %}
-              
-        </div>       
+    
+       
+
+    {% for type in 1..3 %}
+        <h2 >{{ types[type] |capitalize }}</h2>
+        <div class="row">
+        {% for thumbnail in thumbnails if thumbnail.type==type %}
+
+           
+            
+                
+
+            <div class="col-lg-2 " >
+                {% include 'ExerciseBundle:thumbnail:panel.html.twig' with {
+                    'title': thumbnail.name,
+                    'image':asset(thumbnails_directory ~'/' ~ thumbnail.getImageView()),
+                    'footer':'<a href="'~path('admin_thumbnail_edit',{id:thumbnail.id})~'">Modifier</a>'
+                    } only %}
+                
+            </div>       
                             
         {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
 
+    
 
    
      

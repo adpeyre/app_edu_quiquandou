@@ -28,6 +28,7 @@ class ThumbnailController extends Controller
 
         return $this->render('ExerciseBundle:thumbnail:index.html.twig', array(
             'thumbnails_directory' => $this->getParameter('thumbnails_directory_view'),
+            'types' =>array_flip(Thumbnail::getTypesList()),
             'thumbnails' => $thumbnails,
         ));
     }
@@ -36,42 +37,57 @@ class ThumbnailController extends Controller
      * Creates a new thumbnail entity.
      *
      * @Route("/new", name="admin_thumbnail_new")
+     * @Route("/{id}/edit", name="admin_thumbnail_edit")
      * @Method({"GET", "POST"})
      */
     # http://symfony.com/doc/current/controller/upload_file.html
-    public function newAction(Request $request)
+    public function newAction(Request $request,Thumbnail $thumbnail=null)
     {
-        $thumbnail = new Thumbnail();
+
+        $deleteForm = null;
+
+        // New thumbnail
+        if(is_null($thumbnail )){
+            $thumbnail = new Thumbnail();
+        }
+        else{
+            $deleteForm = $this->createDeleteForm($thumbnail)->createView();
+        }
+
         $form = $this->createForm('ExerciseBundle\Form\ThumbnailType', $thumbnail);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $file = $thumbnail->getImage();
-
-            // Generate a unique name for the file before saving it
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-
-            // Move the file to the directory where thumbnails are stored
-            $file->move(
-                $this->getParameter('thumbnails_directory'),
-                $fileName
-            );
-
-            // Update the 'thumbnail' property to store the image file name
-            // instead of its contents
-            $thumbnail->setImage($fileName);
+            $file = $thumbnail->getImage();          
 
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($thumbnail);
             $em->flush();
 
-            return $this->redirectToRoute('admin_thumbnail_show', array('id' => $thumbnail->getId()));
+             // Move the file to the directory where thumbnails are stored
+            try{
+                $this->get('app.uploader')->upload(
+                    $file,
+                    array(
+                        'filename'=>$thumbnail->getId(),
+                        'target_dir'=>$this->getParameter('thumbnails_directory')
+                    ) 
+                    
+                );
+            }
+            catch(Exception $e){
+                $em->remove($thumbnail);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute('admin_thumbnail_index');
         }
 
         return $this->render('ExerciseBundle:thumbnail:new.html.twig', array(
             'thumbnail' => $thumbnail,
+            'delete_form'=>$deleteForm,
             'form' => $form->createView(),
         ));
     }
@@ -79,7 +95,7 @@ class ThumbnailController extends Controller
     /**
      * Finds and displays a thumbnail entity.
      *
-     * @Route("/{id}", name="admin_thumbnail_show")
+     // * @Route("/{id}", name="admin_thumbnail_show")
      * @Method("GET")
      */
     public function showAction(Thumbnail $thumbnail)
@@ -95,7 +111,7 @@ class ThumbnailController extends Controller
     /**
      * Displays a form to edit an existing thumbnail entity.
      *
-     * @Route("/{id}/edit", name="admin_thumbnail_edit")
+     
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Thumbnail $thumbnail)
