@@ -36,11 +36,14 @@ class ExerciseController extends Controller
      * Creates a new exercise entity.
      *
      * @Route("/new", name="admin_exercise_new")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="admin_exercise_edit")
+     * @Method({"GET","POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Exercise $exercise=null)
     {
-        $exercise = new Exercise();
+        if(is_null($exercise))
+            $exercise = new Exercise();
+
         $form = $this->createForm('ExerciseBundle\Form\ExerciseType', $exercise);
         $form->handleRequest($request);
 
@@ -74,30 +77,6 @@ class ExerciseController extends Controller
         ));
     }
 
-    /**
-     * Displays a form to edit an existing exercise entity.
-     *
-     * @Route("/{id}/edit", name="admin_exercise_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Exercise $exercise)
-    {
-        $deleteForm = $this->createDeleteForm($exercise);
-        $editForm = $this->createForm('ExerciseBundle\Form\ExerciseType', $exercise);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_exercise_edit', array('id' => $exercise->getId()));
-        }
-
-        return $this->render('exercise/edit.html.twig', array(
-            'exercise' => $exercise,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Deletes a exercise entity.
