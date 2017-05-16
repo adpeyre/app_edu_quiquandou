@@ -15,4 +15,12 @@ class DefaultController extends Controller
     {
         return $this->redirectToRoute('user_index');
     }
+
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function adminAction(Request $request)
+    {
+        return $this->redirectToRoute('user_index');
+    }
 }
