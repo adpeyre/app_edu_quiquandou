@@ -43,5 +43,20 @@ class ClassAssignment
     {
         return $this->id;
     }
+
+    public function setId($id){
+        $this->id=$id;
+        return $this;
+    }
+
+    public function setClass($class){
+        $this->class= $class;
+        return $this;
+    }
+
+    public function setUser($user){
+        $this->user = $user;
+        return $this;
+    }
 }
 

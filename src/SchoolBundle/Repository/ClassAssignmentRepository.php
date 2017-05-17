@@ -2,6 +2,8 @@
 
 namespace SchoolBundle\Repository;
 
+use SchoolBundle\Entity\User;
+
 /**
  * ClassAssignmentRepository
  *
@@ -10,4 +12,25 @@ namespace SchoolBundle\Repository;
  */
 class ClassAssignmentRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function delAssociation($class_id,$user){
+         $qb = $this->createQueryBuilder('ca')
+         ->delete()
+         ->where('class=?1 AND user=?2')
+         ->setParameter(1,$class_id)
+         ->setParameter(2,$user);    
+    }
+
+    public function addAssociation($class_id,$user){
+         $qb = $this->createQueryBuilder('ca')
+         ->insert('ClassAssignment')
+         ->values(array(
+             'class' => '?1',
+             'user' =>'?2'
+         ))
+         ->setParameter(1,$class_id)
+         ->setParameter(2,$user);    
+    }
+
+     
 }

@@ -1,7 +1,8 @@
 <?php
 
 namespace SchoolBundle\Repository;
-
+use SchoolBundle\Entity\User;
+use SchoolBundle\Entity\ClassAssignment;
 /**
  * ClassRepository
  *
@@ -10,4 +11,48 @@ namespace SchoolBundle\Repository;
  */
 class ClassroomRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /*
+
+        SELECT c.* FROM classroom c
+        LEFT JOIN ClassAssignment ca
+        ON c.id = ca.class AND ca.user_id = ?
+        ORDER BY c.year DESC
+
+
+
+        */
+
+
+    public function getClassesAffected(User $user){
+        
+
+    
+        $qb = $this->createQueryBuilder('c')       
+        ->select('c')
+        ->addSelect('c.id','(ca.id) AS ca_id','(ca.class) AS ca_class','(ca.user) AS ca_user')       
+        ->leftJoin('SchoolBundle:ClassAssignment','ca','WITH','c.id = ca.class AND ca.user=?1 ')
+        ->setParameter(1, $user)
+        ->orderBy('c.year','DESC');
+
+        $result =  $qb
+            ->getQuery()
+            ->getResult();  
+
+        $finalResult =array();
+
+        foreach($result as $r){
+            
+            
+            $finalResult[ $r['id'] ] = array(
+                'classroom' => $r[0],
+                'class_assignment' => (empty($r['ca_id'])) ? null : (new ClassAssignment())->setId($r['ca_id'])->setClass($r['ca_class'])->setUser($r['ca_user'])
+            );
+            
+        }
+
+       
+        return $finalResult;
+    }
+   
 }

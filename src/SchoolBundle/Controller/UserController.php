@@ -6,7 +6,10 @@ use SchoolBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use SchoolBundle\Entity\Classroom;
+use SchoolBundle\Entity\ClassAssignment;
+use Symfony\Component\Validator\Constraints\Choice;
 /**
  * User controller.
  *
@@ -82,18 +85,126 @@ class UserController extends Controller
     public function editAction(Request $request, User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('SchoolBundle\Form\UserType', $user);
-        $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        $editGeneralForm = $this->createForm('SchoolBundle\Form\UserType', $user);
+        $editGeneralForm->handleRequest($request);
+
+        
+
+        if ($editGeneralForm->isSubmitted() && $editGeneralForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
 
+
+        
+
+
+        $em = $this->getDoctrine()->getManager();
+        $classrooms = $em->getRepository('SchoolBundle:Classroom')->getClassesAffected($user);
+        //echo'<pre>';print_r($classrooms);echo'</pre>';
+
+
+        $bdd_classesIn = array();
+        $year_choices = array();
+        foreach($classrooms as $classroom){    
+
+            $class = $classroom['classroom']; 
+            $class_assignment  = $classroom['class_assignment']; 
+           
+            $year_choices[$class->getYear()]['choices'][$class->getId()] = $class->getName();
+
+            $year_choices[$class->getYear()]['default']= empty($year_choices[$class->getYear()]['default']) && !$class_assignment ? 0 : $class->getId();
+
+            if($class_assignment){
+                array_push( $bdd_classesIn, $class->getId());
+            }
+            
+        }
+
+
+        
+
+
+
+        $form = $this->createFormBuilder();
+
+        foreach($year_choices as $year => $classes){
+            $classes_choices = $classes['choices'];
+            $classes_choices[0] = "Aucune classe";
+            
+            $form->add($year,ChoiceType::class, array(
+                'label'=>"Année ".$year,
+                'choices'=>array_flip($classes_choices),
+                'data' => $classes['default'],
+                'constraints' => array(
+                    new Choice(
+                        array(
+                            'choices' => array_keys($classes_choices)
+                        )
+                    )
+                )
+
+            ));
+        }
+
+        $editClassesform = $form->getForm();
+
+        $editClassesform->handleRequest($request);
+
+        $form_classesIn = array();
+
+
+
+         if ($editClassesform->isSubmitted() && $editClassesform->isValid()){
+            
+             foreach(array_keys($year_choices) as $year){   
+                $val = $editClassesform->get($year)->getData(); 
+                if(!empty($val)){            
+                    array_push( $form_classesIn, $val);
+                }
+             }
+
+             
+             
+           // A supprimer de la bdd
+           $del = array_diff($bdd_classesIn, $form_classesIn);
+          
+            foreach($del as $class_id){               
+                $em->remove( $em->getRepository('SchoolBundle:ClassAssignment')->findOneBy(array('class'=>$class_id,'user'=>$user)) );               
+                $em->flush();               
+            }
+            
+
+            // Association à ajouter en bdd
+            $add = array_diff($form_classesIn,$bdd_classesIn );            
+            foreach($add as $class_id){               
+
+                $classAssignment = new ClassAssignment();
+                $classAssignment->setClass(   $classrooms[$class_id]['classroom']   );
+                $classAssignment->setUser($user);
+                
+                $em->persist($classAssignment);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+
+         }
+
+
+        
+        
+        
+
+
+
+
         return $this->render('SchoolBundle:user:edit.html.twig', array(
             'user' => $user,
-            'edit_form' => $editForm->createView(),
+            'edit_general_form' => $editGeneralForm->createView(),
+            'edit_class_form' => $editClassesform->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
