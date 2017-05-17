@@ -1,0 +1,11 @@
+{% extends "layout_user.html.twig" %}
+
+{% block content %}
+
+{{story.title}}<br />
+
+{% for thumb in thumbnails_qui %}
+    <img src="{{ asset(thumbnails_directory ~'/' ~ thumb.getImageView()) }}">
+{% endfor %}
+
+{% endblock %}

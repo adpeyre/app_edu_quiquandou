@@ -48,12 +48,15 @@ class DefaultController extends Controller
 
         //On envoie à la vue tout ça
 
-        foreach($thumbnails_qui as $thumb){
-            echo $thumb->getName().'<br />';
-        }
 
 
-        return new Response("test".$exercise->getTitle());
+        return $this->render('ExerciseBundle:Default:resolve.html.twig',array(
+            'story' => $exercise,
+            'thumbnails_qui' => $thumbnails_qui,
+            'thumbnails_quand' => $thumbnails_quand,
+            'thumbnails_ou' => $thumbnails_ou,
+            'thumbnails_directory' => $this->getParameter('thumbnails_directory_view'),
+        ));
 
 
     }
