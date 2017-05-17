@@ -3,7 +3,36 @@
 {% block content %}
     <h1>Liste des exercises</h1>
 
-    <table>
+{% for exercise in exercises %}
+
+                    <div class="table-responsive">
+                
+                    <table class="table table-bordered table-hover table-striped" id="dataTables-users">
+                        <thead>
+                            <tr>
+                                <th>Titre de l'histoire</th>
+                                <th>Texte de l'histoire</th>
+                                <th>Niveau</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ exercise.id }}</td>
+                                <td>{{ exercise.text }}</td>
+                                <td>{{ exercise.level }}</td>
+                                <td>              
+                    <a href="{{ path('admin_exercise_edit', { 'id': exercise.id }) }}">Modifier</a> -
+                    <a href="{{ path('admin_exercise_delete', { 'id': exercise.id }) }}">Supprimer</a>
+                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+                    </div>
+{% endfor %}
+
+    <!-- <table>
         <thead>
             <tr>
                 <th>Titre de l'histoire</th>
@@ -28,11 +57,7 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> -->
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_exercise_new') }}">Créer un nouvel exercise</a>
-        </li>
-    </ul>
+<a href="{{ path('admin_exercise_new') }}">Créer un nouvel exercise</a>
 {% endblock %}
