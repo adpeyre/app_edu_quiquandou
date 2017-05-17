@@ -12,10 +12,11 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getNotDone($user){
         // Exception Doctrine\ORM\NoResultException
-        $qb = $this->_em->createQueryBuilder()  
+        /*$qb = $this->_em->createQueryBuilder()  
             ->select('e')
             ->from('ExerciseBundle:Exercise','e')          
             ->setMaxResults(1);
+        */
         
 
 
@@ -27,9 +28,9 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
             ->leftjoin('AppBundle:ExerciseDone','ed','WITH','ed.user=?1')            
             ->groupBy('e.id')
             ->orderBy('nbExerciseDone')
-            ->setParameter(1,1)
+            ->setParameter(1,$user)
             ;
-         $result = $qb->getQuery()->getSingleResult();
+         $result = $qb->getQuery()->getSingleResult();        
          return $result[0];
 
         

@@ -18,7 +18,7 @@ class GetExercise
 
     public function getOne($difficult=null){
 
-        $exercise = $this->em->getRepository('ExerciseBundle:ExerciseDone')->getNotDone(null);
+        $exercise = $this->em->getRepository('ExerciseBundle:ExerciseDone')->getNotDone(1);
         
         return $exercise;
 
