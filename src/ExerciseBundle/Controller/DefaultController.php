@@ -16,7 +16,7 @@ use ExerciseBundle\Entity\Thumbnail;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="accueil-exercise-eleve")
      */
 
     public function indexAction(){
@@ -24,7 +24,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/start")
+     * @Route("/start", name="start-exercise-eleve")
      * @Method({"GET", "POST"})
      */
     public function startAction(){
