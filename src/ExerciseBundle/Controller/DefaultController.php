@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 
+use ExerciseBundle\Entity\Thumbnail;
+
 /**
 * @Route("/exercise/qui-quand-ou")
 */
@@ -41,14 +43,12 @@ class DefaultController extends Controller
         
 
         // récupérer la liste des vignettes à afficher. La vraie est noyée autour de mauvaises(via un service)
-        $thumbnails_qui = $this->get('exercise.mixing_thumbnails')->getThem(1, $exercise->getQui());        
-        $thumbnails_quand = $this->get('exercise.mixing_thumbnails')->getThem(2, $exercise->getQuand());
-        $thumbnails_ou = $this->get('exercise.mixing_thumbnails')->getThem(3, $exercise->getOu());
+        $thumbnails_qui = $this->get('exercise.mixing_thumbnails')->getThem(Thumbnail::QUI, $exercise->getQui());        
+        $thumbnails_quand = $this->get('exercise.mixing_thumbnails')->getThem(Thumbnail::QUAND, $exercise->getQuand());
+        $thumbnails_ou = $this->get('exercise.mixing_thumbnails')->getThem(Thumbnail::OU, $exercise->getOu());
 
 
         //On envoie à la vue tout ça
-
-
 
         return $this->render('ExerciseBundle:Default:resolve.html.twig',array(
             'story' => $exercise,

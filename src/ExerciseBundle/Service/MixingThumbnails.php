@@ -17,8 +17,9 @@ class MixingThumbnails
 
     public function getThem($type,$thumbnail){
 
+  
         $thumbnails = $this->em->getRepository('ExerciseBundle:Thumbnail')->getRandom($type,3, array($thumbnail));
-        
+       
         array_push($thumbnails,$thumbnail);
 
         shuffle($thumbnails);
