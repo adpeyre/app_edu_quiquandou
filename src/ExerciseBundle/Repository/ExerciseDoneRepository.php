@@ -16,41 +16,23 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
             ->select('e')
             ->from('ExerciseBundle:Exercise','e')          
             ->setMaxResults(1);
-        return $qb->getQuery()->getSingleResult();
-        /*$qb = $this->createQueryBuilder('qqo');
-
-        $qb->innerJoin('qqo.feedback','f');
-        // ->addSelect('f')
-
-        $qb->where('f.user=:user')
-        ->setParameter('user',$user);
-
-        $qb->groupBy('qqo.exercise_id');
-
-        // Example - $qb->having('u.salary >= ?1')
-        // Example - $qb->having($qb->expr()->gte('u.salary', '?1'))
-        $qb->expr()->count('*')
-        $qb->having
+        
 
 
-        $qb->setMaxResults(1);*/
+         $qb = $this->_em->createQueryBuilder()  
+            ->select('e')
+            ->addSelect('(CASE WHEN (ed.user IS NULL) THEN 0 ELSE COUNT(e.id) END) AS nbExerciseDone')
+            ->from('ExerciseBundle:Exercise','e')
+            ->leftjoin('ExerciseBundle:ExerciseDone','eed','WITH','eed.exercise=e.id')
+            ->leftjoin('AppBundle:ExerciseDone','ed','WITH','ed.user=?1')            
+            ->groupBy('e.id')
+            ->orderBy('nbExerciseDone')
+            ->setParameter(1,1)
+            ;
+         $result = $qb->getQuery()->getSingleResult();
+         return $result[0];
 
-        /*SELECT e FROM ExerciseBundle:Exercise e
-        WHERE 
-        SELECT MIN(qqo.exercise_id)
-        FROM ExerciseBundle:Feedback qqo 
-        INNER JOIN AppBundle:Feedback f
-        WHERE f.user = :user
-        GROUP BY qqo.exercise_id*/
-
-        /*SELECT e FROM ExerciseBundle:Exercise e
-        (SELECT qqo.exercise_id, COUNT(qqo.exercise_id)
-        FROM ExerciseBundle:Feedback qqo 
-        INNER JOIN AppBundle:Feedback f
-        RIGHT JOIN ExerciseBundle:Exercise e
-        WHERE f.user = :user
-        GROUP BY qqo.exercise_id)*/
-
+        
         
 
     }

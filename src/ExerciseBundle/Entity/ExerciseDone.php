@@ -27,17 +27,20 @@ class ExerciseDone
     private $exercise;
 
     /**
-    *@ORM\Column(name="qui",type="smallint")
+     * @ORM\ManyToOne(targetEntity="ExerciseBundle\Entity\Thumbnail")
+     * @ORM\JoinColumn(nullable=true)
     */
     private $qui;
 
     /**
-    *@ORM\Column(name="quand",type="smallint")
+     * @ORM\ManyToOne(targetEntity="ExerciseBundle\Entity\Thumbnail")
+     * @ORM\JoinColumn(nullable=true)
     */
     private $quand;
 
     /**
-    *@ORM\Column(name="ou",type="smallint")
+     * @ORM\ManyToOne(targetEntity="ExerciseBundle\Entity\Thumbnail")
+     * @ORM\JoinColumn(nullable=true)
     */
     private $ou;
 
