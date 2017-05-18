@@ -199,7 +199,7 @@ class User implements UserInterface
      */
     public function getPassword()
     {
-       return (is_null($this->password)) ? 'no' : $this->password;
+       return $this->password;
 
         
     }

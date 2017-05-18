@@ -8,7 +8,7 @@
 
   {# S'il y a une erreur, on l'affiche dans un joli cadre #}
   {% if error %}
-    <div class="alert alert-danger">{{ error.message }}</div>
+    <div class="alert alert-danger">{{ error }}</div>
   {% endif %}
 
   {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
       <label for="password">Mot de passe :</label>
-      <input type="password" id="password" name="_password" class="form-control" value="{{user_nopassword}}"/>
+      <input type="password" id="password" name="_password" class="form-control" value=""/>
     </div>
    <button type="submit" class="btn btn-default">Connexion</button>
   </form>

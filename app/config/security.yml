@@ -9,8 +9,8 @@ security:
 
 
     role_hierarchy:
-        ROLE_TEACHER: [ROLE_STUDENT, ROLE_USER]
-        ROLE_STUDENT: ROLE_USER
+        ROLE_TEACHER: [ROLE_USER]
+        #ROLE_STUDENT: ROLE_USER
     providers:        
         userSchool: #nom arbitraire
             entity:
@@ -27,9 +27,9 @@ security:
             pattern: ^/
             anonymous: true
             provider: userSchool
-            form_login:
-                login_path: login
-                check_path: login #login_check
+            #form_login:
+                #login_path: login
+                #check_path: login #login_check
             # activate different ways to authenticate
 
             # http_basic: ~

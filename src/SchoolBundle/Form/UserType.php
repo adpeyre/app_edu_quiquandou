@@ -48,9 +48,9 @@ class UserType extends AbstractType
             
             'choices'=> array(
                  'Enseignant' => "ROLE_TEACHER",
-                 'Elève' => "ROLE_STUDENT"
+                 'Elève' => ""
             ),
-            'data' => "ROLE_STUDENT"
+            'data' => ""
 
            
         ))
