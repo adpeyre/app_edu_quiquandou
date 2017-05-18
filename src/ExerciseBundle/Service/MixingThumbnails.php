@@ -20,11 +20,23 @@ class MixingThumbnails
   
         $thumbnails = $this->em->getRepository('ExerciseBundle:Thumbnail')->getRandom($type,3, array($thumbnail));
        
-        array_push($thumbnails,$thumbnail);
+        $thumbnails[$thumbnail->getId()] = $thumbnail;
 
-        shuffle($thumbnails);
+        // Mélanger
+        //shuffle($thumbnails);
+        $keys = array_keys($thumbnails);
 
-        return $thumbnails;
+        shuffle($keys);
+
+        foreach($keys as $key) {
+            $new[$key] = $thumbnails[$key];
+        }
+
+        return $new;
+
+       
+
+        //return $thumbnails;
 
         
     }

@@ -13,3 +13,11 @@ services:
     exercise.mixing_thumbnails:
         class: ExerciseBundle\Service\MixingThumbnails
         arguments: ["@doctrine.orm.entity_manager"]
+
+    exercise.exercise_chosen:
+        class: ExerciseBundle\Service\ExerciseChosen
+        arguments: ["@session"]
+
+    exercise.save_result:
+        class: ExerciseBundle\Service\SaveResult
+        arguments: ["@doctrine.orm.entity_manager","@app.save_exercise_done","@session"]

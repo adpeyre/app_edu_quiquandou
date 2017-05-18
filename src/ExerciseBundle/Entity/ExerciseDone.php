@@ -27,26 +27,33 @@ class ExerciseDone
     private $exercise;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ExerciseBundle\Entity\Thumbnail")
-     * @ORM\JoinColumn(nullable=true)
+    *@ORM\Column(name="qui",type="smallint")
     */
     private $qui;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ExerciseBundle\Entity\Thumbnail")
-     * @ORM\JoinColumn(nullable=true)
+    *@ORM\Column(name="quand",type="smallint")
     */
     private $quand;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ExerciseBundle\Entity\Thumbnail")
-     * @ORM\JoinColumn(nullable=true)
+    *@ORM\Column(name="ou",type="smallint")
     */
     private $ou;
 
     
     public function getId(){
         return $this->id;
+    }
+
+    public function setId($id){
+        $this->id = $id;
+        return $this;
+    }
+
+    public function setExercise($exercise){
+        $this->exercise = $exercise;
+        return $this;
     }
 
     public function getQui(){
