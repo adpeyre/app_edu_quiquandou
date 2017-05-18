@@ -82,8 +82,9 @@ class DefaultController extends Controller
 
         // Comparer réponses données et réponses correctes
 
-        if($request->getMethod() == 'POST'){
-            return $this->redirectToRoute('start-exercise-eleve');
+        if($request->getMethod() != 'POST'){
+            // return $this->redirectToRoute('start-exercise-eleve');
+            die('la methode n\'est pas POST');
         }
 
         $form_qui = $request->request->get('data-qui');
@@ -104,7 +105,13 @@ class DefaultController extends Controller
         
         ){
             //echo "lala";
-            return $this->redirectToRoute('start-exercise-eleve');
+            // return $this->redirectToRoute('start-exercise-eleve');
+            echo 'une des réponses est vide<br>';
+            print_r("<br>form qui: ".$form_qui);
+            print_r("<br>form quand: ".$form_quand);
+            print_r("<br>form ou: ".$form_ou);
+
+            die();
         }
 
 
