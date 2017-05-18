@@ -6,53 +6,17 @@
 
 
 
+
 <span class="container">
 	<div class="jumbotron .col-md-8 ">
 		<h1>{{story.title}}</h1><br>
 		<p>{{story.text}}</p>
 	</div>
 </span>
-<div class="container">
-<h3>Qui?</h3>
-	<div class="container-fluid row">
-		{% for thumb in thumbnails_qui %}
-			<span class="col-xs-4" style="text-align: center;">
-				
-			    <img src="{{ asset(thumbnails_directory ~'/' ~ thumb.getImageView()) }}" class="img-thumbnail" style="max-height: 130px;"><br>
-			    <label for="{{thumb}}"><input type="radio" name="optionsRadios" id="{{thumb}}" value="{{thumb}}"> {{thumb}} </label>
 
-			</span>
-		{% endfor %}
-	</div>
-</div>
-
-<div class="container">
-<h3>Quand?</h3>
-	<div class="container-fluid row">
-		{% for thumb in thumbnails_quand %}
-			<span class="col-xs-4" style="text-align: center;">
-				
-			    <img src="{{ asset(thumbnails_directory ~'/' ~ thumb.getImageView()) }}" class="img-thumbnail" style="max-height: 130px;"><br>
-			    <label for="{{thumb}}"><input type="radio" name="optionsRadios" id="{{thumb}}" value="{{thumb}}"> {{thumb}} </label>
-
-			</span>
-		{% endfor %}
-	</div>
-</div>
-
-<div class="container">
-<h3>Où?</h3>
-	<div class="container-fluid row">
-		{% for thumb in thumbnails_ou %}
-			<span class="col-xs-4" style="text-align: center;">
-				
-			    <img src="{{ asset(thumbnails_directory ~'/' ~ thumb.getImageView()) }}" class="img-thumbnail" style="max-height: 130px;"><br>
-			    <label for="{{thumb}}"><input type="radio" name="optionsRadios" id="{{thumb}}" value="{{thumb}}"> {{thumb}} </label>
-
-			</span>
-		{% endfor %}
-	</div>
-</div>
+{{ include('ExerciseBundle:Default:question.html.twig', {question: "qui"}) }}
+{{ include('ExerciseBundle:Default:question.html.twig') }}
+{{ include('ExerciseBundle:Default:question.html.twig') }}
 
 
 {% endblock %}

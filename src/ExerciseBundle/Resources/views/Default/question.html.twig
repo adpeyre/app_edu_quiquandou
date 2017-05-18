@@ -1,0 +1,17 @@
+{% block question %}
+
+<div class="container">
+<h3>{{question|title}}?</h3>
+	<div class="container-fluid row">
+		{% for thumb in thumbnails_qui %}
+			<span class="col-xs-4" style="text-align: center;">
+				
+			    <img src="{{ asset(thumbnails_directory ~'/' ~ thumb.getImageView()) }}" class="img-thumbnail" style="max-height: 130px;"><br>
+			    <label for="{{thumb}}"><input type="radio" name="optionsRadios" id="{{thumb}}" value="{{thumb}}"></label>
+
+			</span>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
