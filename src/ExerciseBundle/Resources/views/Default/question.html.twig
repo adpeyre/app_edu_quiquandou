@@ -5,9 +5,9 @@
 	<div class="container-fluid row">
 		{% for thumb in thumbnails_liste %}
 			<span class="col-xs-4" style="text-align: center;">
-				<label for="{{thumb}}">
+				<label for="{{thumb.id}}">
 			    <img src="{{ asset(thumbnails_directory ~'/' ~ thumb.getImageView()) }}" class="img-thumbnail" style="max-height: 130px;"><br>
-			    <input type="radio" name="data-{{question}}" id="{{thumb}}" value="{{thumb}}"></label>
+			    <input type="radio" name="data-{{question}}" id="{{thumb.id}}" value="{{thumb.id}}"></label>
 
 			</span>
 		{% endfor %}
