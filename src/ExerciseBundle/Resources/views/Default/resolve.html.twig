@@ -7,6 +7,7 @@
 
 
 
+
 <span class="container">
 	<div class="jumbotron .col-md-8 ">
 		<h1>{{story.title}}</h1><br>
@@ -14,9 +15,19 @@
 	</div>
 </span>
 
-{{ include('ExerciseBundle:Default:question.html.twig', {question: "qui"}) }}
-{{ include('ExerciseBundle:Default:question.html.twig') }}
-{{ include('ExerciseBundle:Default:question.html.twig') }}
 
+<form action="{{ path('quiquandou_check') }}" method="POST">
+
+	{% include 'ExerciseBundle:Default:question.html.twig' with {question: 'qui', thumbnails_liste: thumbnails_qui} %}
+	{% include 'ExerciseBundle:Default:question.html.twig' with {question: 'quand', thumbnails_liste: thumbnails_quand} %}
+	{% include 'ExerciseBundle:Default:question.html.twig' with {question: 'ou', thumbnails_liste: thumbnails_ou} %}
+
+
+<div class="row" style="text-align: center;">
+<input type="submit" value="Vérifier">
+</div>
+</form>
+
+<br><br><br>
 
 {% endblock %}
