@@ -9,3 +9,7 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     app.uploader:
         class: AppBundle\Service\FileUploader
+
+    app.save_exercise_done:
+        class: AppBundle\Service\SaveExerciseDOne
+        arguments: ["@doctrine.orm.entity_manager"]

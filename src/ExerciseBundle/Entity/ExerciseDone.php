@@ -46,6 +46,16 @@ class ExerciseDone
         return $this->id;
     }
 
+    public function setId($id){
+        $this->id = $id;
+        return $this;
+    }
+
+    public function setExercise($exercise){
+        $this->exercise = $exercise;
+        return $this;
+    }
+
     public function getQui(){
         return $this->qui;
     }

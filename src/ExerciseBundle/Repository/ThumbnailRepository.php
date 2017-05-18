@@ -43,7 +43,7 @@ class ThumbnailRepository extends \Doctrine\ORM\EntityRepository
 
         //for($i=count($keys);$i<$nb; $i++){  
         foreach($keys as $key){                        
-            $return[] = $results[$key];            
+            $return[ $results[$key]->getId()  ] = $results[$key];            
         }
         // }
 
