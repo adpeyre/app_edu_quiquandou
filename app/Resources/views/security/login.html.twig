@@ -12,7 +12,7 @@
   {% endif %}
 
   {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
-  <form action="{{ path('login') }}" method="post">
+  <form action="{{ path('login_verify') }}" method="post">
     <div class="form-group">
       <label for="username">Nom d'utilisateur :</label>
       <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" />

@@ -11,6 +11,7 @@ class SecurityController extends Controller
 {
     /**
      * @Route("/login", name="login")
+     * @Route("/login_verify", name="login_verify")
      * @Method({"GET", "POST"})
      */
     public function loginAction(Request $request){
@@ -45,7 +46,7 @@ class SecurityController extends Controller
             else{
                 $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
                 $this->get('security.token_storage')->setToken($token);
-                return $this->redirectToRoute('root');
+                //return $this->redirectToRoute('root');
             }
 
         }
@@ -54,6 +55,13 @@ class SecurityController extends Controller
             'last_username' => $form_username,
             'error'         => $error,
         ));
+
+    }
+
+    /**
+     * @Route("/logout", name="logout")     
+     */
+    public function logout(){
 
     }
 

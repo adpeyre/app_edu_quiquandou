@@ -23,13 +23,17 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+       
         main:
             pattern: ^/
-            anonymous: true
+            anonymous: ~
             provider: userSchool
-            #form_login:
-                #login_path: login
+            form_login:
+                login_path: login
                 #check_path: login #login_check
+            logout:
+                path:   /logout
+                target: /
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -37,3 +41,8 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_TEACHER }
+        - { path: ^/, role: IS_AUTHENTICATED_FULLY }
+        
