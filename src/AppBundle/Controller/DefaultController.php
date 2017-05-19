@@ -18,9 +18,18 @@ class DefaultController extends Controller
 
     /**
      * @Route("/admin", name="admin")
+     * @Route("/admin", name="admin_index")
      */
-    public function adminAction(Request $request)
-    {
-        return $this->redirectToRoute('user_index');
+    public function adminAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $users_nb = $em->getRepository('SchoolBundle:User')->getNbUsers();
+        $exercises_nb = $em->getRepository('ExerciseBundle:Exercise')->getNbGlobal();
+        
+        return $this->render('admin/index.html.twig',array(
+            'students_nb' => $users_nb,
+            'exercises_nb' => $exercises_nb
+            
+        ));
     }
 }

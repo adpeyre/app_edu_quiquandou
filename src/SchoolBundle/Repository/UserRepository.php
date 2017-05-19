@@ -10,4 +10,15 @@ namespace SchoolBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getNbUsers(){
+        $qb = $this->createQueryBuilder('u')
+        ->select('COUNT(u) ')
+        ->where('u.role=?1')
+        ->setParameter('1',"");
+        $result = $qb
+            ->getQuery()
+            ->getSingleScalarResult();
+       
+        return $result;
+    }
 }
