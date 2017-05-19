@@ -3,27 +3,25 @@
 {% block content %}
     <h1>Classrooms list</h1>
 
-    <table>
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover table-striped" id="dataTables-users">
         <thead>
-            <tr>                
+            <tr>
                 <th>Name</th>
                 <th>Year</th>
-                <th>Actions</th>
+                <th>Actions</th>                
             </tr>
         </thead>
         <tbody>
         {% for classroom in classrooms %}
-            <tr>                
+            <tr>
                 <td>{{ classroom.name }}</td>
                 <td>{{ classroom.year }}</td>
                 <td>
                     <ul>
-                        <li>
-                            <a href="{{ path('admin_classroom_show', { 'id': classroom.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_classroom_edit', { 'id': classroom.id }) }}">edit</a>
-                        </li>
+                            <a href="{{ path('user_class', { 'class_id': classroom.id }) }}">Show</a> - <a href="{{ path('admin_classroom_edit', { 'id': classroom.id }) }}">Edit</a>
                     </ul>
                 </td>
             </tr>
@@ -31,9 +29,8 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
+    </div>
+
+
             <a href="{{ path('admin_classroom_new') }}">Create a new classroom</a>
-        </li>
-    </ul>
 {% endblock %}
