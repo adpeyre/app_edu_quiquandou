@@ -46,7 +46,7 @@ class SecurityController extends Controller
             else{
                 $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
                 $this->get('security.token_storage')->setToken($token);
-                //return $this->redirectToRoute('root');
+                return $this->redirectToRoute('root');
             }
 
         }
