@@ -4,7 +4,7 @@
 
 
 
-{% if classroom is defined %}
+{% if not classroom is empty %}
     <h1>Classe {{classroom.name}} ({{classroom.year}})</h1>
 {% else %}
     <h1>Liste des personnes</h1>
