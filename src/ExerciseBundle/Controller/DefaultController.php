@@ -121,6 +121,8 @@ class DefaultController extends Controller
         $verdict_quand = $correct_quand == $response_quand ? 0 : 1;
         $verdict_ou = $correct_ou == $response_ou ? 0 : 1;
 
+        //$this->get('exercise.save_result')->save($exercise,$verdict_qui,$verdict_quand,$verdict_ou);
+
 
         // Renvoyer à la vue réponses données et correction
         // + message commentaire
