@@ -31,10 +31,26 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter(1,$user)
             ;
          $result = $qb->getQuery()->getSingleResult();        
-         return $result[0];
+         return $result[0];       
+        
 
-        
-        
+    }
+
+    public function getLastDone($limit=10){
+
+        $qb = $this->createQueryBuilder('eed')
+            ->select('e.id, e.title, u.id, u.username,ed.date')
+            ->innerJoin('ExerciseBundle:Exercise','e','WITH','eed.exercise = e.id')
+            ->innerJoin('AppBundle:ExerciseDone','ed','WITH','eed.exerciseDone = ed.id')
+            ->innerJoin('SchoolBundle:User','u','WITH','ed.user=u.id')
+            ->orderBy('e.id')
+            ->setMaxResults($limit)
+            //->where('role=""');
+            ;
+        $result = $qb
+            ->getQuery()
+            ->getArrayResult();
+        return $result;
 
     }
 }
