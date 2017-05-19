@@ -21,15 +21,26 @@ class UserController extends Controller
      * Lists all user entities.
      *
      * @Route("/", name="user_index")
+     * @Route("/class/{class_id}", name="user_class", requirements={"id": "\d+"})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($class_id=0)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository('SchoolBundle:User')->findAll();
+        $classroom = null;
+        
+        if(!empty($class_id)){
+            $result = $em->getRepository('SchoolBundle:Classroom')->getUsersByClass($class_id);
+            $classroom = array_shift($result);          
+            $users=$result;
+        }
+        else{
+            $users = $em->getRepository('SchoolBundle:User')->findAll();
+        }          
 
         return $this->render('SchoolBundle:user:index.html.twig', array(
+            'classroom' => $classroom,
             'users' => $users,
         ));
     }

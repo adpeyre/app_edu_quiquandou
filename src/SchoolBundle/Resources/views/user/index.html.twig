@@ -1,7 +1,15 @@
 {% extends 'layout_admin.html.twig' %}
 
 {% block content %}
+
+
+
+{% if classroom is defined %}
+    <h1>Classe {{classroom.name}} ({{classroom.year}})</h1>
+{% else %}
     <h1>Liste des personnes</h1>
+{% endif %}
+    
     
     <div class="table-responsive">
 
@@ -13,8 +21,7 @@
                 <th>Prénom</th>
                 <th>Nom</th>
                 <th>Date de naissance</th>
-                <th>Email</th>
-                <th>Mot de passe</th>
+                <th>Email</th>                
                 <th>Roles</th>
                 <th>Actions</th>
             </tr>
@@ -27,8 +34,7 @@
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>{% if user.birthDate %}{{ user.birthDate|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.password }}</td>
+                <td>{{ user.email }}</td>                
                 <td>{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</td>
                 <td>                    
                     <a href="{{ path('user_show', { 'id': user.id }) }}">show</a> - <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>         

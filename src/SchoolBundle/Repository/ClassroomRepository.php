@@ -12,6 +12,24 @@ use SchoolBundle\Entity\ClassAssignment;
 class ClassroomRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    public function getUsersByClass($class_id){
+         $qb = $this->createQueryBuilder('c')
+            ->select('u') 
+            ->addSelect('c')                   
+            ->leftJoin('SchoolBundle\Entity\ClassAssignment','ca','WITH','ca.class=c.id')
+            ->leftJoin('SchoolBundle\Entity\User','u','WITH','ca.user = u.id')
+            ->where('ca.class=?1')
+            ->setParameter('1',$class_id);
+
+         $result =  $qb
+            ->getQuery()
+            ->getResult(); 
+
+        //echo'<pre>';print_r($result);echo'</pre>';
+
+        return $result; 
+    }
+
     /*
 
         SELECT c.* FROM classroom c
