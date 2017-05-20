@@ -1,9 +1,19 @@
 {% extends 'layout_admin.html.twig' %}
 
 {% block content %}
+
+
+
+
     <h1>Liste des vignettes</h1>
-    
-       
+
+    <br>
+
+<div class="container row">
+    <div class="well col-md-4">
+        <a href="{{ path('admin_thumbnail_new') }}">Ajouter une nouvelle vignette</a>
+    </div>
+</div>
 
     {% for type in 1..3 %}
         <h2 >{{ types[type] |capitalize }}</h2>
@@ -26,18 +36,6 @@
         {% endfor %}
         </div>
     {% endfor %}
-
-    
-
-   
-     
-   
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_thumbnail_new') }}">Ajouter une nouvelle vignette</a>
-        </li>
-    </ul>
 
    {#<div><a href="{{ path('admin_thumbnail_delete', { 'id': thumbnail.id }) }}">Supprimer</a></div>#}
 {% endblock %}
