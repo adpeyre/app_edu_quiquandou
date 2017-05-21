@@ -8,7 +8,7 @@ services:
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
     exercise.get_exercise:
         class: ExerciseBundle\Service\GetExercise
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager","@=service('security.token_storage').getToken().getUser()"]
 
     exercise.mixing_thumbnails:
         class: ExerciseBundle\Service\MixingThumbnails
@@ -21,3 +21,7 @@ services:
     exercise.save_result:
         class: ExerciseBundle\Service\SaveResult
         arguments: ["@doctrine.orm.entity_manager","@app.save_exercise_done","@session"]
+
+    exercise.stats_user:
+        class: ExerciseBundle\Service\StatsUser
+        arguments: ["@doctrine.orm.entity_manager"]

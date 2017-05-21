@@ -14,8 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ExerciseDone
 {
     /**
-    * @ORM\Id
-    * @ORM\OneToOne(targetEntity="AppBundle\Entity\ExerciseDone", cascade={"persist"})
+    * @ORM\Id     
+    * @ORM\OneToOne(targetEntity="AppBundle\Entity\ExerciseDone", cascade={"persist"})   
+    * @ORM\JoinColumn(nullable=false)   
     */
     private $exerciseDone;
 
@@ -43,11 +44,11 @@ class ExerciseDone
 
     
     public function getId(){
-        return $this->id;
+        return $this->exerciseDone;
     }
 
     public function setId($id){
-        $this->id = $id;
+        $this->exerciseDone = $id;
         return $this;
     }
 

@@ -11,5 +11,5 @@ services:
         class: AppBundle\Service\FileUploader
 
     app.save_exercise_done:
-        class: AppBundle\Service\SaveExerciseDOne
-        arguments: ["@doctrine.orm.entity_manager"]
+        class: AppBundle\Service\SaveExerciseDone
+        arguments: ["@doctrine.orm.entity_manager","@=service('security.token_storage').getToken().getUser()"]

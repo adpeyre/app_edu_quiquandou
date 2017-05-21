@@ -53,4 +53,31 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
         return $result;
 
     }
+
+    public function getStatsForUser($user=1){
+        $qb = $this->createQueryBuilder('eed')
+            ->select('ed.id')
+            ->addSelect('(CASE WHEN e.level <= 3 THEN 1 WHEN e.level <= 7 THEN 2 ELSE 3 END) AS level_sample')
+            ->addSelect('e.level')
+            ->addselect('COUNT(ed.id) as nb_exercises_done')    
+            ->addSelect('(CASE WHEN eed.qui > 1 THEN 1 ELSE 0 END) AS err_qui')   
+            //->addSelect('(CASE WHEN eed.quand > 1 THEN 1 ELSE 0 END) AS err_quand')  
+            //->addSelect('(CASE WHEN eed.ou > 1 THEN 1 ELSE 0 END) AS err_ou')  
+            ->addSelect('SUM(eed.qui) AS nb_err_qui') 
+            ->addSelect('SUM(eed.quand) AS nb_err_quand')
+            ->addSelect('SUM(eed.ou) AS nb_err_ou')   
+            ->innerjoin('AppBundle:ExerciseDone','ed','WITH','eed.exerciseDone=ed.id')   
+            ->innerJoin('ExerciseBundle:Exercise','e','WITH','e.id = eed.exercise')           
+            ->where('ed.user=:user')
+            ->setParameter('user',$user)         
+            ->groupBy('level_sample')
+            // analyse sur les 20 derniers exercices effectués
+            ->setMaxResults(20); 
+
+        $results = $qb
+            ->getQuery()
+            ->getArrayResult();
+        
+        return $results;
+    }
 }

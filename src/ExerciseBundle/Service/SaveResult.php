@@ -23,18 +23,24 @@ class SaveResult
     public function save($exercise, $err_qui,$err_quand,$err_ou){
         //$this->session->set('exercise_data', $data);
 
-        $saveDoneGeneral = $saveDone->add();
+        $saveDoneGeneral = $this->saveDone->add();
         $id = $saveDoneGeneral->getId();
 
-        $exerciseDone = new ExerciseDone();
+        $exerciseDone = new \ExerciseBundle\Entity\ExerciseDone();
         $exerciseDone
-            ->setId($id)
+            ->setId($saveDoneGeneral)
             ->setExercise($exercise)
             ->setQui($err_qui)
             ->setQuand($err_quand)
             ->setOu($err_ou);
 
+       
+        
+
         $this->em->persist($exerciseDone);
+        // Obligatoire pour assigner un id particulier, bizarre
+        //$metadata = $this->em->getClassMetaData(get_class($exerciseDone));
+        //$metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
         $this->em->flush();
     }
 

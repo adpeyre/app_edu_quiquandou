@@ -10,4 +10,14 @@ namespace ExerciseBundle\Repository;
  */
 class ExerciseRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getNbGlobal(){
+        $qb = $this->createQueryBuilder('e')
+            ->select('COUNT(e)')
+            //->where('role=""');
+            ;
+        $result = $qb
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $result;
+    }
 }

@@ -79,10 +79,16 @@ class UserController extends Controller
      */
     public function showAction(User $user)
     {
+
+
+        $stats_user = $this->get('exercise.stats_user')->getSummary();
+        echo'<pre>'; print_r($stats_user); echo'</pre>';
+
         $deleteForm = $this->createDeleteForm($user);
 
         return $this->render('SchoolBundle:user:show.html.twig', array(
             'user' => $user,
+            'stats_user' => $stats_user,
             'delete_form' => $deleteForm->createView(),
         ));
     }
