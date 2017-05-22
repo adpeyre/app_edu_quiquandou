@@ -5,6 +5,7 @@ namespace ExerciseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Feedback
  *
@@ -13,10 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ExerciseDone
 {
+    
+  
     /**
-    * @ORM\Id     
-    * @ORM\OneToOne(targetEntity="AppBundle\Entity\ExerciseDone", cascade={"persist"})   
-    * @ORM\JoinColumn(nullable=false)   
+    * @ORM\Id
+    * @ORM\OneToOne(targetEntity="AppBundle\Entity\ExerciseDone",cascade={"persist"})
     */
     private $exerciseDone;
 
@@ -44,11 +46,11 @@ class ExerciseDone
 
     
     public function getId(){
-        return $this->exerciseDone;
+        return $this->id;
     }
 
     public function setId($id){
-        $this->exerciseDone = $id;
+        $this->id = $id;
         return $this;
     }
 

@@ -22,8 +22,8 @@ class SaveExerciseDone
   
         $exerciseDone = new \AppBundle\Entity\ExerciseDone();
         $exerciseDone->setUser($this->user);
-        //$this->em->persist($exerciseDone);
-        //$this->em->flush();
+        $this->em->persist($exerciseDone);
+        $this->em->flush();
 
         return $exerciseDone;
 
