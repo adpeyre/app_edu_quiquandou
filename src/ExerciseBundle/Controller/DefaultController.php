@@ -20,9 +20,23 @@ class DefaultController extends Controller
      * @Route("/", name="accueil-exercise-eleve")
      */
 
-    public function indexAction(){
+    public function indexAction(Request $request){
+
+
+        $form = $this->createForm('ExerciseBundle\Form\LaunchType');
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+           
+            // On va stocker en session les choix et on redirige vers la rouge de start
+            return $this->redirectToRoute('start-exercise-eleve');
+        }
+
+
         // Choix niveau difficulté
-        return $this->render('ExerciseBundle:Default:index.html.twig');
+        return $this->render('ExerciseBundle:Default:index.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**

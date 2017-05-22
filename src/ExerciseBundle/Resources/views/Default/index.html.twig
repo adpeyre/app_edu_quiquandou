@@ -5,8 +5,13 @@
 
 {% block content %}
 
-<h1>Ouha !</h1>
+<h1>Qui-Quand-Où </h1>
 <p>Ca y est</p>
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" class="btn btn-primary" value="Lancer l'atelier" />
+{{ form_end(form) }}
 
 {% endblock %}
 
