@@ -224,7 +224,12 @@ class User implements UserInterface
     }
 
     public function getRoles(){
-        return array($this->role);
+        return array($this->getRole());
+    }
+
+    public function getRoleName(){
+        $rolesName = User::getListRolesName();
+        return $rolesName[$this->role];
     }
 
     public function setRole($role){
@@ -241,12 +246,11 @@ class User implements UserInterface
 
     }
 
-    public function getRolesNames(){
+    public static function getListRolesName(){
         return array(
-            "ADMIN" => "Administrateur",
-            "ANIMATOR" => "Animateur",
-            "USER" => "Utilisateur",        
+            "ROLE_TEACHER" => "Enseignant",
+            "" => "Elève",              
         );
-}
+    }
 }
 

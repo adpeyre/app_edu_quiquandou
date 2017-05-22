@@ -22,7 +22,7 @@
                 <th>Nom</th>
                 <th>Date de naissance</th>
                 <th>Email</th>                
-                <th>Roles</th>
+                <th>Statut</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -35,7 +35,7 @@
                 <td>{{ user.lastname }}</td>
                 <td>{% if user.birthDate %}{{ user.birthDate|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ user.email }}</td>                
-                <td>{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</td>
+                <td>{% if user.role %}{{ user.getRoleName() }}{% endif %}</td>
                 <td>                    
                     <a href="{{ path('user_show', { 'id': user.id }) }}">show</a> - <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>         
                 </td>
