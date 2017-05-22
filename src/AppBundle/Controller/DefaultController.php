@@ -11,9 +11,21 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="root")
      */
-    public function indexAction(Request $request)
-    {
-        return $this->redirectToRoute('user_index');
+    public function indexAction(Request $request){
+        $sec = $this->get('security.authorization_checker');
+        if ($sec->isGranted('IS_AUTHENTICATED_FULLY')){
+            if($sec->isGranted('ROLE_TEACHER')){
+                return $this->redirectToRoute('admin_index');
+            }
+            else{
+                return $this->redirectToRoute('accueil-exercise-eleve');
+            }
+        }
+
+         return $this->render('default/index.html.twig',array(
+           
+            
+        ));
     }
 
     /**
