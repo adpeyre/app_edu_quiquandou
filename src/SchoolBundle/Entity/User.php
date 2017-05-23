@@ -236,6 +236,10 @@ class User implements UserInterface
         $this->role = $role;
     }
 
+    public function getFullName(){
+        return ucfirst($this->firstname)." ".strtoupper($this->lastname);
+    }
+
 
     // For encoding password
     public function getSalt(){
