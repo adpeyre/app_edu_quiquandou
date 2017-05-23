@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use ExerciseBundle\Entity\Exercise;
 use ExerciseBundle\Entity\Thumbnail;
 
 
@@ -22,13 +24,30 @@ class DefaultController extends Controller
 
     public function indexAction(Request $request){
 
+        $choices = Exercise::getLevelsAvailable();
+        $choices['Automatique'] = 0;
 
-        $form = $this->createForm('ExerciseBundle\Form\LaunchType');
+        $form = $this->createFormBuilder();
+        $form
+        ->add('difficulty',ChoiceType::class, array(
+             'choices'=> ($choices),
+            'label_format' => "Difficulté",
+            'data' => 0
+        ));
+
+        $form= $form->getForm();
+
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $form_data = $form->getData();
            
             // On va stocker en session les choix et on redirige vers la rouge de start
+
+            $data = $this->get('exercise.data');
+            $data->setDifficulty($form_data['difficulty']);
+
             return $this->redirectToRoute('start-exercise-eleve');
         }
 
@@ -64,12 +83,14 @@ class DefaultController extends Controller
         $thumbnails_ou = $this->get('exercise.mixing_thumbnails')->getThem(Thumbnail::OU, $exercise->getOu());
 
         // On sauvegarde le tout en session (via un service)
-        $this->get('exercise.exercise_chosen')->save(array(
-            'exercise' => $exercise,
-            'thumbnails_qui' =>$thumbnails_qui,
-            'thumbnails_quand' =>$thumbnails_quand,
-            'thumbnails_ou' =>$thumbnails_ou,
-        ));
+        $data = $this->get('exercise.data');
+        $data
+            ->setExercise($exercise)
+            ->setThumbnailsQui($thumbnails_qui)
+            ->setThumbnailsQuand($thumbnails_quand)
+            ->setThumbnailsOu($thumbnails_ou)
+            ;
+       
 
 
         //On envoie à la vue tout ça
@@ -91,8 +112,11 @@ class DefaultController extends Controller
      */
     public function checkAction(Request $request){
 
-        $data = $this->get('exercise.exercise_chosen')->get();
-        $exercise = $data['exercise'];
+        $data = $data = $this->get('exercise.data');
+        
+        $exercise = $data->getExercise();
+
+       
 
         // Comparer réponses données et réponses correctes
 
@@ -115,9 +139,9 @@ class DefaultController extends Controller
         
 
         if(
-            empty($form_qui) || !array_key_exists($form_qui,$data['thumbnails_qui']) ||
-            empty($form_quand) || !array_key_exists($form_quand,$data['thumbnails_quand']) ||
-            empty($form_ou) || !array_key_exists($form_ou,$data['thumbnails_ou']) 
+            empty($form_qui) || !array_key_exists($form_qui,$data->getThumbnailsQui()) ||
+            empty($form_quand) || !array_key_exists($form_quand,$data->getThumbnailsQuand()) ||
+            empty($form_ou) || !array_key_exists($form_ou,$data->getThumbnailsOu()) 
         
         ){
             //echo "lala";
@@ -138,14 +162,15 @@ class DefaultController extends Controller
         $correct_quand = $exercise->getQuand();
         $correct_ou = $exercise->getOu();
 
-        $response_qui = $data['thumbnails_qui'][$form_qui];
-        $response_quand = $data['thumbnails_quand'][$form_quand];
-        $response_ou = $data['thumbnails_ou'][$form_ou];
+        $response_qui = $data->getThumbnailsQui()[$form_qui];
+        $response_quand = $data->getThumbnailsQuand()[$form_quand];
+        $response_ou = $data->getThumbnailsOu()[$form_ou];
 
         $verdict_qui = $correct_qui == $response_qui ? 0 : 1;
         $verdict_quand = $correct_quand == $response_quand ? 0 : 1;
         $verdict_ou = $correct_ou == $response_ou ? 0 : 1;
 
+        
         $this->get('exercise.save_result')->save($exercise,$verdict_qui,$verdict_quand,$verdict_ou);
 
 

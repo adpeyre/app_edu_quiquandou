@@ -213,16 +213,9 @@ class Exercise
 
     public static function getLevelsAvailable(){
         return array(
-            '1 - Très facile'=>1,
-            '2 - Très facile' => 2,
-            '3 - Facile' => 3,
-            '4 - Facile' => 4,
-            '5 - Moyen' => 5,
-            '6 - Moyen' => 6,
-            '7 - Difficile' => 7,
-            '8 - Difficile' => 8,
-            '9 - Très difficile'=>9,
-            '10 - Très difficile'=>10            
+            'Facile'=>1,            
+            'Moyen' => 2,            
+            'Difficile'=>3            
         );
     }
 }

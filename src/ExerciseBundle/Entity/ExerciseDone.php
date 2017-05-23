@@ -46,11 +46,11 @@ class ExerciseDone
 
     
     public function getId(){
-        return $this->id;
+        return $this->exerciseDone;
     }
 
     public function setId($id){
-        $this->id = $id;
+        $this->exerciseDone = $id;
         return $this;
     }
 

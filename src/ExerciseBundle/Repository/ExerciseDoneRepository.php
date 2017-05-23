@@ -10,7 +10,7 @@ namespace ExerciseBundle\Repository;
  */
 class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getNotDone($user){
+    public function getNotDone($user,$difficulty=null){
         // Exception Doctrine\ORM\NoResultException
         /*$qb = $this->_em->createQueryBuilder()  
             ->select('e')
@@ -22,13 +22,17 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 
          $qb = $this->_em->createQueryBuilder()  
             ->select('e')
-            ->addSelect('(CASE WHEN (ed.user IS NULL) THEN 0 ELSE COUNT(e.id) END) AS nbExerciseDone')
+            ->addSelect('(CASE WHEN (ed.user IS NULL) THEN 0 ELSE COUNT(e.id) END) AS nbExerciseDone')            
+            ->addSelect('(CASE WHEN e.level = ?2 THEN 1 ELSE 0 END) AS HIDDEN ordCol')
             ->from('ExerciseBundle:Exercise','e')
             ->leftjoin('ExerciseBundle:ExerciseDone','eed','WITH','eed.exercise=e.id')
             ->leftjoin('AppBundle:ExerciseDone','ed','WITH','ed.user=?1')            
             ->groupBy('e.id')
             ->orderBy('nbExerciseDone')
             ->setParameter(1,$user)
+            ->addOrderBy('ordCol','DESC')
+            ->setParameter(2,$difficulty)
+            
             ;
          $result = $qb->getQuery()->getSingleResult();        
          return $result[0];       
@@ -56,8 +60,7 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 
     public function getStatsForUser($user=1){
         $qb = $this->createQueryBuilder('eed')
-            ->select('ed.id')
-            ->addSelect('(CASE WHEN e.level <= 3 THEN 1 WHEN e.level <= 7 THEN 2 ELSE 3 END) AS level_sample')
+            ->select('ed.id')            
             ->addSelect('e.level')
             ->addselect('COUNT(ed.id) as nb_exercises_done')    
             ->addSelect('(CASE WHEN eed.qui > 1 THEN 1 ELSE 0 END) AS err_qui')   
@@ -70,7 +73,8 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
             ->innerJoin('ExerciseBundle:Exercise','e','WITH','e.id = eed.exercise')           
             ->where('ed.user=:user')
             ->setParameter('user',$user)         
-            ->groupBy('level_sample')
+            ->groupBy('e.level')
+            ->orderBy('e.level')
             // analyse sur les 20 derniers exercices effectués
             ->setMaxResults(20); 
 
