@@ -32,6 +32,7 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter(1,$user)
             ->addOrderBy('ordCol','DESC')
             ->setParameter(2,$difficulty)
+            ->setMaxResults(1)
             
             ;
          $result = $qb->getQuery()->getSingleResult();        
