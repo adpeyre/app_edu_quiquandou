@@ -166,9 +166,9 @@ class DefaultController extends Controller
         $response_quand = $data->getThumbnailsQuand()[$form_quand];
         $response_ou = $data->getThumbnailsOu()[$form_ou];
 
-        $verdict_qui = $correct_qui == $response_qui ? 0 : 1;
-        $verdict_quand = $correct_quand == $response_quand ? 0 : 1;
-        $verdict_ou = $correct_ou == $response_ou ? 0 : 1;
+        $verdict_qui = $correct_qui == $response_qui ? 1 : 0;
+        $verdict_quand = $correct_quand == $response_quand ? 1 : 0;
+        $verdict_ou = $correct_ou == $response_ou ? 1 : 0;
 
         
         $this->get('exercise.save_result')->save($exercise,$verdict_qui,$verdict_quand,$verdict_ou);
@@ -187,6 +187,9 @@ class DefaultController extends Controller
             'correct_qui' => $correct_qui,
             'correct_quand' => $correct_quand,
             'correct_ou' => $correct_ou,
+            'verdict_qui' => $verdict_qui,
+            'verdict_quand' => $verdict_quand,
+            'verdict_ou' => $verdict_ou,
             
         ));
 

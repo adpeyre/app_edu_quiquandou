@@ -3,7 +3,45 @@
 
 {% block content %}
 
-{{  story.title  }}
 
+<div class="container">
+
+	<h1>{{ story.title }}</h1>
+	<br>
+
+	<div class="col-md-8">
+
+		<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Réponse donnée</th>
+				<th>Réponse correcte</th>
+				<th>Verdict</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>Qui?</th>
+				<td>{{response_qui}}</td>
+				<td>{{correct_qui}}</td>
+				<td>{{verdict_qui}}</td>
+			</tr>
+			<tr>
+				<th>Quand?</th>
+				<td>{{response_quand}}</td>
+				<td>{{correct_quand}}</td>
+				<td>{{verdict_quand}}</td>
+			</tr>
+			<tr>
+				<th>Où?</th>
+				<td>{{response_ou}}</td>
+				<td>{{correct_ou}}</td>
+				<td>{{verdict_ou}}</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
 
 {% endblock %}
