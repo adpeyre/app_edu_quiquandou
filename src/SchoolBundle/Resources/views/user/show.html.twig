@@ -6,38 +6,41 @@
 
 <style>
     .andtd {
-        width: 50%; 
+        /*width: 50%; */
         padding-left: 10px;
-        font-weight: bold;
+        /*font-weight: bold;*/
+    }
+    .andtb {
+        width: 100%;
     }
 </style>
 <div class="row">
     <div class="col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Informations générales</h3>
+                <h3 class="panel-title"><i class="fa fa-book fa-fw"></i> Informations générales</h3>
             </div>
             <div class="panel_body">
-                <table>
+                <table class="table table-bordered">
                     <tbody>       
                         <tr>        
-                            <td class="andtd">Login</td>
+                            <th class="andtd">Login</td>
                             <td>{{ user.username }}</td>
                         </tr>                
                         <tr>
-                            <td class="andtd">Date de naissance</td>
+                            <th class="andtd">Date de naissance</td>
                             <td>{% if user.birthDate %}{{ user.birthDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <td class="andtd">Email</td>
+                            <th class="andtd">Email</td>
                             <td>{% if user.email is empty %} / {% else %} {{ user.email }} {% endif %}</td>
                         </tr>
                         <tr>
-                            <td class="andtd">Password</td>
+                            <th class="andtd">Password</td>
                             <td>{% if user.password is empty %} Pas de mot de passe {% else %} Mot de passe défini {% endif %}</td>
                         </tr>
                         <tr>
-                            <td class="andtd">Roles</td>
+                            <th class="andtd">Roles</td>
                             <td>{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</td>
                         </tr>
                     </tbody>

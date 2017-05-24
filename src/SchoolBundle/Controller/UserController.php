@@ -81,8 +81,10 @@ class UserController extends Controller
     {
 
 
-        $stats_user = $this->get('exercise.stats_user')->getSummary();
-        echo'<pre>'; print_r($stats_user); echo'</pre>';
+        $stats_user = $this->get('exercise.stats_user')->getSummary($user);
+        
+        // de-commenter la ligne pour voir les stats
+        // echo'<pre>'; print_r($stats_user); echo'</pre>';
 
         $deleteForm = $this->createDeleteForm($user);
 
