@@ -3,9 +3,13 @@
 {% block content %}
     <h1>Liste des exercises</h1>
 
-{% for exercise in exercises %}
+<div class="container row">
+    <div class="well col-md-4">
+        <a href="{{ path('admin_exercise_new') }}">Créer un nouvel exercise</a>
+    </div>
+</div>
 
-                    <div class="table-responsive">
+<div class="table-responsive">
                 
                     <table class="table table-bordered table-hover table-striped" id="dataTables-users">
                         <thead>
@@ -17,8 +21,12 @@
                             </tr>
                         </thead>
                         <tbody>
+
+{% for exercise in exercises %}
+
+                    
                             <tr>
-                                <td>{{ exercise.id }}</td>
+                                <td>{{ exercise.title }}</td>
                                 <td>{{ exercise.text }}</td>
                                 <td>{{ exercise.level }}</td>
                                 <td>              
@@ -26,11 +34,13 @@
                     <a href="{{ path('admin_exercise_delete', { 'id': exercise.id }) }}">Supprimer</a>
                 </td>
                             </tr>
+
+{% endfor %}
+
                         </tbody>
                     </table>
                 
                     </div>
-{% endfor %}
 
     <!-- <table>
         <thead>
@@ -59,5 +69,5 @@
         </tbody>
     </table> -->
 
-<a href="{{ path('admin_exercise_new') }}">Créer un nouvel exercise</a>
+
 {% endblock %}
