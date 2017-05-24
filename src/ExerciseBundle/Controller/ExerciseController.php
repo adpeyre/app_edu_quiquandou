@@ -52,7 +52,7 @@ class ExerciseController extends Controller
             $em->persist($exercise);
             $em->flush();
 
-            return $this->redirectToRoute('admin_exercise_show', array('id' => $exercise->getId()));
+            return $this->redirectToRoute('admin_exercise_index');
         }
 
         return $this->render('ExerciseBundle:admin_exercise:new.html.twig', array(
