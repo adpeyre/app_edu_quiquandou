@@ -3,41 +3,63 @@
 
 {% block content %}
 
-
+<style>
+	.imgverd{
+		height: 25px;
+	}
+</style>
 <div class="container">
 
 	<h1>{{ story.title }}</h1>
 	<br>
 
-	<div class="col-md-8">
+	<div class="col-md-6">
 
 		<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th></th>
 				<th>Réponse donnée</th>
-				<th>Réponse correcte</th>
 				<th>Verdict</th>
+				<th>Réponse correcte</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<th>Qui?</th>
 				<td>{{response_qui}}</td>
+				<td>
+					{% if verdict_qui %}
+					    <img src="/exercise/icons/bon.png" alt="" class="imgverd">
+					{% else %}
+					    <img src="/exercise/icons/mauvais.png" alt="" class="imgverd">
+					{% endif %}
+				</td>
 				<td>{{correct_qui}}</td>
-				<td>{{verdict_qui}}</td>
 			</tr>
 			<tr>
 				<th>Quand?</th>
 				<td>{{response_quand}}</td>
+				<td>
+					{% if verdict_quand %}
+					    <img src="/exercise/icons/bon.png" alt="" class="imgverd">
+					{% else %}
+					    <img src="/exercise/icons/mauvais.png" alt="" class="imgverd">
+					{% endif %}
+				</td>
 				<td>{{correct_quand}}</td>
-				<td>{{verdict_quand}}</td>
 			</tr>
 			<tr>
 				<th>Où?</th>
 				<td>{{response_ou}}</td>
+				<td>
+					{% if verdict_ou %}
+					    <img src="/exercise/icons/bon.png" alt="" class="imgverd">
+					{% else %}
+					    <img src="/exercise/icons/mauvais.png" alt="" class="imgverd">
+					{% endif %}
+				</td>
 				<td>{{correct_ou}}</td>
-				<td>{{verdict_ou}}</td>
 			</tr>
 		</tbody>
 		</table>
