@@ -8,11 +8,8 @@
         <input type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_thumbnail_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <br>
+    <a href="{{ path('admin_thumbnail_index') }}">Back to the list</a>
 
     {% if delete_form %}
         <h3>Supprimer la vignette</h2>
