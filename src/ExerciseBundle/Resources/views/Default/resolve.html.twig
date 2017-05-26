@@ -19,11 +19,11 @@
 <form action="{{ path('quiquandou_check') }}" method="POST">
 
 	{% include 'ExerciseBundle:Default:question.html.twig' 
-		with {icon: 'glyphicon glyphicon-screenshot', question: 'qui', thumbnails_liste: thumbnails_qui} %}
+		with {icon: 'glyphicon glyphicon-user', question: 'qui', thumbnails_liste: thumbnails_qui} %}
 	{% include 'ExerciseBundle:Default:question.html.twig' 
 		with {icon : 'glyphicon glyphicon-hourglass', question: 'quand', thumbnails_liste: thumbnails_quand} %}
 	{% include 'ExerciseBundle:Default:question.html.twig' 
-		with {icon : 'glyphicon glyphicon-user', question: 'ou', thumbnails_liste: thumbnails_ou} %}
+		with {icon : 'glyphicon glyphicon-screenshot', question: 'ou', thumbnails_liste: thumbnails_ou} %}
 
 
 	<div class="row">
