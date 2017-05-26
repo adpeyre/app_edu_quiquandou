@@ -59,7 +59,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/start", name="start-exercise-eleve")
+     * @Route("/do", name="start-exercise-eleve")
      * @Method({"GET", "POST"})
      */
     public function startAction(){

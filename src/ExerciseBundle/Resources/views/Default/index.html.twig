@@ -8,10 +8,18 @@
 <h1>Qui-Quand-Où </h1>
 <p>Ca y est</p>
 
+
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <h3>Session d'exercices</h3>
+    {{ form_row(form.difficulty) }}
+
+    <!--<h3>Travailler un exercice en particulier</h3>-->
     <input type="submit" class="btn btn-primary" value="Lancer l'atelier" />
 {{ form_end(form) }}
+
+
+
 
 {% endblock %}
 
