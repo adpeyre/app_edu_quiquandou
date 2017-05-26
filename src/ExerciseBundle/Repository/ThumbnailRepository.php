@@ -27,15 +27,19 @@ class ThumbnailRepository extends \Doctrine\ORM\EntityRepository
         $qb= $this->createQueryBuilder('t')
             ->where('t.type=:type AND t.id != :id')
             ->setParameter('type',$type)                 
-            ->setParameter('id',$exclude[0]->getId());         
+            ->setParameter('id',$exclude[0]->getId())  
+            
             ;
         $results = $qb->getQuery()->getResult();
 
         if(count($results) <= 0 )
             return array();
+        
+      
        
           
-        $keys = array_rand($results,count($results));
+        $keys = array_rand($results,count($results) >= $nb ? $nb : count($results));
+        
         if(!is_array($keys))
             $keys = array($keys);
 

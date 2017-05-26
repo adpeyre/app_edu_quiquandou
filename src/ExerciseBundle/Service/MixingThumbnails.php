@@ -18,12 +18,12 @@ class MixingThumbnails
     public function getThem($type,$thumbnail){
 
   
-        $thumbnails = $this->em->getRepository('ExerciseBundle:Thumbnail')->getRandom($type,3, array($thumbnail));
+        $thumbnails = $this->em->getRepository('ExerciseBundle:Thumbnail')->getRandom($type,2, array($thumbnail));
        
         $thumbnails[$thumbnail->getId()] = $thumbnail;
 
         // Mélanger
-        //shuffle($thumbnails);
+      
         $keys = array_keys($thumbnails);
 
         shuffle($keys);
