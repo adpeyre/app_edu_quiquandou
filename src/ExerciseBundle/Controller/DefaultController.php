@@ -100,7 +100,7 @@ class DefaultController extends Controller
             'thumbnails_qui' => $thumbnails_qui,
             'thumbnails_quand' => $thumbnails_quand,
             'thumbnails_ou' => $thumbnails_ou,
-            'thumbnails_directory' => $this->getParameter('thumbnails_directory_view'),
+            
         ));
 
 

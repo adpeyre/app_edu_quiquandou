@@ -27,7 +27,7 @@
             <div class="col-lg-2 " >
                 {% include 'ExerciseBundle:thumbnail:panel.html.twig' with {
                     'title': thumbnail.name,
-                    'image':asset(thumbnails_directory ~'/' ~ thumbnail.getImageView()),
+                    'image':asset(thumbnail.getImageView()),
                     'footer':'<a href="'~path('admin_thumbnail_edit',{id:thumbnail.id})~'">Modifier</a>'
                     } only %}
                 

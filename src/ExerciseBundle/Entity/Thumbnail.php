@@ -111,7 +111,11 @@ class Thumbnail
     }
 
     public function getImageView(){
-        return $this->id;
+        return 'exercise/thumbnails/'.$this->id;        
+    }
+
+    public function getImageRoot(){
+        return __DIR__.'/../../../web/'.getImageView(); 
     }
 
     public  function getTypeName(){

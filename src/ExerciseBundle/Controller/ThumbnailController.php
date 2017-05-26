@@ -26,8 +26,7 @@ class ThumbnailController extends Controller
 
         $thumbnails = $em->getRepository('ExerciseBundle:Thumbnail')->findAll();
 
-        return $this->render('ExerciseBundle:thumbnail:index.html.twig', array(
-            'thumbnails_directory' => $this->getParameter('thumbnails_directory_view'),
+        return $this->render('ExerciseBundle:thumbnail:index.html.twig', array(            
             'types' =>array_flip(Thumbnail::getTypesList()),
             'thumbnails' => $thumbnails,
         ));
