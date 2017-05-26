@@ -12,31 +12,35 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getNotDone($user,$difficulty=null){
         // Exception Doctrine\ORM\NoResultException
-        /*$qb = $this->_em->createQueryBuilder()  
-            ->select('e')
-            ->from('ExerciseBundle:Exercise','e')          
-            ->setMaxResults(1);
-        */
         
-
+        // Temporaire
+        $nb_exercices =  $this->_em->createQueryBuilder() 
+        ->from('ExerciseBundle:Exercise','e') 
+        ->select('COUNT(e)')
+        ->getQuery()
+        ->getSingleScalarResult();
+        
 
          $qb = $this->_em->createQueryBuilder()  
             ->select('e')
-            ->addSelect('(CASE WHEN (ed.user IS NULL) THEN 0 ELSE COUNT(e.id) END) AS nbExerciseDone')            
+            ->addSelect('(CASE WHEN (ed.user IS NULL) THEN 0 ELSE COUNT(e.id) END) AS HIDDEN nbExerciseDone')            
             ->addSelect('(CASE WHEN e.level = ?2 THEN 1 ELSE 0 END) AS HIDDEN ordCol')
             ->from('ExerciseBundle:Exercise','e')
             ->leftjoin('ExerciseBundle:ExerciseDone','eed','WITH','eed.exercise=e.id')
             ->leftjoin('AppBundle:ExerciseDone','ed','WITH','ed.user=?1')            
-            ->groupBy('e.id')
-            ->orderBy('nbExerciseDone')
-            ->setParameter(1,$user)
-            ->addOrderBy('ordCol','DESC')
+            ->groupBy('e.id')            
+            ->orderBy('ordCol','DESC')
+            ->addOrderBy('nbExerciseDone')
+            ->setParameter(1,$user)            
             ->setParameter(2,$difficulty)
             ->setMaxResults(1)
+            // Temporaire pour en choisir un au hasard (Rand())
+            ->setFirstResult(rand(0,$nb_exercices-1))
             
             ;
+        
          $result = $qb->getQuery()->getSingleResult();        
-         return $result[0];       
+         return $result;       
         
 
     }
