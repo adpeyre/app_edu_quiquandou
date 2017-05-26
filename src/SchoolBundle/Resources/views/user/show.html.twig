@@ -41,7 +41,7 @@
                         </tr>
                         <tr>
                             <th class="andtd">Roles</td>
-                            <td>{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</td>
+                            <td>{% if user.roles %}{{ user.getRoleName() }}{% endif %}</td>
                         </tr>
                     </tbody>
                 </table>
