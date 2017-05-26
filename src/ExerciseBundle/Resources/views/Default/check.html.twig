@@ -8,11 +8,11 @@
 		height: 25px;
 	}
 </style>
-<div class="container">
 
-	<h1>{{ story.title }}</h1>
-	<br>
 
+<h1>{{ story.title }}</h1>
+<br>
+<div class="row">
 	<div class="col-md-6">
 
 		<table class="table table-bordered">
@@ -65,5 +65,11 @@
 		</table>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<a class="btn btn-primary btn-lg btn-block" href="{{path('start-exercise-eleve')}}">Continuer avec un autre exercice</a>
+	</div>
+</div>
+
 
 {% endblock %}

@@ -1,15 +1,17 @@
 {% block question %}
 
-<div class="container">
-<h3>{{question|title}}?</h3>
-	<div class="container-fluid row">
+<div class="row">
+<h3><span class="{{icon}}"></span> {{question|title}}?</h3>
+	<div>
 		{% for thumb in thumbnails_liste %}
-			<span class="col-xs-4" style="text-align: center;">
-				<label for="{{thumb.id}}">
-			    <img src="{{ asset( thumb.getImageView()) }}" class="img-thumbnail" style="max-height: 130px;"><br>
-			    <input type="radio" name="data-{{question}}" id="{{thumb.id}}" value="{{thumb.id}}" required="required"></label>
-
-			</span>
+			<div class="col-xs-4 " style="text-align: center;">
+				
+				<label>
+					<div><img src="{{ asset( thumb.getImageView()) }}" class="img-thumbnail" style="max-height: 130px; background-color:#d4d4d4;"></div>
+					<div style="margin-top:8px;" ><input type="radio" name="data-{{question}}" id="{{thumb.id}}" value="{{thumb.id}}" required="required"></div>
+				</label>
+				
+			</div>
 		{% endfor %}
 	</div>
 </div>
