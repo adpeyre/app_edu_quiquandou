@@ -170,6 +170,12 @@ class DefaultController extends Controller
         $verdict_quand = $correct_quand == $response_quand ? 1 : 0;
         $verdict_ou = $correct_ou == $response_ou ? 1 : 0;
 
+        if($verdict_ou && $verdict_quand && $verdict_qui) {
+            $verdict_total = 1;
+        }
+        else
+            $verdict_total = 0;
+
         
         $this->get('exercise.save_result')->save($exercise,$verdict_qui,$verdict_quand,$verdict_ou);
 
@@ -190,6 +196,7 @@ class DefaultController extends Controller
             'verdict_qui' => $verdict_qui,
             'verdict_quand' => $verdict_quand,
             'verdict_ou' => $verdict_ou,
+            'verdict_total' => $verdict_total,
             
         ));
 

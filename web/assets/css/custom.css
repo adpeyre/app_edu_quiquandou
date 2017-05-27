@@ -1,0 +1,46 @@
+body{
+    background-color:#0b4211;
+    color:white;
+    
+  }
+
+
+  .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
+    color:#fbdda1;
+    /*border-bottom:2px solid;*/
+  }
+
+  h1.story {
+    text-transform: title;
+  }
+
+  .story{
+    font-family: "belle_allure", serif;    
+  }
+
+  p.story::first-letter { 
+    /*font-size: 200%;*/
+    text-transform: uppercase;
+    /*color: #8A2BE2;*/
+}
+
+  .jumbotron{
+    color:black;
+  }
+
+  @font-face 
+	{
+	  font-family: "belle_allure";
+	  src:    url('/fonts/BelleAllure-CMMoyenDemo.otf') format('opentype');
+	}
+
+@font-face 
+{
+  font-family: "birdy_game";
+  src:    url('/fonts/BebasNeue.otf');
+}
+
+.imgverd{
+  height: 25px;
+}
+

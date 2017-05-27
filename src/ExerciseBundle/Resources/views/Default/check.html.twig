@@ -3,16 +3,20 @@
 
 {% block content %}
 
-<style>
-	.imgverd{
-		height: 25px;
-	}
-</style>
 
 
-<h1>{{ story.title }}</h1>
-<br>
 <div class="row">
+	<div class="jumbotron .col-md-8 ">
+		<h1 class="story">{{story.title}}</h1><br>
+		<p class="story">
+		{% if verdict_total %}
+		    Félicitations ! 
+		{% else %}
+		    Mince, ce n'est pas la bonne réponse ...
+		{% endif %}
+	</p>
+	<br>
+
 	<div class="col-md-6">
 
 		<table class="table table-bordered">
@@ -64,10 +68,14 @@
 		</tbody>
 		</table>
 	</div>
+
+	</div>
 </div>
+
+
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<a class="btn btn-primary btn-lg btn-block" href="{{path('start-exercise-eleve')}}">Continuer avec un autre exercice</a>
+		<a class="btn btn-primary btn-lg btn-block story" href="{{path('start-exercise-eleve')}}">Continuer avec un autre exercice</a>
 	</div>
 </div>
 
