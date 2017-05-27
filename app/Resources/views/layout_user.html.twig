@@ -1,35 +1,8 @@
 {% extends "layout.html.twig" %}
 
 {% block stylesheets %}
-  <style>
-  body{
-    background-color:#0b4211;
-    color:white;
-    
-  }
-
-
-  .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
-    color:#fbdda1;
-    border-bottom:2px solid;
-  }
-
-  .story{
-    font-family: "belle_allure", serif;    
-  }
-
-  .jumbotron{
-    color:black;
-  }
-
-  @font-face 
-	{
-	  font-family: "belle_allure";
-	  src:    url({{asset('fonts/BelleAllure-CMMoyenDemo.otf')}}) format('opentype');
-	}
-  </style>
+<link rel="stylesheet" href="{{ asset('/assets/css/custom.css') }}" />
 {% endblock %}
-
 
 {% block body %}
 

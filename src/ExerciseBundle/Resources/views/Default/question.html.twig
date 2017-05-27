@@ -1,13 +1,13 @@
 {% block question %}
 
 <div class="row">
-<h3><span class="{{icon}}"></span> {{question|title}}?</h3>
+<h3 class="story"><span class="{{icon}}"></span> {{question|title}}?</h3>
 	<div>
 		{% for thumb in thumbnails_liste %}
 			<div class="col-xs-4 " style="text-align: center;">
 				
 				<label>
-					<div><img src="{{ asset( thumb.getImageView()) }}" class="img-thumbnail" style="max-height: 130px; background-color:#d4d4d4;"></div>
+					<div><img src="{{ asset( thumb.getImageView()) }}" class="img-thumbnail" style="max-height: 130px; background-color:#fff;"></div>
 					<div style="margin-top:8px;" ><input type="radio" name="data-{{question}}" id="{{thumb.id}}" value="{{thumb.id}}" required="required"></div>
 				</label>
 				
