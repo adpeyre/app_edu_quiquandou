@@ -28,11 +28,12 @@
                             <tr>
                                 <td>{{ exercise.title }}</td>
                                 <td>{{ exercise.text }}</td>
-                                <td>{{ exercise.level }}</td>
+                                <td>{{ exercise.getLevelName() }}</td>
                                 <td>              
-                    <a href="{{ path('admin_exercise_edit', { 'id': exercise.id }) }}">Modifier</a> -
-                    <a href="{{ path('admin_exercise_delete', { 'id': exercise.id }) }}">Supprimer</a>
-                </td>
+                                    <a  href="{{ path('admin_exercise_edit', { 'id': exercise.id }) }}" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i> Modifier</a>
+                                   
+                                    <a href="{{ path('admin_exercise_delete', { 'id': exercise.id }) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Supprimer</a>
+                                </td>
                             </tr>
 
 {% endfor %}

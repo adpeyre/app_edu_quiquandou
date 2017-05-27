@@ -2,6 +2,8 @@
   "name": "Opencomp",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "startbootstrap-sb-admin-2": "https://github.com/BlackrockDigital/startbootstrap-sb-admin-2.git#^3.3.7+1"
+    "startbootstrap-sb-admin-2": "https://github.com/BlackrockDigital/startbootstrap-sb-admin-2.git#^3.3.7+1",
+    "datatables.net": "^1.10.15",
+    "datatables.net-dt": "^3.2.2"
   }
 }

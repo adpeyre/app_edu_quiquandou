@@ -11,38 +11,38 @@
 {% endif %}
     
     
-    <div class="table-responsive">
-
-    <table class="table table-bordered table-hover table-striped" id="dataTables-users">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Username</th>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Date de naissance</th>
-                <th>Email</th>                
-                <th>Statut</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{% if user.birthDate %}{{ user.birthDate|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ user.email }}</td>                
-                <td>{% if user.role %}{{ user.getRoleName() }}{% endif %}</td>
-                <td>                    
-                    <a href="{{ path('user_show', { 'id': user.id }) }}">show</a> - <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>         
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+   
+    <div class="row table-responsive_">
+        <table class="table table-bordered table-hover table-striped" id="dataTables-users" data-order='[[ 1, "asc" ]]' data-page-length='25'>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Date de naissance</th>
+                    <th>Email</th>                
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{% if user.birthDate %}{{ user.birthDate|date('Y-m-d') }}{% endif %}</td>
+                    <td>{{ user.email }}</td>                
+                    <td>{% if user.role %}{{ user.getRoleName() }}{% endif %}</td>
+                    <td>                    
+                        <a href="{{ path('user_show', { 'id': user.id }) }}">show</a> - <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>         
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
     </div>
 
@@ -58,7 +58,33 @@
 <script>
 $(document).ready(function() {
     $('#dataTables-users').DataTable({
-        responsive: true
+        "responsive": true,
+        "language":
+        {
+            "sProcessing":     "Traitement en cours...",
+            "sSearch":         "Rechercher&nbsp;:",
+            "sLengthMenu":     "Afficher _MENU_ utilisateurs",
+            "sInfo":           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+            "sInfoEmpty":      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+            "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+            "sInfoPostFix":    "",
+            "sLoadingRecords": "Chargement en cours...",
+            "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+            "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+            "oPaginate": {
+                "sFirst":      "Premier",
+                "sPrevious":   "Pr&eacute;c&eacute;dent",
+                "sNext":       "Suivant",
+                "sLast":       "Dernier"
+            },
+            "oAria": {
+                "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+            }
+        }
+        /*"language": {
+            "url": "{{asset('assets/vendor/datatables-plugins/i18n/French.lang')}}"
+        }*/
     });
 });
 </script>

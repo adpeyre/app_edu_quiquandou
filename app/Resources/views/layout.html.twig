@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.css') }}">
 
     
-
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/datatables.net-dt/css/jquery.dataTables.min.css') }}">
 
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -44,6 +44,11 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="{{ asset('assets/vendor/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js') }}"></script>
+
+
+        <!-- datatables -->
+        <script src="{{ asset('assets/vendor/datatables.net/js/jquery.dataTables.js') }}"></script>
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>

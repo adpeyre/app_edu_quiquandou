@@ -138,6 +138,11 @@ class Exercise
         return $this->level;
     }
 
+    public function getLevelName(){
+        $l =  array_flip(self::getLevelsAvailable());
+        return (array_key_exists($this->level,$l)) ? $l[$this->level] : "Inconnu";
+    }
+
     /**
      * Set qui
      *
