@@ -7,7 +7,10 @@
 {% if not classroom is empty %}
     <h1>Classe {{classroom.name}} ({{classroom.year}})</h1>
 {% else %}
-    <h1>Liste des personnes</h1>
+    <h1>Liste des utilisateurs</h1>
+    <div class="row">
+        <a href="{{ path('user_new') }}" class="btn btn-primary"><i class="glyphicon glyphicon-user"></i> Ajouter un utilisateur</a><br /><br />
+    </div>
 {% endif %}
     
     
@@ -16,7 +19,7 @@
         <table class="table table-bordered table-hover table-striped" id="dataTables-users" data-order='[[ 1, "asc" ]]' data-page-length='25'>
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <!--<th>Id</th>-->
                     <th>Nom d'utilisateur</th>
                     <th>Prénom</th>
                     <th>Nom</th>
@@ -29,7 +32,7 @@
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                    <!--<td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>-->
                     <td>{{ user.username }}</td>
                     <td>{{ user.firstname }}</td>
                     <td>{{ user.lastname }}</td>
@@ -37,7 +40,8 @@
                     <td>{{ user.email }}</td>                
                     <td>{% if user.role %}{{ user.getRoleName() }}{% endif %}</td>
                     <td>                    
-                        <a href="{{ path('user_show', { 'id': user.id }) }}">show</a> - <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>         
+                        <a href="{{ path('user_show', { 'id': user.id }) }}" class="btn btn-primary btn-xs "><i class="fa fa-user"></i> Consulter</a>
+                        <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-warning btn-xs "><i class="fa fa-edit"></i> Modifier</a>         
                     </td>
                 </tr>
             {% endfor %}
@@ -46,11 +50,7 @@
 
     </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_new') }}">Create a new user</a>
-        </li>
-    </ul>
+   
 {% endblock %}
 
 
