@@ -7,67 +7,25 @@
 
 <div class="row">
 	<div class="jumbotron .col-md-8 ">
-		<h1 class="story">{{story.title}}</h1><br>
+		<h1 class="story">{{story.title}}</h1>
+		<br>
 		<p class="story">
 		{% if verdict_total %}
-		    Félicitations ! 
+		    Félicitations ! Toutes les réponses sont correctes !
 		{% else %}
-		    Mince, ce n'est pas la bonne réponse ...
+		    Toutes les réponses ne sont pas correctes ...
 		{% endif %}
-	</p>
-	<br>
+		</p>
+		<br>
 
-	<div class="col-md-6">
+		{% include 'ExerciseBundle:Default:reponse.html.twig' 
+		with {icon: 'glyphicon glyphicon-user', question: 'qui', resp: response_qui, verdict : verdict_qui, correct : correct_qui} %}
 
-		<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th></th>
-				<th>Réponse donnée</th>
-				<th>Verdict</th>
-				<th>Réponse correcte</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<th>Qui?</th>
-				<td>{{response_qui}}</td>
-				<td>
-					{% if verdict_qui %}
-					    <img src="/exercise/icons/bon.png" alt="" class="imgverd">
-					{% else %}
-					    <img src="/exercise/icons/mauvais.png" alt="" class="imgverd">
-					{% endif %}
-				</td>
-				<td>{{correct_qui}}</td>
-			</tr>
-			<tr>
-				<th>Quand?</th>
-				<td>{{response_quand}}</td>
-				<td>
-					{% if verdict_quand %}
-					    <img src="/exercise/icons/bon.png" alt="" class="imgverd">
-					{% else %}
-					    <img src="/exercise/icons/mauvais.png" alt="" class="imgverd">
-					{% endif %}
-				</td>
-				<td>{{correct_quand}}</td>
-			</tr>
-			<tr>
-				<th>Où?</th>
-				<td>{{response_ou}}</td>
-				<td>
-					{% if verdict_ou %}
-					    <img src="/exercise/icons/bon.png" alt="" class="imgverd">
-					{% else %}
-					    <img src="/exercise/icons/mauvais.png" alt="" class="imgverd">
-					{% endif %}
-				</td>
-				<td>{{correct_ou}}</td>
-			</tr>
-		</tbody>
-		</table>
-	</div>
+		{% include 'ExerciseBundle:Default:reponse.html.twig' 
+		with {icon: 'glyphicon glyphicon-hourglass', question: 'quand', resp: response_quand, verdict : verdict_quand, correct : correct_quand} %}
+
+		{% include 'ExerciseBundle:Default:reponse.html.twig' 
+		with {icon: 'glyphicon glyphicon-screenshot', question: 'ou', resp: response_ou, verdict : verdict_ou, correct : correct_ou} %}
 
 	</div>
 </div>

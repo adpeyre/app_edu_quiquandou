@@ -35,6 +35,19 @@ body{
 	}
 
 .imgverd{
-  height: 25px;
+  height: 35px;
 }
 
+
+h3.jumbo {
+  color:black;
+}
+
+.inl {
+  display: inline;
+}
+
+.respimg {
+  max-height: 130px; 
+  background-color:#fff;
+}
