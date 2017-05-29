@@ -9,14 +9,19 @@
 
 
 
-   
+<div class="row">
+    <div class="col-lg-12">
+        <a href="{{ path('admin_thumbnail_new') }}"  class="btn btn-primary"><i class="fa fa-camera  "></i> Ajouter une nouvelle vignette</a><br /><br />
+    </div>
+</div>
     
-
+<!--
 <div class="container row">
     <div class="well col-md-4">
         <a href="{{ path('admin_thumbnail_new') }}">Ajouter une nouvelle vignette</a>
     </div>
 </div>
+-->
 
     {% for type in 1..3 %}
         <h2 >{{ types[type] |capitalize }}</h2>

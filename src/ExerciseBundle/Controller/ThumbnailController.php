@@ -99,6 +99,10 @@ class ThumbnailController extends Controller
                 }
             }
 
+
+            $msg = ($request->get('_route') == 'admin_thumbnail_new') ? "Une nouvelle vignette est ajoutée." : "La vignette a bien été modifiée";
+            $this->get('session')->getFlashBag()->add('success', $msg);
+
             return $this->redirectToRoute('admin_thumbnail_index');
         }
 

@@ -98,6 +98,15 @@ class ExerciseController extends Controller
             $em->persist($exercise);
             $em->flush();
 
+            if($request->get('_route') == 'admin_exercise_new'){
+                $msg = "Une nouvelle histoire a bien été ajoutée.";
+            }
+            else{
+                $msg = "L'histoire a bien été modifiée.";
+            }
+
+            $this->get('session')->getFlashBag()->add('success', $msg);
+
             return $this->redirectToRoute('admin_exercise_index');
         }
 
@@ -136,6 +145,9 @@ class ExerciseController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($exercise);
         $em->flush();
+
+       
+        $this->get('session')->getFlashBag()->add('success', "Histoire supprimée avec succès.");
         
 
         return $this->redirectToRoute('admin_exercise_index');

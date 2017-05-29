@@ -6,7 +6,13 @@
 {% endblock %}
 
 {% block content %}
-   
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <a href="{{ path('admin_classroom_new') }}"  class="btn btn-primary"><i class="fa fa-group   "></i> Créer une nouvelle classe</a><br /><br />
+    </div>
+</div>
 
 
 <div class="table-responsive">
@@ -25,9 +31,9 @@
                 <td>{{ classroom.name }}</td>
                 <td>{{ classroom.year }}</td>
                 <td>
-                    <ul>
-                            <a href="{{ path('user_class', { 'class_id': classroom.id }) }}">Show</a> - <a href="{{ path('admin_classroom_edit', { 'id': classroom.id }) }}">Edit</a>
-                    </ul>
+                    <a href="{{ path('user_class', { 'class_id': classroom.id }) }}" class="btn btn-primary btn-xs "><i class="fa fa-group"></i> Liste des élèves</a>
+                    <a href="{{path('admin_classroom_edit', { 'id': classroom.id }) }}" class="btn btn-warning btn-xs "><i class="fa fa-edit"></i> Modifier</a>
+                    
                 </td>
             </tr>
         {% endfor %}
@@ -37,5 +43,5 @@
     </div>
 
 
-            <a href="{{ path('admin_classroom_new') }}">Create a new classroom</a>
+            
 {% endblock %}

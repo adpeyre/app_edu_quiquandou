@@ -61,6 +61,8 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+            
+            $this->get('session')->getFlashBag()->add('success', 'Un nouvel utilisateur a été ajouté.');
 
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
@@ -112,6 +114,8 @@ class UserController extends Controller
 
         if ($editGeneralForm->isSubmitted() && $editGeneralForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            
+            $this->get('session')->getFlashBag()->add('success', "Les informations sur cet utilisateur ont bien été modifiées.");
 
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
@@ -207,6 +211,9 @@ class UserController extends Controller
                 $em->persist($classAssignment);
                 $em->flush();
             }
+
+           
+            $this->get('session')->getFlashBag()->add('success', "Les modifications concernant la classe de cet éléve ont bien été prises en compte.");
 
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
 
