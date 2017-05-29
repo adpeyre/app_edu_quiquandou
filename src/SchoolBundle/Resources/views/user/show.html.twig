@@ -16,12 +16,12 @@
 </style>
 <div class="row">
     <div class="col-lg-4">
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="margin-bottom: 0px;">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-book fa-fw"></i> Informations générales</h3>
             </div>
             <div class="panel_body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" style="margin-bottom: 0px;">
                     <tbody>       
                         <tr>        
                             <th class="andtd">Login</td>
@@ -50,6 +50,47 @@
         </div>
     </div>
     </div>
+<br><br>
+
+    <div class="row">
+
+        {{ dump(stats_user) }}
+        
+        <table class="table table-bordered"> 
+        <tbody>
+            {% for key,value in stats_user %}
+                <tr>
+                    <td>
+                        {{ key }} <br> 
+                        Total : {{ value['nb_done'] }}
+
+                    </td>
+                    <td>
+Score qui: 
+{% if value['score_qui'] is defined %}
+    {{ value['score_qui'] }}
+{% endif %} 
+<br>
+
+Score quuand: 
+{% if value['score_quand'] is defined %}
+    {{ value['score_quand'] }}
+{% endif %}
+<br>
+Score ou:
+{% if value['score_ou'] is defined %}
+    {{ value['score_ou'] }}
+{% endif %}
+<br>
+</td>
+<td>Score Global : {{ value['score_global'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+
+    <br>
 
     <ul>
         <li>
