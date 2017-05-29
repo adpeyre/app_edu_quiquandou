@@ -1,13 +1,19 @@
 {% extends 'layout_admin.html.twig' %}
 
+
+{% block content_title %}
+    {% if not classroom is empty %}
+        Classe {{classroom.name}} ({{classroom.year}})
+    {% else %}
+        Liste des utilisateurs      
+    {% endif %}   
+{% endblock %}
+
 {% block content %}
 
 
 
-{% if not classroom is empty %}
-    <h1>Classe {{classroom.name}} ({{classroom.year}})</h1>
-{% else %}
-    <h1>Liste des utilisateurs</h1>
+{% if classroom is empty %}  
     <div class="row">
         <a href="{{ path('user_new') }}" class="btn btn-primary"><i class="glyphicon glyphicon-user"></i> Ajouter un utilisateur</a><br /><br />
     </div>

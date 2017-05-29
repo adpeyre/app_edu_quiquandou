@@ -1,7 +1,11 @@
 {% extends 'layout_admin.html.twig' %}
 
+{% block content_title %}
+    Modification d'une classe
+{% endblock %}
+
 {% block content %}
-    <h1>Classroom edit</h1>
+  
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}

@@ -1,7 +1,12 @@
 {% extends 'layout_admin.html.twig' %}
 
+
+{% block content_title %}
+    {% if thumbnail.id is empty %}Nouvelle vignette {% else %}Modifier une vignette{% endif %}
+{% endblock %}
+
 {% block content %}
-    <h1>Thumbnail creation</h1>
+  
 
     {{ form_start(form) }}
         {{ form_widget(form) }}

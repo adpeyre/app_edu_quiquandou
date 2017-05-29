@@ -1,7 +1,11 @@
 {% extends 'layout_admin.html.twig' %}
 
+{% block content_title %}
+    Nouvelle classe
+{% endblock %}
+
 {% block content %}
-    <h1>Classroom creation</h1>
+    
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
