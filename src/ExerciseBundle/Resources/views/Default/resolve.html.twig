@@ -12,6 +12,10 @@
 	<div class="jumbotron .col-md-8 ">
 		<h1 class="story">{{story.title}}</h1><br>
 		<p class="story">{{story.text}}</p>
+
+		{% if not story.sound is empty %}
+			<audio src="{{asset(story.getSoundSrc())}}" controls>Veuillez mettre à jour votre navigateur !</audio>
+		{% endif %}
 	</div>
 </div>
 

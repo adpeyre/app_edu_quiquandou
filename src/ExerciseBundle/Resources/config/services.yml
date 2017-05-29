@@ -1,6 +1,7 @@
 parameters:
     thumbnails_directory: '%kernel.root_dir%/../web/exercise/thumbnails'
     thumbnails_directory_view: 'exercise/thumbnails'
+    sound_directory: '%kernel.root_dir%/../web/exercise/records'
 
 services:
 #    exercise.example:

@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -61,7 +63,24 @@ class ExerciseType extends AbstractType
            'query_builder' => function(\ExerciseBundle\Repository\ThumbnailRepository  $er){
                return $er->getOu();
            }
-        ));
+       ))
+        ->add('sound', FileType::class, array(
+            'label' => 'Enregistrement audio',
+            'required' => false,
+            'data_class' => null
+    
+        ))      
+       
+       
+       ;
+
+       if(!empty($builder->getData()->getSound())){
+            $builder->add('sound_delete', CheckboxType::class, array(
+                'label'    => 'Supprimer l\'enregistrement',
+                'mapped' => false,
+                'required'=>false,
+            ));
+       }
     }
     
     /**

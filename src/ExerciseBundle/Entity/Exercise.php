@@ -69,6 +69,13 @@ class Exercise
     */
     private $ou;
 
+    /**
+     * @ORM\Column(type="string",nullable=true)     
+     * @Assert\File(maxSize="5M",mimeTypes={ "audio/mpeg" },mimeTypesMessage="Seuls les formats {{type}} sont acceptés pour les enregistrements audio.")
+     
+     */
+    private $sound;
+
 
     /**
      * Get id
@@ -213,6 +220,19 @@ class Exercise
     public function getOu()
     {
         return $this->ou;
+    }
+
+    public function getSound(){
+        return $this->sound;
+    }
+
+    public function setSound($sound){
+        $this->sound = $sound;
+        return $this;
+    }
+
+    public function getSoundSrc(){
+        return 'exercise/records/'.$this->getSound();
     }
 
 

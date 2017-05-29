@@ -41,14 +41,59 @@ class ExerciseController extends Controller
      */
     public function newAction(Request $request, Exercise $exercise=null)
     {
+        
         if(is_null($exercise))
             $exercise = new Exercise();
+        
+
+        // On garde en mémoire l'ancien fichier si il y a changement
+        $ex_sound_file = empty($exercise->getSound()) ? null : $exercise->getSound();
+        
 
         $form = $this->createForm('ExerciseBundle\Form\ExerciseType', $exercise);
+       
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            // Demande de supprimer enregistrement audio
+            $sound_delete = $form->has('sound_delete') ? $form->get('sound_delete')->getData() : false;
+      
+            // Nouveau fichier d'enregistrement soumis
+            $sound_file = $exercise->getSound();
+
+            // Si rien n'est soumis et qu'on demande pas à supprimer
+            if(empty($sound_file) && !$sound_delete){
+
+            }
+            // Demande de suppression
+            elseif($sound_delete){                
+                unlink($this->getParameter('sound_directory').'/'.$ex_sound_file);
+                $exercise->setSound(null);                
+            }
+            // Nouvel enregistrement
+            else{            
+               
+                $ext_info = new \SplFileInfo($sound_file->getClientOriginalName());              
+
+                // Generate a unique name for the file before saving it                
+                $sound_fileName =uniqid().'.'.$ext_info->getExtension();
+                
+                // Move the file to the directory where brochures are stored
+                $sound_file->move(
+                    $this->getParameter('sound_directory'),
+                    $sound_fileName
+                );
+
+                $exercise->setSound($sound_fileName);
+
+                // Supprimer ancien enregistrement
+                if(!empty($ex_sound_file))
+                    unlink($this->getParameter('sound_directory').'/'.$ex_sound_file);
+
+            }
+
             $em->persist($exercise);
             $em->flush();
 

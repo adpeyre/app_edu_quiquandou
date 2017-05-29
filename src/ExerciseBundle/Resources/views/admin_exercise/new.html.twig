@@ -4,13 +4,27 @@
     <h1>Nouvel exercise</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Ajouter cet exercise" />
+
+        <h3>L'histoire</h3>
+        {{ form_row(form.title) }}
+        {{ form_row(form.text) }}
+        {{ form_row(form.level) }}
+
+        <h3>Les questions</h3>
+        {{ form_row(form.qui) }}
+        {{ form_row(form.quand) }}
+        {{ form_row(form.ou) }}
+
+        <h3>Facultatif</h3>
+        {{ form_row(form.sound) }}
+        {% if not exercise.sound is empty %}
+        
+        <audio src="{{asset(exercise.getSoundSrc())}}" controls>Veuillez mettre à jour votre navigateur !</audio>
+        {{ form_row(form.sound_delete) }}
+
+        {% endif %}
+        
+        <button type="submit" class="btn btn-primary">{% if exercise.title is empty %}Ajouter cette histoire {% else %} Modifier cette histoire {% endif %}</button>
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_exercise_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}
