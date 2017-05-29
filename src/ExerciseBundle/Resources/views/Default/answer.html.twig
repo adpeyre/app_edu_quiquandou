@@ -1,0 +1,27 @@
+<div class="row">
+	<h3 class="story jumbo"><span class="{{icon}}"></span> {{question|title}}? 
+
+{% if verdict %}
+    <img src="/exercise/icons/bon.png" alt="" class="imgverd">
+{% else %}
+    <img src="/exercise/icons/mauvais.png" alt="" class="imgverd">
+{% endif %}
+</h3>		
+
+
+
+<p class="p-reponse inl"> Tu as répondu: <img src="{{ asset( resp.getImageView()) }}" class="img-thumbnail inl respimg"></p>
+
+<p class="p-correct inl"> 
+{% if not verdict %}
+La réponse correcte aurait été: <img src="{{ asset( correct.getImageView()) }}" class="img-thumbnail inl respimg">
+
+{% else %}
+    C'était la réponse correcte, bravo !
+{% endif %}
+
+</p>
+
+</div>		
+	
+	<hr>
