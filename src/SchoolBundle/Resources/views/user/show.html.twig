@@ -60,30 +60,43 @@
         <tbody>
             {% for key,value in stats_user %}
                 <tr>
-                    <td>
+                    <td class="col-md-2">
                         {{ key }} <br> 
                         Total : {{ value['nb_done'] }}
 
                     </td>
                     <td>
-Score qui: 
 {% if value['score_qui'] is defined %}
-    {{ value['score_qui'] }}
+Score qui: 
+<div class="progress">
+  <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_qui'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_qui'] }}%;">
+    {{ value['score_qui'] }}%
+  </div>
+</div>
 {% endif %} 
-<br>
-
-Score quuand: 
+ 
 {% if value['score_quand'] is defined %}
-    {{ value['score_quand'] }}
+Score quuand:
+<div class="progress">
+  <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_quand'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_quand'] }}%;">
+    {{ value['score_quand'] }}%
+  </div>
+</div>
 {% endif %}
-<br>
-Score ou:
+
 {% if value['score_ou'] is defined %}
-    {{ value['score_ou'] }}
+Score ou:
+<div class="progress">
+  <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_ou'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_ou'] }}%;">
+    {{ value['score_ou'] }}%
+  </div>
+</div>
 {% endif %}
-<br>
+
 </td>
-<td>Score Global : {{ value['score_global'] }}</td>
+<td class="col-md-2">
+Score Global : {{ value['score_global'] }}
+</td>
                 </tr>
             {% endfor %}
         </tbody>
