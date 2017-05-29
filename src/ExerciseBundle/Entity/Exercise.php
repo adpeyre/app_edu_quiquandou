@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="exercise")
  * @ORM\Entity(repositoryClass="ExerciseBundle\Repository\ExerciseRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Exercise
 {
@@ -233,6 +234,23 @@ class Exercise
 
     public function getSoundSrc(){
         return 'exercise/records/'.$this->getSound();
+    }
+
+    
+
+
+    
+    public function getSoundRootSrc(){
+        return __DIR__.'/../../../web/'.$this->getSoundSrc();
+    }
+
+    /**
+     * @ORM\PostRemove()     
+     */
+    public function removeSound(){
+        if(!empty($this->getSound())){
+            unlink($this->getSoundRootSrc());
+        }
     }
 
 

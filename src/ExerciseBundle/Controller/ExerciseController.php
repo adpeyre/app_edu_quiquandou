@@ -65,11 +65,12 @@ class ExerciseController extends Controller
 
             // Si rien n'est soumis et qu'on demande pas à supprimer
             if(empty($sound_file) && !$sound_delete){
-
+                $exercise->setSound($ex_sound_file);
             }
             // Demande de suppression
-            elseif($sound_delete){                
-                unlink($this->getParameter('sound_directory').'/'.$ex_sound_file);
+            elseif($sound_delete){             
+                if(file_exists($this->getParameter('sound_directory').'/'.$ex_sound_file))   
+                    unlink($this->getParameter('sound_directory').'/'.$ex_sound_file);
                 $exercise->setSound(null);                
             }
             // Nouvel enregistrement
@@ -126,19 +127,16 @@ class ExerciseController extends Controller
     /**
      * Deletes a exercise entity.
      *
-     * @Route("/{id}", name="admin_exercise_delete")
-     * @Method("DELETE")
+     * @Route("/{id}/delete", name="admin_exercise_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Exercise $exercise)
     {
-        $form = $this->createDeleteForm($exercise);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($exercise);
-            $em->flush();
-        }
+       
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($exercise);
+        $em->flush();
+        
 
         return $this->redirectToRoute('admin_exercise_index');
     }
