@@ -71,43 +71,39 @@
                         Total : {{ value['nb_done'] }}
 
                     </td>
-                    <td>
-{% if value['score_qui'] is defined %}
-Score qui: 
-<div class="progress">
-  <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_qui'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_qui'] }}%;">
-    {{ value['score_qui'] }}%
-  </div>
-</div>
-{% endif %} 
- 
-{% if value['score_quand'] is defined %}
-Score quuand:
-<div class="progress">
-  <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_quand'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_quand'] }}%;">
-    {{ value['score_quand'] }}%
-  </div>
-</div>
-{% endif %}
 
-{% if value['score_ou'] is defined %}
-Score ou:
-<div class="progress">
-  <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_ou'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_ou'] }}%;">
-    {{ value['score_ou'] }}%
-  </div>
-</div>
-{% endif %}
+                    {% if value['score_qui'] is defined %}
+                        {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {title: 'Score qui:', score: value['score_qui']} %}
+                    {% else %}
+                        {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {title: 'Score qui:', score: 0} %}
+                    {% endif %}
 
-</td>
-<td class="col-md-3">
-Score Global : 
-<div class="progress">
-  <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_global'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_global'] }}%;">
-    {{ value['score_global'] }}%
-  </div>
-</div>
-</td>
+                    {% if value['score_quand'] is defined %}
+                        {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {title: 'Score quand:', score: value['score_quand']} %}
+                    {% else %}
+                        {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {title: 'Score quand:', score: 0} %}
+                    {% endif %}
+
+                    {% if value['score_ou'] is defined %}
+                        {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {title: 'Score où:', score: value['score_ou']} %}
+                    {% else %}
+                        {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {title: 'Score où:', score: 0} %}
+                    {% endif %}
+
+                    <td class="col-md-3">
+                        Score Global : 
+                        <div class="progress">
+                          <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_global'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_global'] }}%;">
+                            {{ value['score_global'] }}%
+                          </div>
+                        </div>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

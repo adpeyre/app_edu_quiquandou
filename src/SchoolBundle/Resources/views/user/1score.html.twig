@@ -1,0 +1,10 @@
+{% block score %}
+<td class="col-md-2">
+	{{ title }} 
+    <div class="progress">
+    	<div class="progress-bar " role="progressbar" aria-valuenow="{{ score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ score }}%;">
+            {{ score }}%
+        </div>
+    </div>
+</td>
+{% endblock %}
