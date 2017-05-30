@@ -42,7 +42,7 @@ class DefaultController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $form_data = $form->getData();
-           
+          
             // On va stocker en session les choix et on redirige vers la rouge de start
 
             $data = $this->get('exercise.data');
@@ -64,6 +64,14 @@ class DefaultController extends Controller
      */
     public function startAction(){
 
+         $data = $this->get('exercise.data');
+        
+         // AUcune difficulté choisie
+         if(empty($data->getDifficulty()) && $data->getDifficulty() !== 0 ){
+             return $this->redirectToRoute('accueil-exercise-eleve');
+         }
+
+
         // Init exercise (via service ?)
 
 
@@ -83,7 +91,7 @@ class DefaultController extends Controller
         $thumbnails_ou = $this->get('exercise.mixing_thumbnails')->getThem(Thumbnail::OU, $exercise->getOu());
 
         // On sauvegarde le tout en session (via un service)
-        $data = $this->get('exercise.data');
+       
         $data
             ->setExercise($exercise)
             ->setThumbnailsQui($thumbnails_qui)
@@ -199,6 +207,26 @@ class DefaultController extends Controller
             'verdict_total' => $verdict_total,
             
         ));
+
+    }
+
+    public function navbarAction(){
+
+        $choices = array_flip(Exercise::getLevelsAvailable());
+        $choices[0] = "Automatique";
+        $data = $this->get('exercise.data');
+        $level = $data->getDifficulty();
+
+        $html='';
+       
+        if(!empty($choices[$level])){
+            $html .= '- Niveau : '.$choices[$level].' -';
+        }
+
+        return new Response($html);
+
+
+
 
     }
 

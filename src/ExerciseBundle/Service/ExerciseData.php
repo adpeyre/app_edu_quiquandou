@@ -18,10 +18,11 @@ class ExerciseData
 
 
     public function getDifficulty(){        
-        $this->get('difficulty');
+        return $this->get('difficulty');
     }
 
-    public function setDifficulty($diff){        
+    public function setDifficulty($diff){  
+        
         $this->set('difficulty',$diff);
         return $this;
     }
