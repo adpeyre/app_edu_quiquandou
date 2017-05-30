@@ -9,12 +9,12 @@
 
 
 <div class="row">
-	<div class="jumbotron .col-md-8 ">
-		<h1 class="story">{{story.title}}</h1><br>
-		<p class="story">{{story.text}}</p>
+	<div class="jumbotron story ">
+		<h1 >{{story.title | capitalize }}</h1><br>
+		<p >{{story.text | nl2br }}</p>
 
 		{% if not story.sound is empty %}
-			<audio src="{{asset(story.getSoundSrc())}}" controls>Veuillez mettre à jour votre navigateur !</audio>
+			<p><audio src="{{asset(story.getSoundSrc())}}" controls>Veuillez mettre à jour votre navigateur !</audio></p>
 		{% endif %}
 	</div>
 </div>
@@ -23,16 +23,16 @@
 <form action="{{ path('quiquandou_check') }}" method="POST">
 
 	{% include 'ExerciseBundle:Default:question.html.twig' 
-		with {icon: 'glyphicon glyphicon-user', question: 'qui', thumbnails_liste: thumbnails_qui} %}
+		with {icon: 'glyphicon glyphicon-user', question: 'qui', form: 'qui', thumbnails_liste: thumbnails_qui} %}
 	{% include 'ExerciseBundle:Default:question.html.twig' 
-		with {icon : 'glyphicon glyphicon-hourglass', question: 'quand', thumbnails_liste: thumbnails_quand} %}
+		with {icon : 'glyphicon glyphicon-hourglass', question: 'quand', form: 'quand', thumbnails_liste: thumbnails_quand} %}
 	{% include 'ExerciseBundle:Default:question.html.twig' 
-		with {icon : 'glyphicon glyphicon-screenshot', question: 'ou', thumbnails_liste: thumbnails_ou} %}
+		with {icon : 'glyphicon glyphicon-screenshot', question: 'où', form: 'ou', thumbnails_liste: thumbnails_ou} %}
 
 
-	<div class="row">
+	<div class="row" style="margin-top:15px;">
 		<div class="col-md-6 col-md-offset-3">
-			<button type="submit" class="btn btn-warning btn-outline btn-lg btn-block story"> Valider mes réponses</button>
+			<button type="submit" class="btn btn-warning btn-outline btn-lg btn-block"> Valider mes réponses</button>
 		</div>
 	</div>
 </form>

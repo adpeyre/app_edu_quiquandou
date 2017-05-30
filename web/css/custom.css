@@ -1,6 +1,8 @@
 body{
     background-color:#0b4211;
     color:white;
+    font-family: "BebasNeue", serif;
+    font-size:16px;
     
   }
 
@@ -18,6 +20,10 @@ body{
     font-family: "belle_allure", serif;    
   }
 
+  .story p{
+    font-size:25px;
+  }
+
   p.story::first-letter { 
     /*font-size: 200%;*/
     text-transform: uppercase;
@@ -28,16 +34,48 @@ body{
     color:black;
   }
 
+  .question h3{
+    background-color:#3f2929;
+    padding:4px 10px 2px 10px;
+    border:1px solid grey;
+    display:inline-block;
+    border-radius:10px;
+  }
+
+.question label{
+  background-color:white;
+  border-radius:6px;
+  padding:10px;
+  border:2px solid black;
+  background-image:url(https://static.vecteezy.com/system/resources/previews/000/139/911/original/vector-grey-gradient-abstract-background.jpg);
+}
+
+.question label:hover{
+  border:2px dotted black;
+}
+
+.question label img{
+  border: 1px solid #bec2bb;
+}
+
+.question input{
+  display:block;  
+  margin:auto;
+}
+
+
+
   @font-face 
 	{
 	  font-family: "belle_allure";
-	  src:    url('/fonts/BelleAllure-CMMoyenDemo.otf') format('opentype');
+    src:    url('/fonts/Cursive standard.ttf');
+	  
 	}
 
 @font-face 
 {
-  font-family: "birdy_game";
-  src:    url('/fonts/BebasNeue.otf');
+  font-family: "BebasNeue";
+  src:    url('/fonts/libel-suit-rg.ttf');
 }
 
 .imgverd{
@@ -55,5 +93,5 @@ h3.jumbo {
 
 .respimg {
   max-height: 130px; 
-  background-color:#fff;
+  /*background-color:#fff;*/
 }
