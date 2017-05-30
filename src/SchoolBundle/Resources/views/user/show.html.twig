@@ -100,8 +100,13 @@ Score ou:
 {% endif %}
 
 </td>
-<td class="col-md-2">
-Score Global : {{ value['score_global'] }}
+<td class="col-md-3">
+Score Global : 
+<div class="progress">
+  <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_global'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_global'] }}%;">
+    {{ value['score_global'] }}%
+  </div>
+</div>
 </td>
                 </tr>
             {% endfor %}
