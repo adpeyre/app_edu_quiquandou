@@ -187,6 +187,8 @@ class User implements UserInterface
      */
     public function setPassword($password)
     {
+        if(empty($password))
+            $password=null;
         $this->password = $password;
 
         return $this;

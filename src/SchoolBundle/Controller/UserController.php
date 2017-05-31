@@ -6,7 +6,10 @@ use SchoolBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use SchoolBundle\Entity\Classroom;
 use SchoolBundle\Entity\ClassAssignment;
 use Symfony\Component\Validator\Constraints\Choice;
@@ -105,9 +108,11 @@ class UserController extends Controller
      */
     public function editAction(Request $request, User $user)
     {
-        $deleteForm = $this->createDeleteForm($user);
-
-        $editGeneralForm = $this->createForm('SchoolBundle\Form\UserType', $user);
+       
+    
+        $editGeneralForm = $this->createForm('SchoolBundle\Form\UserType', $user, array(
+            
+        ));
         $editGeneralForm->handleRequest($request);
 
         
@@ -151,7 +156,7 @@ class UserController extends Controller
 
 
 
-        $form = $this->createFormBuilder();
+        $form = $this->get('form.factory')->createNamedBuilder('class_form');
 
         foreach($year_choices as $year => $classes){
             $classes_choices = $classes['choices'];
@@ -171,6 +176,11 @@ class UserController extends Controller
 
             ));
         }
+
+        $form->add('submit',SubmitType::class, array(
+            'label_format' => "Changer les affectations",
+            'attr' => array('class' => 'btn btn-primary'),
+        ));
 
         $editClassesform = $form->getForm();
 
@@ -220,6 +230,57 @@ class UserController extends Controller
          }
 
 
+         $formBuilderPassword = $this->get('form.factory')->createNamedBuilder('password_form');
+        
+         $formBuilderPassword->add('password',PasswordType::class, array(
+            'label_format' => (empty($user->getPassword())) ? "Définir un mot de passe" : "Redéfinir le mot de passe",
+            'required'=>false
+         ));
+
+         if(!empty($user->getPassword())){
+             $formBuilderPassword->add('delete_password',CheckboxType::class, array(
+                'label_format' => "Supprimer la protection par mot de passe",
+                'required'=>false
+            ));
+         }
+
+         $formBuilderPassword->add('submit',SubmitType::class, array(
+            'label_format' => "Valider les modifications",
+            'attr' => array('class' => 'btn btn-danger'),
+            
+        ));
+
+         $passwordForm = $formBuilderPassword->getForm();
+         $passwordForm->handleRequest($request);        
+         if ($passwordForm->isSubmitted()){
+
+             
+            $password_delete = $passwordForm->has('delete_password') ? $passwordForm->get('delete_password')->getData() : false;
+
+            if($password_delete){
+                $user->setPassword(null);
+                $this->get('session')->getFlashBag()->add('success', "La protection par mot de passe est desactivée.");
+            }
+            elseif(!empty($passwordForm->get('password')->getData())){
+                $user->setPassword(  $passwordForm->get('password')->getData()   );
+                $this->get('session')->getFlashBag()->add('success', "Le mot de passe a été modifié.");
+            }
+            else{}
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+
+            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+
+            
+
+
+         }
+             
+
+
         
         
         
@@ -231,7 +292,8 @@ class UserController extends Controller
             'user' => $user,
             'edit_general_form' => $editGeneralForm->createView(),
             'edit_class_form' => $editClassesform->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'password_form' => $passwordForm->createView(),
+            
         ));
     }
 

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserType extends AbstractType
 {
@@ -40,10 +41,7 @@ class UserType extends AbstractType
             'label_format' => "Adresse e-mail",
             'required' => false
         ))
-        ->add('password', PasswordType::class,array(
-            'label_format' => "Nouveau mot de passe",
-            'required' => false
-        ))
+        
         ->add('role', ChoiceType::class,array(
             
             'choices'=> array(
@@ -53,6 +51,10 @@ class UserType extends AbstractType
             'data' => ""
 
            
+        ))
+        ->add('submit',SubmitType::class, array(
+            'label_format' => "Sauvegarder",
+            'attr' => array('class' => 'btn btn-primary'),
         ))
         ;
     }

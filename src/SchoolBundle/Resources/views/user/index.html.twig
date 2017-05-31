@@ -31,23 +31,25 @@
                     <th>Nom</th>
                     <th>Date de naissance</th>
                     <th>Email</th>                
-                    <th>Statut</th>
-                    <th>Actions</th>
+                    <th>Statut</th>                    
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
             {% for user in users %}
                 <tr>
                     <!--<td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>-->
-                    <td>{{ user.username }}</td>
+                    <td>{{ user.username }} {% if not user.password is empty %}<i class="fa fa-key" style="color:red;" title="Utilisateur protégé par mot de passe"></i>{% endif %}</td>
                     <td>{{ user.firstname }}</td>
                     <td>{{ user.lastname }}</td>
                     <td>{% if user.birthDate %}{{ user.birthDate|date('Y-m-d') }}{% endif %}</td>
                     <td>{{ user.email }}</td>                
                     <td>{% if user.role %}{{ user.getRoleName() }}{% endif %}</td>
+                    
                     <td>                    
                         <a href="{{ path('user_show', { 'id': user.id }) }}" class="btn btn-primary btn-xs "><i class="fa fa-user"></i> Consulter</a>
-                        <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-warning btn-xs "><i class="fa fa-edit"></i> Modifier</a>         
+                        <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-warning btn-xs "><i class="fa fa-edit"></i> Modifier</a>     
+                            
                     </td>
                 </tr>
             {% endfor %}

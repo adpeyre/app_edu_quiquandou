@@ -17,6 +17,7 @@ class SecurityController extends Controller
     public function loginAction(Request $request){
 
         $em = $this->getDoctrine();
+        $show_password = false;
         $form_username="";
         $error="";
       
@@ -39,9 +40,11 @@ class SecurityController extends Controller
             }
             elseif(!empty($user->getPassword()) && empty($form_password)){
                 $error="Cet utilisateur requiert un mot de passe.";
+                $show_password=true;
             }
             elseif(!empty($user->getPassword()) && $form_password != $user->getPassword()){
                 $error="Le mot de passe indiqué n'est pas valide.";
+                $show_password=true;
             }
             else{
                 $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
@@ -54,6 +57,7 @@ class SecurityController extends Controller
         return $this->render('security/login.html.twig', array(            
             'last_username' => $form_username,
             'error'         => $error,
+            'show_password' => $show_password,
         ));
 
     }

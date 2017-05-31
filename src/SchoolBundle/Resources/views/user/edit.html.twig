@@ -13,24 +13,25 @@
     <h3>Informations générales</h3>
 
     {{ form_start(edit_general_form) }}
-        {{ form_widget(edit_general_form) }}
-        <input type="submit" value="Edit" />
+        {{ form_widget(edit_general_form) }}       
     {{ form_end(edit_general_form) }}
 
     <h3>Classe de l'utilisateur</h3>
     {{ form_start(edit_class_form) }}
-        {{ form_widget(edit_class_form) }}
-        <input type="submit" value="Edit" />
+        {{ form_widget(edit_class_form) }}       
     {{ form_end(edit_class_form) }}
+
+
+    <h3>Protéger l'accès</h3>
+    {{ form_start(password_form) }}
+        {{ form_widget(password_form) }}
+        
+    {{ form_end(password_form) }}
 
     <ul>
         <li>
             <a href="{{ path('user_index') }}">Retourner à la liste des utilisateurs</a>
         </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
+        
     </ul>
 {% endblock %}
