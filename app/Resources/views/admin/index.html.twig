@@ -67,6 +67,7 @@
                                 <th>#</th>
                                 <th>Utilisateur</th>
                                 <th>Date</th>
+                                <th>Titre</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,6 +77,7 @@
                                 <td>{{ exercice['id'] }}</td>
                                 <td>{{ exercice['username'] }}</td>
                                 <td>{{ exercice['date']|date('Y-m-d') }}</td>
+                                <td>{{ exercice['title'] }}</td>
                             </tr>
 						{% endfor %}
 
