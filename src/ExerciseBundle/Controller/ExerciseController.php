@@ -124,12 +124,13 @@ class ExerciseController extends Controller
      */
     public function showAction(Exercise $exercise)
     {
-        $deleteForm = $this->createDeleteForm($exercise);
 
-        return $this->render('exercise/show.html.twig', array(
-            'exercise' => $exercise,
-            'delete_form' => $deleteForm->createView(),
+        return $this->redirectToRoute('admin_exercise_edit', array(
+            'id' => $exercise->getId()
         ));
+
+
+       
     }
 
 
