@@ -64,7 +64,6 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <!-- <th>#</th> -->
                                 <th>Utilisateur</th>
                                 <th>Date</th>
                                 <th>Histoire</th>
@@ -75,10 +74,9 @@
 
 						{% for exercice in exercises_lastDone %}
 							<tr>
-                                <!-- <td>{{ exercice['id'] }}</td> -->
-                                <td>{{ exercice['firstname'] }} {{ exercice['lastname'] }}</td>
+                                <td><a href="{{ path('user_show', { 'id': exercice['user_id'] }) }}" target="_blank">{{ exercice['firstname'] }} {{ exercice['lastname'] }}</a></td>
                                 <td>{{ exercice['date']|date('Y-m-d') }}</td>
-                                <td>{{ exercice['title'] }}</td>
+                                <td><a href="{{ path('admin_exercise_edit', { 'id': exercice['exercise_id'] }) }}" target="_blank">{{ exercice['title'] }}</a></td>
                                 <td>{{ exercice['score'] }}/3</td>
                             </tr>
 						{% endfor %}
