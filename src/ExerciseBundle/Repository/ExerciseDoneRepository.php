@@ -48,7 +48,9 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
     public function getLastDone($limit=10){
 
         $qb = $this->createQueryBuilder('eed')
-            ->select('e.id, e.title, u.id, u.username, u.firstname, u.lastname,ed.date, eed.qui AS err_qui, eed.quand AS err_quand, eed.ou AS err_ou')
+            ->select('e.title, u.username, u.firstname, u.lastname,ed.date, eed.qui AS err_qui, eed.quand AS err_quand, eed.ou AS err_ou')
+            ->addSelect('e.id AS exercise_id')
+            ->addSelect('u.id as user_id')
             ->innerJoin('ExerciseBundle:Exercise','e','WITH','eed.exercise = e.id')
             ->innerJoin('AppBundle:ExerciseDone','ed','WITH','eed.exerciseDone = ed.id')
             ->innerJoin('SchoolBundle:User','u','WITH','ed.user=u.id')
