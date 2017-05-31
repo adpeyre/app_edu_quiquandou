@@ -56,7 +56,7 @@
     <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Striped Rows
+                Derniers exercices
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -64,20 +64,22 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <!-- <th>#</th> -->
                                 <th>Utilisateur</th>
                                 <th>Date</th>
-                                <th>Titre</th>
+                                <th>Histoire</th>
+                                <th>Score</th>
                             </tr>
                         </thead>
                         <tbody>
 
 						{% for exercice in exercises_lastDone %}
 							<tr>
-                                <td>{{ exercice['id'] }}</td>
-                                <td>{{ exercice['username'] }}</td>
+                                <!-- <td>{{ exercice['id'] }}</td> -->
+                                <td>{{ exercice['firstname'] }} {{ exercice['lastname'] }}</td>
                                 <td>{{ exercice['date']|date('Y-m-d') }}</td>
                                 <td>{{ exercice['title'] }}</td>
+                                <td>{{ exercice['score'] }}/3</td>
                             </tr>
 						{% endfor %}
 

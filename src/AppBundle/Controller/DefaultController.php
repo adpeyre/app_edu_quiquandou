@@ -47,7 +47,7 @@ class DefaultController extends Controller
 
 
 
-        //print_r($exercisesLastDone);
+        // print_r($exercisesLastDoneWithScores);
         
         return $this->render('admin/index.html.twig',array(
             'students_nb' => $users_nb,
