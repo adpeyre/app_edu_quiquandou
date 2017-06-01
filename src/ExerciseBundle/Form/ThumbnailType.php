@@ -43,12 +43,18 @@ class ThumbnailType extends AbstractType
         }
 
         $builder
-        ->add('name')
+        ->add('name', TextType::class,array(
+            'label_format'=>"Nom de la vignette (indicatif)",
+        ))
         ->add('type', ChoiceType::class, array(
-            'choices' => Thumbnail::getTypesList()
+            'label_format'=>"Type de vignette",
+            'choices' => array_map(function($e){
+                return ucfirst($e);
+            },Thumbnail::getTypesList())
         ))
 
-        ->add('image', FileType::class, array(           
+        ->add('image', FileType::class, array( 
+            'label_format'=>"Image",          
             'mapped'=>false,
             'required'=>false,
             'constraints' => $constraints

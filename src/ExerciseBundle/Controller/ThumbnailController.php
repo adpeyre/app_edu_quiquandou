@@ -167,8 +167,14 @@ class ThumbnailController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($thumbnail);
-            $em->flush();
+            try{
+                $em->remove($thumbnail);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('success', "La vignette a été supprimée.");
+            }
+            catch(\Exception $e){
+                $this->get('session')->getFlashBag()->add('error', "Impossible de supprimer. La vignette est utilisée dans une des histoires.");
+            }
         }
 
         return $this->redirectToRoute('admin_thumbnail_index');

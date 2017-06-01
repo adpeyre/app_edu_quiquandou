@@ -1,10 +1,14 @@
 
 <div class="panel panel-default" >
+    {% if  title is defined %}
     <div class="panel-heading">
         <h3 class="panel-title">{{ title }}</h3>
     </div>
+    {% endif %}
     <div class="panel-body">        
         <div><img class="img-responsive center-block" src="{{image}}" style="max-height:100px;"></div>        
     </div>
+    {% if footer is defined %}
     <div class="panel-footer">{{footer|raw}}</div>
+    {% endif %}
 </div>

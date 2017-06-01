@@ -6,20 +6,31 @@
 {% endblock %}
 
 {% block content %}
-  
+    
+    {% if not thumbnail.id is empty %}
+        <div class="row">
+            <div class="col-lg-2 col-md-3">
+                {% include 'ExerciseBundle:thumbnail:panel.html.twig' with {            
+                    'image':asset(thumbnail.getImageView()),
+                    
+                } only %}
+            </div>
+        </div>
+    {% endif %}
+
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="{% if thumbnail.id is empty %}Ajouter cette vignette {% else %}Modifier cette vignette{% endif %}" class="btn btn-primary" />
     {{ form_end(form) }}
 
     <br>
-    <a href="{{ path('admin_thumbnail_index') }}">Back to the list</a>
+    
 
     {% if delete_form %}
         <h3>Supprimer la vignette</h2>
         {{ form_start(delete_form) }}
-            <input type="submit" value="La supprimer définitivement">
+            <input type="submit" class="btn btn-danger btn-sm" value="Supprimer définitivement">
         {{ form_end(delete_form) }}
     {% endif %}
 {% endblock %}
