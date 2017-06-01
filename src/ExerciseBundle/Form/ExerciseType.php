@@ -46,6 +46,12 @@ class ExerciseType extends AbstractType
        ->add('qui', EntityType::class, array(
             'label' => "Qui ?",
            'class' => 'ExerciseBundle:Thumbnail',
+           //'expanded'=>true,
+           
+           'choice_label' => function($thumb){
+                //return '<img src="'.$thumb->getImageView().'">';
+                return $thumb->getName();
+           },
            'query_builder' => function(\ExerciseBundle\Repository\ThumbnailRepository  $er){
                return $er->getQui();
            }
