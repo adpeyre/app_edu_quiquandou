@@ -27,6 +27,10 @@ class StatsUser
         $div_with_coef=1;
         $nbDoneGlobal = 0;
 
+        $global_qui=0;
+        $global_quand=0;
+        $global_ou=0;
+
         foreach($results as $r){
             
             
@@ -49,12 +53,19 @@ class StatsUser
             $add_with_coef = $data['score_global'] * (4 - $r['level']);
             $div_with_coef = (4 - $r['level']);
             $nbDoneGlobal += $r['nb_exercises_done'];
+            $global_qui += $data['score_qui'];
+            $global_quand += $data['score_quand'];
+            $global_ou += $data['score_ou'];
             
+
         }
 
         // Score global (en pourcentage) qui prend en compte la difficulté de l'exercice
         $resume['global']['score_global'] = $add_with_coef / $div_with_coef ;
         $resume['global']['nb_done'] = $nbDoneGlobal;
+        $resume['global']['score_qui'] = intval($global_qui / count($results));
+        $resume['global']['score_quand'] = intval($global_quand /count($results));
+        $resume['global']['score_ou'] = intval($global_ou /count($results));
 
         return $resume;
     }
@@ -69,6 +80,7 @@ class StatsUser
         // Si pas fait au moins un nombre d'exercices précis, on prend le niveau le plus facile
         if($data['global']['nb_done'] < 5)
             return 1;
+        //elseif($data['hard']['nb_done'])
 
         return rand(1,3);
     }
