@@ -27,6 +27,10 @@ class DefaultController extends Controller
         $choices = Exercise::getLevelsAvailable();
         $choices['Automatique'] = 0;
 
+        $choices = array_map(function ($l){
+            return $l;
+        }, $choices);
+
         $form = $this->createFormBuilder();
         $form
         ->add('difficulty',ChoiceType::class, array(
