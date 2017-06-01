@@ -42,7 +42,8 @@ class SecurityController extends Controller
                 $error="Cet utilisateur requiert un mot de passe.";
                 $show_password=true;
             }
-            elseif(!empty($user->getPassword()) && $form_password != $user->getPassword()){
+            elseif(!empty($user->getPassword()) && sha1($form_password) != $user->getPassword()){
+               
                 $error="Le mot de passe indiqué n'est pas valide.";
                 $show_password=true;
             }

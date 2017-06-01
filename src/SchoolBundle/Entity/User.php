@@ -189,7 +189,8 @@ class User implements UserInterface
     {
         if(empty($password))
             $password=null;
-        $this->password = $password;
+
+        $this->password = sha1($password) ;
 
         return $this;
     }
