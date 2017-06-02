@@ -28,10 +28,10 @@
         <thead>
             <tr>
                 <th style="max-width:20px;">#</th>
-                <th style="min-width:150px;">Titre de l'histoire</th>
+                <th style="min-width:50px;">Titre de l'histoire</th>
                 <th>Texte de l'histoire</th>
-                <th style="width:70px;">Niveau</th>
-                <th style="max-width:150px;">Actions</th>
+                <th style="width:60px;">Niveau</th>
+                <th style="max-width:220px;">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
             {% for exercise in exercises %}
 
 
-                <tr>
+                <tr class="{{ exercise.getLevelColor() }}" style="  {% if not exercise.isActive() %} opacity:0.45; {% endif %} ">
                     <td>{{ exercise.id }}</td>
                     <td>{{ exercise.title }}</td>
                     <td>{{ exercise.text | truncate(120, true, '[...]') }}</td>
@@ -48,6 +48,8 @@
                         <a  href="{{ path('admin_exercise_edit', { 'id': exercise.id }) }}" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i> Modifier</a>
                              
                         <a href="{{ path('admin_exercise_delete', { 'id': exercise.id }) }}" onClick="if(!confirm('Etes-vous certain de vouloir supprimer cet exercice ?')) return false;" class="btn btn-danger btn-xs col- lg-6"><i class="fa fa-trash-o"></i> Supprimer</a>
+
+                        <a href="{{ path('admin_exercise_toggle', { 'id': exercise.id }) }}" class="btn btn-xs btn-warning"><i class="fa fa-power-off "></i> {% if exercise.isActive() %}Désactiver {% else %} Activer {% endif %}</a>
                             
                     </td>
                 </tr>

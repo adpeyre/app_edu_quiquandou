@@ -77,6 +77,18 @@ class Exercise
      */
     private $sound;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
+     */
+    private $active;
+
+
+    public function __construct(){
+        $this->active = true;
+    }
+
 
     /**
      * Get id
@@ -235,10 +247,6 @@ class Exercise
     public function getSoundSrc(){
         return 'exercise/records/'.$this->getSound();
     }
-
-    
-
-
     
     public function getSoundRootSrc(){
         return __DIR__.'/../../../web/'.$this->getSoundSrc();
@@ -253,6 +261,27 @@ class Exercise
         }
     }
 
+    public function setActive($active){
+        $this->active = $active;
+        return $this;
+    }
+
+    public function isActive(){
+        return $this->active;
+    }
+
+
+    public function getLevelColor(){
+        if($this->level == 1)
+            return 'success';
+        elseif($this->level == 2)
+            return 'info';
+        elseif($this->level == 3)
+            return 'danger';
+        else
+            return '';
+    }
+
 
     public static function getLevelsAvailable(){
         return array(
@@ -261,5 +290,7 @@ class Exercise
             'Difficile'=>3            
         );
     }
+
+
 }
 

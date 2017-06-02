@@ -154,6 +154,33 @@ class ExerciseController extends Controller
         return $this->redirectToRoute('admin_exercise_index');
     }
 
+    
+    /**
+     * Active/Desactive a exercise entity.
+     *
+     * @Route("/{id}/toggle", name="admin_exercise_toggle")
+     * @Method("GET")
+     */
+    public function toggleAction(Request $request, Exercise $exercise)
+    {
+       
+        $em = $this->getDoctrine()->getManager();
+        if($exercise->isActive()){
+            $exercise->setActive(false);
+            $this->get('session')->getFlashBag()->add('success', "L'histoire a été desactivée.");
+        }
+        else{
+            $exercise->setActive(true);
+            $this->get('session')->getFlashBag()->add('success', "L'histoire est de nouveau active.");
+        }
+
+        $em->persist($exercise);
+        $em->flush();       
+        
+
+        return $this->redirectToRoute('admin_exercise_index');
+    }
+
     /**
      * Creates a form to delete a exercise entity.
      *
