@@ -87,6 +87,9 @@ class UserController extends Controller
 
 
         $stats_user = $this->get('exercise.stats_user')->getSummary($user);
+
+        // Derniers exercices effectués (qui quand ou)
+        $exercisesLastDone = $this->get('exercise.last_done')->getList(20,$user);
         
         // de-commenter la ligne pour voir les stats
         // echo'<pre>'; print_r($stats_user); echo'</pre>';
@@ -96,6 +99,7 @@ class UserController extends Controller
         return $this->render('SchoolBundle:user:show.html.twig', array(
             'user' => $user,
             'stats_user' => $stats_user,
+            'exercises_lastDone' => $exercisesLastDone,
             'delete_form' => $deleteForm->createView(),
         ));
     }

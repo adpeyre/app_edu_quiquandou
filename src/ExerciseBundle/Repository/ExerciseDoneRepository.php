@@ -45,7 +45,7 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function getLastDone($limit=10){
+    public function getLastDone($limit,$user){
 
         $qb = $this->createQueryBuilder('eed')
             ->select('e.title, u.username, u.firstname, u.lastname,ed.date, eed.qui AS err_qui, eed.quand AS err_quand, eed.ou AS err_ou')
@@ -58,6 +58,11 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($limit)
             //->where('role=""');
             ;
+
+            if(!is_null($user)){
+                $qb->where('u=?1')
+                ->setParameter(1,$user);
+            }
         $result = $qb
             ->getQuery()
             ->getArrayResult();

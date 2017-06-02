@@ -26,3 +26,7 @@ services:
     exercise.data:
         class: ExerciseBundle\Service\ExerciseData
         arguments: ["@session"]
+
+    exercise.last_done:
+        class: ExerciseBundle\Service\LastDone
+        arguments: ["@doctrine.orm.entity_manager"]

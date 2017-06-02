@@ -39,11 +39,7 @@ class DefaultController extends Controller
         $exercises_nb = $em->getRepository('ExerciseBundle:Exercise')->getNbGlobal();
 
         // Derniers exercices effectués (qui quand ou)
-        $exercisesLastDone = $em->getRepository('ExerciseBundle:ExerciseDone')->getLastDone();
-        $exercisesLastDoneWithScores = array_map(function($ed){
-            $ed['score'] = 3 - $ed['err_qui'] - $ed['err_quand'] - $ed['err_ou'];
-            return $ed;
-        }, $exercisesLastDone);
+        $exercisesLastDone = $this->get('exercise.last_done')->getList(20);
 
 
 
@@ -52,7 +48,7 @@ class DefaultController extends Controller
         return $this->render('admin/index.html.twig',array(
             'students_nb' => $users_nb,
             'exercises_nb' => $exercises_nb,
-            'exercises_lastDone' => $exercisesLastDoneWithScores
+            'exercises_lastDone' => $exercisesLastDone
             
         ));
     }
