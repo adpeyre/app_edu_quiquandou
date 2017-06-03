@@ -17,6 +17,15 @@ class ExerciseData
     }
 
 
+    public function getMode(){        
+        return $this->get('mode');
+    }
+
+    public function setMode($mode){        
+        $this->set('mode',$mode);
+        return $this;
+    }
+
     public function getDifficulty(){        
         return $this->get('difficulty');
     }
@@ -24,6 +33,15 @@ class ExerciseData
     public function setDifficulty($diff){  
         
         $this->set('difficulty',$diff);
+        return $this;
+    }
+
+    public function getThumbnailsNb(){        
+        return $this->get('thumbnails_nb');
+    }
+
+    public function setThumbnailsNb($th){        
+        $this->set('thumbnails_nb',$th);
         return $this;
     }
 

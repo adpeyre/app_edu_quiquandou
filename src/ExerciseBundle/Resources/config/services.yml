@@ -13,7 +13,7 @@ services:
 
     exercise.mixing_thumbnails:
         class: ExerciseBundle\Service\MixingThumbnails
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager","@exercise.data"]
 
     exercise.save_result:
         class: ExerciseBundle\Service\SaveResult

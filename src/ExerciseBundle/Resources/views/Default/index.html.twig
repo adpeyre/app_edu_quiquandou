@@ -1,7 +1,7 @@
 {% extends "layout_user.html.twig" %}
 
 
-{% block accueil_actif %} class="active" {% endblock %}
+
 
 {% block content %}
 
@@ -11,11 +11,18 @@
     <h1>Qui-Quand-Où </h1>
     <p>Pour démarrer l'atelier, sélectionne un niveau de difficulté que t'a indiqué ta maîtresse ou ton maître.</p>
 
-
+    <br /><br />
 
     {{ form_start(form) }}
         <!--<h3>Session d'exercices</h3>-->
+
+        {{ form_row(form.mode) }}
+
+        <div id="advanced_config" style="display:none; border-top:2px solid grey; margin:8px 0px 8px 0px;">
+        <h3>Personnalisation</h3>
         {{ form_row(form.difficulty) }}
+        {{ form_row(form.thumbnails_nb) }}
+        </div>
 
         <!--<h3>Travailler un exercice en particulier</h3>-->
         <input type="submit" class="btn btn-primary btn-block btn-lg" value="Lancer l'atelier" />
@@ -27,5 +34,35 @@
 
 
 {% endblock %}
+
+{% block javascripts %}
+
+<script>
+
+$( document ).ready(function() {
+    advanced_config();
+
+    $('#form_mode').on('change', function() {
+       
+        advanced_config();
+    })
+});
+
+function advanced_config(){
+    var config = $( "#form_mode" ).val();
+     
+    if(config == 1){
+        $( "#advanced_config" ).slideDown();
+    }
+    else{
+        $( "#advanced_config" ).hide();
+    }
+}
+
+
+</script>
+
+{% endblock %}
+
 
 

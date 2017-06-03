@@ -24,8 +24,7 @@ class DefaultController extends Controller
 
     public function indexAction(Request $request){
 
-        $choices = Exercise::getLevelsAvailable();
-        $choices['Automatique'] = 0;
+        $choices = Exercise::getLevelsAvailable();       
 
         $choices = array_map(function ($l){
             return $l;
@@ -33,10 +32,28 @@ class DefaultController extends Controller
 
         $form = $this->createFormBuilder();
         $form
-        ->add('difficulty',ChoiceType::class, array(
-             'choices'=> ($choices),
+        ->add('mode',ChoiceType::class, array(
+             'choices'=> array(
+                 'Automatique' => 0,
+                 'Manuelle' => 1 
+             ),
             'label_format' => "Difficulté",
             'data' => 0
+        ))
+        ->add('difficulty',ChoiceType::class, array(
+            'choices'=> ($choices),
+            'label_format' => "Difficulté des histoires",
+            'data' => 0
+        ))
+        ->add('thumbnails_nb',ChoiceType::class, array(
+            'choices'=> array(
+                "3 vignettes" => 3,
+                "4 vignettes" => 4,
+                "5 vignettes" => 5,
+                "6 vignettes" => 6,
+            ),
+            'label_format' => "Nombre de vignettes",
+            'data' => 4
         ));
 
         $form= $form->getForm();
@@ -50,7 +67,9 @@ class DefaultController extends Controller
             // On va stocker en session les choix et on redirige vers la rouge de start
 
             $data = $this->get('exercise.data');
+            $data->setMode($form_data['mode']);
             $data->setDifficulty($form_data['difficulty']);
+            $data->setThumbnailsNb($form_data['thumbnails_nb']);
 
             return $this->redirectToRoute('start-exercise-eleve');
         }
@@ -70,8 +89,8 @@ class DefaultController extends Controller
 
          $data = $this->get('exercise.data');
         
-         // AUcune difficulté choisie
-         if(empty($data->getDifficulty()) && $data->getDifficulty() !== 0 ){
+         // Aucune difficulté choisie
+         if($data->getMode() !== 0 && $data->getMode() !== 1 ){
              return $this->redirectToRoute('accueil-exercise-eleve');
          }
 

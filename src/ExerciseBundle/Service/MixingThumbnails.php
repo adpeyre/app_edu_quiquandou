@@ -8,17 +8,26 @@ class MixingThumbnails
 {
 
     private $em;
+    private $data;
 
-    public function __construct(EntityManager $em){
+
+    public function __construct(EntityManager $em, $data){
 
         $this->em = $em;
+        $this->data = $data;
     }
 
 
     public function getThem($type,$thumbnail){
 
+        $thumbnails_nb = 4-1;
+
+        if($this->data->getMode() == 1){
+            $thumbnails_nb = $this->data->getThumbnailsNb()-1;
+        }
+
   
-        $thumbnails = $this->em->getRepository('ExerciseBundle:Thumbnail')->getRandom($type,2, array($thumbnail));
+        $thumbnails = $this->em->getRepository('ExerciseBundle:Thumbnail')->getRandom($type,$thumbnails_nb, array($thumbnail));
        
         $thumbnails[$thumbnail->getId()] = $thumbnail;
 

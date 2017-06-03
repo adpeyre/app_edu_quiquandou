@@ -23,13 +23,14 @@ class GetExercise
 
 
     public function getOne($difficult=null){
-
+       
         $level = $this->data->getDifficulty();
 
         // Automatique : on la calcule
-        if(empty($difficulty)){
+        if($this->data->getMode() == 0){
             $level = $this->stats->getLevelAppropriate($this->user);
         }
+        
 
         $exercise = $this->em->getRepository('ExerciseBundle:ExerciseDone')->getNotDone($this->user,$level);
         
