@@ -16,7 +16,7 @@
             <h4>Ta réponse:</h4>
             <div style="position:relative;">
                 <img src="{{ asset( resp.getImageView()) }}" class="img-thumbnail inl respimg">
-                <img src="http://www.icone-png.com/png/19/18859.png" style="" class="answer_wrong">
+                {% if not verdict %}<img src="http://www.icone-png.com/png/19/18859.png" style="" class="answer_wrong">{% endif %}
             </div>
             <hr>
             <div>
