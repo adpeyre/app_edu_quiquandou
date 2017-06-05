@@ -30,9 +30,9 @@ class SaveResult
         $exerciseDone
             ->setId($saveDoneGeneral)
             ->setExercise($exercise)
-            ->setQui($err_qui)
-            ->setQuand($err_quand)
-            ->setOu($err_ou);
+            ->setErrQui($err_qui)
+            ->setErrQuand($err_quand)
+            ->setErrOu($err_ou);
 
        
         

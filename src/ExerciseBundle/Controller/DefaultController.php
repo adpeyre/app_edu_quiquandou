@@ -30,6 +30,9 @@ class DefaultController extends Controller
             return $l;
         }, $choices);
 
+         $data = $this->get('exercise.data');
+         $data->resetSession();
+
         $form = $this->createFormBuilder();
         $form
         ->add('mode',ChoiceType::class, array(
@@ -95,18 +98,15 @@ class DefaultController extends Controller
          }
 
 
-        // Init exercise (via service ?)
-
-
+        
+        
         try{
             // récupérer un exercise (via un service)
             $exercise = $this->get('exercise.get_exercise')->getOne();
         }
         catch(Exception $e){
-            echo "Aucun exercice trouvé";
+            return $this->redirectToRoute('accueil-exercise-eleve');
         }
-
-        
 
         // récupérer la liste des vignettes à afficher. La vraie est noyée autour de mauvaises(via un service)
         $thumbnails_qui = $this->get('exercise.mixing_thumbnails')->getThem(Thumbnail::QUI, $exercise->getQui());        
@@ -151,11 +151,11 @@ class DefaultController extends Controller
 
         // Comparer réponses données et réponses correctes
 
-        if($request->getMethod() != 'POST'){
+        if($request->getMethod() != 'POST' || empty($exercise)){
             
             // die('la methode n\'est pas POST');
             
-            // return $this->redirectToRoute('start-exercise-eleve');
+            return $this->redirectToRoute('start-exercise-eleve');
         }
 
         $form_qui = $request->request->get('data-qui');
@@ -197,6 +197,7 @@ class DefaultController extends Controller
         $response_quand = $data->getThumbnailsQuand()[$form_quand];
         $response_ou = $data->getThumbnailsOu()[$form_ou];
 
+        echo $correct_qui."-".$response_qui;
         $verdict_qui = $correct_qui == $response_qui ? 1 : 0;
         $verdict_quand = $correct_quand == $response_quand ? 1 : 0;
         $verdict_ou = $correct_ou == $response_ou ? 1 : 0;
@@ -208,7 +209,9 @@ class DefaultController extends Controller
             $verdict_total = 0;
 
         
-        $this->get('exercise.save_result')->save($exercise,$verdict_qui,$verdict_quand,$verdict_ou);
+        $this->get('exercise.save_result')->save($exercise,!$verdict_qui,!$verdict_quand,!$verdict_ou);
+        $data->setNb(  intval($data->getNb()) + 1 );
+        $data->clearCurrentExercise();
 
 
         // Renvoyer à la vue réponses données et correction
@@ -233,6 +236,34 @@ class DefaultController extends Controller
 
     }
 
+    /**
+     * @Route("/results", name="exercise-user-results")
+     * @Method({"GET"})
+     */
+    public function resultsAction(){
+        // Bilan
+
+        $data = $this->get('exercise.data');
+
+        if(empty($data->getNb()) ){
+            return $this->redirectToRoute('accueil-exercise-eleve');
+        }
+
+        $exercises_nb = $data->getNb();
+        $exercises_successful = 1 ; // 
+        $exercises_missed = 2; //
+
+        return $this->render('ExerciseBundle:Default:results.html.twig',array(
+            'exercises_nb' => $exercises_nb,
+            'exercises_successful' => $exercises_successful,
+            'exercises_missed' => $exercises_missed,
+            
+            
+        ));
+
+
+    }
+
     public function navbarAction(){
 
         $choices = array_flip(Exercise::getLevelsAvailable());
@@ -241,10 +272,16 @@ class DefaultController extends Controller
         $level = $data->getDifficulty();
 
         $html='';
-       
-        if(!empty($choices[$level])){
-            $html .= '- Niveau : '.$choices[$level].' -';
+        
+        if($data->getMode() === 0){
+            $html .='- Mode automatique -';
         }
+        elseif($data->getMode() == 1 && !empty($choices[$level])){
+            $html .= 'Mode manuel - Niveau : '.$choices[$level].' -';
+        }
+        
+        if(!is_null($data->getMode()))
+            $html .= " [".intval($data->getNb())." terminé(s)]";
 
         return new Response($html);
 

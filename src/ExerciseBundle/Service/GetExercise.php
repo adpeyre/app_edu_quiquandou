@@ -22,13 +22,18 @@ class GetExercise
     }
 
 
-    public function getOne($difficult=null){
+    public function getOne(){
+
+        // Si exercice déjà choisi, on recharge le même (rechargement de page)
+        if(is_a($this->data->getExercise(), 'ExerciseBundle\Entity\Exercise') ){
+            //return $this->data->getExercise();
+        }        
        
         $level = $this->data->getDifficulty();
 
         // Automatique : on la calcule
         if($this->data->getMode() == 0){
-            $level = $this->stats->getLevelAppropriate($this->user);
+            $level = $this->stats->getLevelAppropriate($this->user, $this->data->getDateBegining());
         }
         
 

@@ -30,19 +30,19 @@ class ExerciseDone
     private $exercise;
 
     /**
-    *@ORM\Column(name="qui",type="smallint")
+    *@ORM\Column(name="err_qui",type="smallint")
     */
-    private $qui;
+    private $err_qui;
 
     /**
-    *@ORM\Column(name="quand",type="smallint")
+    *@ORM\Column(name="err_quand",type="smallint")
     */
-    private $quand;
+    private $err_quand;
 
     /**
-    *@ORM\Column(name="ou",type="smallint")
+    *@ORM\Column(name="err_ou",type="smallint")
     */
-    private $ou;
+    private $err_ou;
 
     
     public function getId(){
@@ -59,30 +59,30 @@ class ExerciseDone
         return $this;
     }
 
-    public function getQui(){
-        return $this->qui;
+    public function getErrQui(){
+        return $this->err_qui;
     }
 
-    public function setQui($qui){
-        $this->qui = $qui;
+    public function setErrQui($qui){
+        $this->err_qui = $qui;
         return $this;
     }
 
-    public function getQuand(){
-        return $this->quand;
+    public function getErrQuand(){
+        return $this->err_quand;
     }
 
-    public function setQuand($quand){
-        $this->quand = $quand;
+    public function setErrQuand($quand){
+        $this->err_quand = $quand;
         return $this;
     }
 
-    public function getOu(){
-        return $this->ou;
+    public function getErrOu(){
+        return $this->err_ou;
     }
 
-    public function setOu($ou){
-        $this->ou = $ou;
+    public function setErrOu($ou){
+        $this->err_ou = $ou;
         return $this;
     }
 

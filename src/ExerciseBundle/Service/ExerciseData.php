@@ -81,8 +81,25 @@ class ExerciseData
         return $this;
     }
 
+    public function getNb(){
+        return intval($this->get('nb'));
+    }
 
+    public function setNb($nb){
+        $this->set('nb',$nb);
+        return $this;
+    }
 
+    public function getDateBegining(){
+        return ($this->get('date_begining'));
+    }
+
+    public function setDateBegining($date){
+        $this->set('date_begining',$date);
+        return $this;
+    }
+
+    
     
 
     private function get($name){
@@ -93,4 +110,23 @@ class ExerciseData
          $this->session->set('exercise_data['.$name.']', $val);
          return $this;
     }
+
+    public function clearCurrentExercise(){
+        $this->setExercise(null);
+        $this->setThumbnailsQui(null);
+        $this->setThumbnailsQuand(null);
+        $this->setThumbnailsOu(null);
+    }
+
+    public function resetSession(){
+        $this->setMode(null);
+        $this->setNb(0);
+        $this->setDifficulty(null);
+        $this->setDateBegining(new \DateTime());
+
+        $this->clearCurrentExercise();
+
+    }
+
+    
 }

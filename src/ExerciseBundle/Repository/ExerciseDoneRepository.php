@@ -29,14 +29,15 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
             ->leftjoin('ExerciseBundle:ExerciseDone','eed','WITH','eed.exercise=e.id')
             ->leftjoin('AppBundle:ExerciseDone','ed','WITH','ed.user=?1')         
             ->where('e.active=1')   
+            ->andWhere('e.level=?2')            
             ->groupBy('e.id')            
-            ->orderBy('ordCol','DESC')
+            //->orderBy('ordCol','DESC')
             ->addOrderBy('nbExerciseDone')
             ->setParameter(1,$user)            
             ->setParameter(2,$difficulty)
             ->setMaxResults(1)
             // Temporaire pour en choisir un au hasard (Rand())
-            ->setFirstResult(rand(0,$nb_exercices-1))
+            //->setFirstResult(rand(0,$nb_exercices-1))
             
             ;
         
@@ -49,7 +50,7 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
     public function getLastDone($limit,$user){
 
         $qb = $this->createQueryBuilder('eed')
-            ->select('e.title, u.username, u.firstname, u.lastname,ed.date, eed.qui AS err_qui, eed.quand AS err_quand, eed.ou AS err_ou')
+            ->select('e.title, u.username, u.firstname, u.lastname,ed.date, eed.err_qui , eed.err_quand , eed.err_ou ')
             ->addSelect('e.id AS exercise_id')
             ->addSelect('u.id as user_id')
             ->innerJoin('ExerciseBundle:Exercise','e','WITH','eed.exercise = e.id')
@@ -71,25 +72,33 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function getStatsForUser($user=1){
+    public function getStatsForUser($user=1, $date=null){
+        
         $qb = $this->createQueryBuilder('eed')
-            ->select('ed.id')            
-            ->addSelect('e.level')
-            ->addselect('COUNT(ed.id) as nb_exercises_done')    
-            ->addSelect('(CASE WHEN eed.qui > 1 THEN 1 ELSE 0 END) AS err_qui')   
+            //->select('ed.id')            
+            ->select('e.level')
+            ->addselect('COUNT(ed) as nb_exercises_done')    
+            //->addSelect('(CASE WHEN eed.qui > 1 THEN 1 ELSE 0 END) AS err_qui')   
             //->addSelect('(CASE WHEN eed.quand > 1 THEN 1 ELSE 0 END) AS err_quand')  
             //->addSelect('(CASE WHEN eed.ou > 1 THEN 1 ELSE 0 END) AS err_ou')  
-            ->addSelect('SUM(eed.qui) AS nb_err_qui') 
-            ->addSelect('SUM(eed.quand) AS nb_err_quand')
-            ->addSelect('SUM(eed.ou) AS nb_err_ou')   
+            ->addSelect('SUM(eed.err_qui) AS nb_err_qui') 
+            ->addSelect('SUM(eed.err_quand) AS nb_err_quand')
+            ->addSelect('SUM(eed.err_ou) AS nb_err_ou')   
             ->innerjoin('AppBundle:ExerciseDone','ed','WITH','eed.exerciseDone=ed.id')   
             ->innerJoin('ExerciseBundle:Exercise','e','WITH','e.id = eed.exercise')           
             ->where('ed.user=:user')
-            ->setParameter('user',$user)         
+            ->setParameter('user',$user)
             ->groupBy('e.level')
             ->orderBy('e.level')
             // analyse sur les 20 derniers exercices effectués
-            ->setMaxResults(20); 
+           
+            ;
+
+            if(!is_null($date)){
+                $qb->andWhere('ed.date > :date')
+                    ->setParameter('date',$date);
+            }
+            
 
         $results = $qb
             ->getQuery()

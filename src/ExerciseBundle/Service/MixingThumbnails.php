@@ -2,6 +2,9 @@
 
 namespace ExerciseBundle\Service;
 
+use ExerciseBundle\Entity\Exercise;
+use ExerciseBundle\Entity\Thumbnail;
+
 use Doctrine\ORM\EntityManager;
 
 class MixingThumbnails
@@ -19,6 +22,13 @@ class MixingThumbnails
 
 
     public function getThem($type,$thumbnail){
+
+        if($type == Thumbnail::QUI && !empty($this->data->getThumbnailsQui()))
+            return $this->data->getThumbnailsQui();
+        elseif($type == Thumbnail::QUAND && !empty($this->data->getThumbnailsQuand()))
+            return $this->data->getThumbnailsQuand();
+        elseif($type == Thumbnail::OU && !empty($this->data->getThumbnailsOu()))
+            return $this->data->getThumbnailsOu();
 
         $thumbnails_nb = 4-1;
 
