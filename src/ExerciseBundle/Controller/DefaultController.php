@@ -209,9 +209,9 @@ class DefaultController extends Controller
             $verdict_total = 0;
 
         
-        $this->get('exercise.save_result')->save($exercise,!$verdict_qui,!$verdict_quand,!$verdict_ou);
+        /*$this->get('exercise.save_result')->save($exercise,!$verdict_qui,!$verdict_quand,!$verdict_ou);
         $data->setNb(  intval($data->getNb()) + 1 );
-        $data->clearCurrentExercise();
+        $data->clearCurrentExercise();*/
 
 
         // Renvoyer à la vue réponses données et correction

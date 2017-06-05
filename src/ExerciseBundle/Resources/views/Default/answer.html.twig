@@ -1,27 +1,38 @@
-<div class="row">
-	<h3 class="story jumbo"><span class="{{icon}}"></span> {{question|title}}? 
+<div class="col-sm-4">
+    <div class="well boxAnswer">
 
-{% if verdict %}
-    <img src="/exercise/icons/bon.png" alt="" class="imgverd">
-{% else %}
-    <img src="/exercise/icons/mauvais.png" alt="" class="imgverd">
-{% endif %}
-</h3>		
+        <div class="question">
+            <h3 class=""><span class="{{icon}}"></span> {{question|title}}? 
+                {% if verdict %}
+                    <img src="/exercise/icons/bon.png" alt="" class="imgverd">
+                {% else %}
+                    <img src="/exercise/icons/mauvais.png" alt="" class="imgverd">
+                {% endif %}
+            </h3>		
+        </div>
 
 
+        <div style="text-align:center">
+            <h4>Ta réponse:</h4>
+            <div style="position:relative;">
+                <img src="{{ asset( resp.getImageView()) }}" class="img-thumbnail inl respimg">
+                <img src="http://www.icone-png.com/png/19/18859.png" style="" class="answer_wrong">
+            </div>
+            <hr>
+            <div>
+                {% if not verdict %}
+                <h4>La réponse correcte était :</h4>
+                <div><img src="{{ asset( correct.getImageView()) }}" class="img-thumbnail inl respimg"></div>
 
-<p class="p-reponse inl"> Tu as répondu: <img src="{{ asset( resp.getImageView()) }}" class="img-thumbnail inl respimg"></p>
+                {% else %}
+                    <h4>C'est la bonne réponse, bravo !</h4>
+                {% endif %}
 
-<p class="p-correct inl"> 
-{% if not verdict %}
-La réponse correcte aurait été: <img src="{{ asset( correct.getImageView()) }}" class="img-thumbnail inl respimg">
+            </div>
 
-{% else %}
-    C'était la réponse correcte, bravo !
-{% endif %}
+        </div>
 
-</p>
-
-</div>		
+    </div>	
+</div>	
 	
-	<hr>
+

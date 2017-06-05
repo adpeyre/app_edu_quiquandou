@@ -17,25 +17,28 @@
 		{% endif %}
 		</p>
 		<br>
-
-		{% include 'ExerciseBundle:Default:answer.html.twig' 
-		with {icon: 'glyphicon glyphicon-user', question: 'qui', resp: response_qui, verdict : verdict_qui, correct : correct_qui} %}
-
-		{% include 'ExerciseBundle:Default:answer.html.twig' 
-		with {icon: 'glyphicon glyphicon-hourglass', question: 'quand', resp: response_quand, verdict : verdict_quand, correct : correct_quand} %}
-
-		{% include 'ExerciseBundle:Default:answer.html.twig' 
-		with {icon: 'glyphicon glyphicon-screenshot', question: 'ou', resp: response_ou, verdict : verdict_ou, correct : correct_ou} %}
-
 	</div>
 </div>
 
+<div class="row">
+{% include 'ExerciseBundle:Default:answer.html.twig' 
+with {icon: 'glyphicon glyphicon-user', question: 'qui', resp: response_qui, verdict : verdict_qui, correct : correct_qui} %}
+
+{% include 'ExerciseBundle:Default:answer.html.twig' 
+with {icon: 'glyphicon glyphicon-hourglass', question: 'quand', resp: response_quand, verdict : verdict_quand, correct : correct_quand} %}
+
+{% include 'ExerciseBundle:Default:answer.html.twig' 
+with {icon: 'glyphicon glyphicon-screenshot', question: 'ou', resp: response_ou, verdict : verdict_ou, correct : correct_ou} %}
+</div>
+	
+
+
 
 <div class="row">
-	<div class="col-md-6 col-md-offset-2">
+	<div class="col-sm-6 col-sm-offset-2 col-xs-8">
 		<a class="btn btn-primary btn-lg btn-block" href="{{path('start-exercise-eleve')}}">Continuer avec un autre exercice</a>
 	</div>
-	<div class="col-sm-2">
+	<div class="col-sm-2 col-xs-4">
 		<a href="{{path('exercise-user-results')}}" class="btn btn-danger  btn-lg btn-block">J'arrête là</a>
 	</div>
 </div>
