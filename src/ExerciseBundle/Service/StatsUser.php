@@ -25,6 +25,7 @@ class StatsUser
         $global_quand=0;
         $global_ou=0;
         $global_score=0;
+        $global_successful=0;
 
         //print_r($results);
 
@@ -47,6 +48,7 @@ class StatsUser
                 $score_quand = $this->getPercentageSuccess($r['nb_err_quand'],$r['nb_exercises_done']);
                 $score_ou = $this->getPercentageSuccess($r['nb_err_ou'],$r['nb_exercises_done']);
                 $score_global = intval(($score_qui + $score_quand + $score_ou) * 100 / 300);
+                $nb_successful = $r['nb_successful'];
             }
 
             // Pas de résultats, on met tout à 0
@@ -56,6 +58,7 @@ class StatsUser
                 $score_quand = 0;
                 $score_ou = 0;
                 $score_global = 0;
+                $nb_successful = 0;
             }
 
             $data = array(
@@ -63,7 +66,8 @@ class StatsUser
                 'score_qui' => $score_qui,
                 'score_quand' => $score_quand,
                 'score_ou' => $score_ou,
-                'score_global' =>   $score_global
+                'score_global' =>   $score_global,
+                'nb_successful' => $nb_successful
             );
            
 
@@ -77,6 +81,7 @@ class StatsUser
             $global_ou += $score_ou;
 
             $global_score+= $score_global/count($levelAvailable);
+            $global_successful+=$nb_successful;
 
             
 
@@ -89,7 +94,8 @@ class StatsUser
             'score_qui' =>ceil($global_qui / count($levelAvailable)),
             'score_quand' =>ceil($global_quand / count($levelAvailable)),
             'score_ou' =>ceil($global_ou / count($levelAvailable)),
-            'score_global' => ceil($global_score)
+            'score_global' => ceil($global_score),
+            'nb_successful'=>$global_successful
             
         );
        

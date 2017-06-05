@@ -3,7 +3,23 @@
 
 {% block content %}
 
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="jumbotron" style="text-align:center">
+            <h1>{{exercises_note}} / 10</h1>
+            <div>{{comment}}</div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3 col-sm-offset-3">
+        <a class="btn btn-success btn-block" href="{{path('accueil-exercise-eleve')}}">Recommencer des exercices</a>
+    </div>
+    <div class="col-sm-3">
+        <a class="btn btn-primary btn-block" href="{{path('logout')}}">Se déconnecter</a>
+    </div>
 
+</div>
 
 
 

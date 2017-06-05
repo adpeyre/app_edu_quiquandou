@@ -80,7 +80,8 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
             ->addselect('COUNT(ed) as nb_exercises_done')    
             //->addSelect('(CASE WHEN eed.qui > 1 THEN 1 ELSE 0 END) AS err_qui')   
             //->addSelect('(CASE WHEN eed.quand > 1 THEN 1 ELSE 0 END) AS err_quand')  
-            //->addSelect('(CASE WHEN eed.ou > 1 THEN 1 ELSE 0 END) AS err_ou')  
+            
+            ->addSelect('SUM(  (CASE WHEN eed.err_qui = 0 AND eed.err_quand = 0 AND eed.err_ou = 0 THEN 1 ELSE 0 END)  ) AS nb_successful')
             ->addSelect('SUM(eed.err_qui) AS nb_err_qui') 
             ->addSelect('SUM(eed.err_quand) AS nb_err_quand')
             ->addSelect('SUM(eed.err_ou) AS nb_err_ou')   

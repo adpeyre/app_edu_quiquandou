@@ -209,9 +209,9 @@ class DefaultController extends Controller
             $verdict_total = 0;
 
         
-        /*$this->get('exercise.save_result')->save($exercise,!$verdict_qui,!$verdict_quand,!$verdict_ou);
+        $this->get('exercise.save_result')->save($exercise,!$verdict_qui,!$verdict_quand,!$verdict_ou);
         $data->setNb(  intval($data->getNb()) + 1 );
-        $data->clearCurrentExercise();*/
+        $data->clearCurrentExercise();
 
 
         // Renvoyer à la vue réponses données et correction
@@ -249,15 +249,32 @@ class DefaultController extends Controller
             return $this->redirectToRoute('accueil-exercise-eleve');
         }
 
+        $stats=  $this->get('exercise.stats_user')->getSummary($this->getUser(),$data->getDateBegining());
+
+        
+
         $exercises_nb = $data->getNb();
-        $exercises_successful = 1 ; // 
-        $exercises_missed = 2; //
+        $exercises_successful = $stats['global']['nb_successful'] ; // 
+        $exercises_missed = $stats['global']['nb_done'] - $exercises_successful ; //
+
+        $exercises_note = round($exercises_successful / $stats['global']['nb_done'] * 10);
+
+
+        if($exercises_note >= 10)
+            $comment = "Excellent!";
+        elseif($exercises_note >= 8)
+            $comment = "Très bien!";
+        elseif($exercises_note >= 6)
+            $comment ="Bien!";
+        else
+            $comment ="Tu peux mieux faire!";
 
         return $this->render('ExerciseBundle:Default:results.html.twig',array(
             'exercises_nb' => $exercises_nb,
             'exercises_successful' => $exercises_successful,
             'exercises_missed' => $exercises_missed,
-            
+            'exercises_note' => $exercises_note,  
+            'comment' => $comment          
             
         ));
 
