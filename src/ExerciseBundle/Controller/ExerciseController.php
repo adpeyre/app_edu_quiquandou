@@ -63,8 +63,20 @@ class ExerciseController extends Controller
             // Nouveau fichier d'enregistrement soumis
             $sound_file = $exercise->getSound();
 
+            // Si aucun audio n'est soumis et qu'il n'y en avait pas avant : on génère le son automatiquement
+            if(
+                empty($sound_file) && // Pas de soumis
+                (empty($ex_sound_file) || preg_match('/auto/',$ex_sound_file)  ) // Aucun avant ou un automatique
+                
+            ){
+                $fileName = empty($ex_sound_file) ? 'auto_'.uniqid().'.mp3' : $ex_sound_file;
+                $url="http://api.voicerss.org/?key=ffd188fbb5da4474b5d9538ddd355ed1&hl=fr-fr&r=0&src=".urlencode($exercise->getText());
+                file_put_contents($this->getParameter('sound_directory').'/'.$fileName, fopen($url, 'r'));
+                $exercise->setSound($fileName);
+
+            }
             // Si rien n'est soumis et qu'on demande pas à supprimer
-            if(empty($sound_file) && !$sound_delete){
+            elseif(empty($sound_file) && !$sound_delete){
                 $exercise->setSound($ex_sound_file);
             }
             // Demande de suppression

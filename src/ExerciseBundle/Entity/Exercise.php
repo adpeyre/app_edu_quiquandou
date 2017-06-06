@@ -244,6 +244,10 @@ class Exercise
         return $this;
     }
 
+    public function isSoundAuto(){
+        return preg_match('/^auto/',$this->sound);
+    }
+
     public function getSoundSrc(){
         return 'exercise/records/'.$this->getSound();
     }

@@ -80,7 +80,7 @@ class ExerciseType extends AbstractType
        
        ;
 
-       if(!empty($builder->getData()->getSound())){
+       if(!empty($builder->getData()->getSound()) && !$builder->getData()->isSoundAuto()){
             $builder->add('sound_delete', CheckboxType::class, array(
                 'label'    => 'Supprimer l\'enregistrement',
                 'mapped' => false,

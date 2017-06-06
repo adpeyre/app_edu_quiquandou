@@ -21,7 +21,8 @@
 
         <h3>Facultatif</h3>
         {{ form_row(form.sound) }}
-        {% if not exercise.sound is empty %}
+        
+        {% if not exercise.sound is empty and  not exercise.isSoundAuto()  %}
         
         <audio src="{{asset(exercise.getSoundSrc())}}" controls>Veuillez mettre à jour votre navigateur !</audio>
         {{ form_row(form.sound_delete) }}
