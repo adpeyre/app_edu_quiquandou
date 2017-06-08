@@ -1,10 +1,50 @@
-{% block score %}
-<td class="col-md-2">
-	{{ title }} 
-    <div class="progress">
-    	<div class="progress-bar " role="progressbar" aria-valuenow="{{ score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ score }}%;">
-            {{ score }}%
+{% if type['score_global'] >80 %}
+    {% set color = 'progress-bar-success' %}
+    {% set icon_score = 'fa-smile-o' %}
+{% elseif type['score_global'] >50  %}
+    {% set color = 'progress-bar-warning' %}
+    {% set icon_score = 'fa-meh-o' %}
+{% else %}
+    {% set color = 'progress-bar-danger' %}
+    {% set icon_score = 'fa-frown-o' %}
+{% endif %}
+
+<div class="col-lg-3 col-md-4 ">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+        
+            {{ title }}
+            <span class="label label-default"><strong>{{type['nb_done']}}</strong> effectué(s)</span>
         </div>
+        <div class="panel-body">
+            {% for score_name,score in {'Qui' : 'score_qui','Quand': 'score_quand','Où':'score_ou'} %}
+            <div class="row" >
+                <div class="col-sm-3" style="text-align:right;">
+                    {{score_name}} :
+                </div>
+                <div class="col-sm-8">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ type[score] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ type[score] }}%;">
+                            {{ type[score] }}%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="panel-footer">
+           
+            <div class="progress">
+             
+                <div class="progress-bar {{color}}" role="progressbar " aria-valuenow="{{ type['score_global'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ type['score_global'] }}%;">
+                    <i class="fa {{icon_score}}"></i> {{ type['score_global'] }}%
+                </div>
+            </div>
+        </div>
+
     </div>
-</td>
-{% endblock %}
+
+
+</div>
+

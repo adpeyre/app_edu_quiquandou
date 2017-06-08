@@ -59,9 +59,27 @@
     </div>
 <br><br>
 
+<h2>Statistiques</h3>
+<div class="row">
+ {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {panel: 'panel-primary', title: 'Niveau global', 'type': stats_user[1] } %}
+</div>
+
+<h3>Détails par niveau</h3>
+<div class="row">
+
+    {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {panel: 'panel-info', title: 'Niveau facile', 'type': stats_user[1] } %}
+    {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {panel: 'panel-info', title: 'Niveau moyen', 'type': stats_user[2] } %}
+    {% include 'SchoolBundle:user:1score.html.twig' 
+                            with {panel: 'panel-info', title: 'Niveau difficile', 'type': stats_user[3] } %}
+</div>
+
+{#
     <div class="row">
 
-        {# dump(stats_user) #}
+       
         
         <table class="table table-bordered"> 
         <tbody>
@@ -82,7 +100,7 @@ Exercices
                         Total : {{ value['nb_done'] }}
 
                     </td>
-
+                    
                     {% if value['score_qui'] is defined %}
                         {% include 'SchoolBundle:user:1score.html.twig' 
                             with {title: 'Score qui:', score: value['score_qui']} %}
@@ -120,7 +138,7 @@ Exercices
         </tbody>
         </table>
     </div>
-
+#}
     <br>
 
      {% include 'SchoolBundle:user:lastdone.html.twig' 
