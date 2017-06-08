@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Exercise controller.
@@ -47,22 +48,42 @@ class ExerciseController extends Controller
         
 
         // On garde en mémoire l'ancien fichier si il y a changement
-        $ex_sound_file = empty($exercise->getSound()) ? null : $exercise->getSound();
+        $exercise_old = clone $exercise;
         
 
         $form = $this->createForm('ExerciseBundle\Form\ExerciseType', $exercise);
        
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
             $em = $this->getDoctrine()->getManager();
 
             // Demande de supprimer enregistrement audio
             $sound_delete = $form->has('sound_delete') ? $form->get('sound_delete')->getData() : false;
       
-            // Nouveau fichier d'enregistrement soumis
-            $sound_file = $exercise->getSound();
+            
+            if($sound_delete){                  
+                $exercise->setSound(null);                
+            }
 
+            // Si aucun audio n'est soumis et qu'il n'y en avait pas avant : on génère le son automatiquement
+            if(
+                empty($exercise->getFile()) && // Pas de soumis
+                (empty($exercise_old->getSound()) || $exercise_old->isSoundAuto()  ) // Aucun avant ou un automatique
+                
+            ){
+                $fileName = empty($exercise_old->getSound()) ? 'auto_'.uniqid().'.mp3' : $exercise_old->getSound();
+                $url="http://api.voicerss.org/?key=ffd188fbb5da4474b5d9538ddd355ed1&hl=fr-fr&r=0&src=".urlencode($exercise->getText());                
+                file_put_contents($exercise->getSoundRootDir().'/'.$fileName, fopen($url, 'r'));
+                
+                $exercise->setSound($fileName);
+
+            }
+            
+
+            /*
             // Si aucun audio n'est soumis et qu'il n'y en avait pas avant : on génère le son automatiquement
             if(
                 empty($sound_file) && // Pas de soumis
@@ -107,6 +128,8 @@ class ExerciseController extends Controller
 
             }
 
+            */
+            
             $em->persist($exercise);
             $em->flush();
 
@@ -119,7 +142,7 @@ class ExerciseController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', $msg);
 
-            return $this->redirectToRoute('admin_exercise_index');
+            //return $this->redirectToRoute('admin_exercise_index');
         }
 
         return $this->render('ExerciseBundle:admin_exercise:new.html.twig', array(

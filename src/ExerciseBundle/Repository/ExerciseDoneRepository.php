@@ -13,36 +13,83 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
     public function getNotDone($user,$difficulty=null){
         // Exception Doctrine\ORM\NoResultException
         
-        // Temporaire
-        $nb_exercices =  $this->_em->createQueryBuilder() 
-        ->from('ExerciseBundle:Exercise','e') 
-        ->select('COUNT(e)')
-        ->getQuery()
-        ->getSingleScalarResult();
+           
+
+        // Les exercices encore non faits
+
+        $subQ = $this->createQueryBuilder('eed')
+        ->select('IDENTITY(eed.exercise)')
+        ->innerJoin('AppBundle:ExerciseDone', 'ed', 'WITH', 'eed.exerciseDone = ed.id')
+        ->where('ed.user=:user')          
+        ->groupBy('eed.exercise');
+     
+         $qb_notDone = $this->_em->createQueryBuilder();
+            $qb_notDone
+            ->select('e')
+            ->from('ExerciseBundle:Exercise','e')
+            ->where($qb_notDone->expr()->notIn('e.id', $subQ->getDQL()))
+            ->andwhere('e.active=1')   
+            ->andWhere('e.level=:level')   
+            ->setParameter('user',$user)
+            ->setParameter('level',$difficulty)  
+            ->setMaxResults(1)     
+            
+            ;
+
+        $results = ($qb_notDone->getQuery()->getResult());
+
+
+        if(count($results) >= 1){
+            return $results[0];
+        }
+
+
+        // Les moins faits sinon
+
+        $qb_lessDone = $this->_em->createQueryBuilder()  
+            ->select('e')
+            ->addSelect('(CASE WHEN (ed.user IS NULL) THEN 0 ELSE COUNT(e.id) END) AS HIDDEN nbExerciseDone')           
+            ->from('ExerciseBundle:Exercise','e')                          
+            ->leftjoin('ExerciseBundle:ExerciseDone','eed','WITH','eed.exercise=e.id')
+            ->innerJoin('AppBundle:ExerciseDone','ed','WITH','eed.exerciseDone = ed.id')                  
+            ->where('e.active=1')   
+            ->andWhere('e.level=:level')     
+            ->andWhere('ed.user=:user')       
+            ->groupBy('e.id')
+            ->addOrderBy('nbExerciseDone')
+            ->setParameter('user',$user)            
+            ->setParameter('level',$difficulty)
+            ->setMaxResults(1);
+        
+         $query = $qb_lessDone->getQuery();
+         $result = $query->getSingleResult();        
+         return $result; 
         
 
-         $qb = $this->_em->createQueryBuilder()  
-            ->select('e')
-            ->addSelect('(CASE WHEN (ed.user IS NULL) THEN 0 ELSE COUNT(e.id) END) AS HIDDEN nbExerciseDone')            
-            ->addSelect('(CASE WHEN e.level = ?2 THEN 1 ELSE 0 END) AS HIDDEN ordCol')
-            ->from('ExerciseBundle:Exercise','e')
+         /*$qb = $this->_em->createQueryBuilder()  
+            ->select('e.id')
+            //->addSelect('(CASE WHEN (ed.user IS NULL) THEN 0 ELSE COUNT(e.id) END) AS nbExerciseDone')            
+            //->addSelect('(CASE WHEN e.level = ?2 THEN 1 ELSE 0 END) AS HIDDEN ordCol')
+            ->from('ExerciseBundle:Exercise','e')                          
             ->leftjoin('ExerciseBundle:ExerciseDone','eed','WITH','eed.exercise=e.id')
-            ->leftjoin('AppBundle:ExerciseDone','ed','WITH','ed.user=?1')         
+            ->leftJoin('AppBundle:ExerciseDone','ed','WITH','eed.exerciseDone = ed.id AND ed.user=?1')            
+                   
             ->where('e.active=1')   
-            ->andWhere('e.level=?2')            
-            ->groupBy('e.id')            
+            //->andWhere('e.level=?2')            
+            //->groupBy('e.id')            
             //->orderBy('ordCol','DESC')
-            ->addOrderBy('nbExerciseDone')
+            //->addOrderBy('nbExerciseDone')
             ->setParameter(1,$user)            
-            ->setParameter(2,$difficulty)
-            ->setMaxResults(1)
+            //->setParameter(2,$difficulty)
+            //->setMaxResults(1)
             // Temporaire pour en choisir un au hasard (Rand())
             //->setFirstResult(rand(0,$nb_exercices-1))
             
             ;
+            */
         
-         $result = $qb->getQuery()->getSingleResult();        
-         return $result;       
+
+         
         
 
     }

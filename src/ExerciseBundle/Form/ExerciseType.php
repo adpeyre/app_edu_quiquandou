@@ -70,7 +70,7 @@ class ExerciseType extends AbstractType
                return $er->getOu();
            }
        ))
-        ->add('sound', FileType::class, array(
+        ->add('file', FileType::class, array(
             'label' => 'Enregistrement audio',
             'required' => false,
             'data_class' => null

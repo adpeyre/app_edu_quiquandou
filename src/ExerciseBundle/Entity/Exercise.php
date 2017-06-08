@@ -71,9 +71,7 @@ class Exercise
     private $ou;
 
     /**
-     * @ORM\Column(type="string",nullable=true)     
-     * @Assert\File(maxSize="5M",mimeTypes={ "audio/mpeg" },mimeTypesMessage="Seuls les formats {{type}} sont acceptés pour les enregistrements audio.")
-     
+     * @ORM\Column(type="string",nullable=true)    
      */
     private $sound;
 
@@ -82,11 +80,21 @@ class Exercise
      *
      * @ORM\Column(name="active", type="boolean")
      */
+
     private $active;
 
+    /**         
+     * @Assert\File(maxSize="5M",mimeTypes={ "audio/mpeg" },mimeTypesMessage="Seuls les formats {{type}} sont acceptés pour les enregistrements audio.")     
+     */
+    private $file;
+
+
+    private $tmp_sound;
+    private $tmp_sound_action = '';
 
     public function __construct(){
         $this->active = true;
+        $this->tmp_sound = null;
     }
 
 
@@ -236,11 +244,18 @@ class Exercise
     }
 
     public function getSound(){
+       
         return $this->sound;
     }
 
-    public function setSound($sound){
+    public function setSound($sound=null){
+        
+        if(is_null($sound)){
+            $this->removeSound(); 
+        }
+
         $this->sound = $sound;
+        
         return $this;
     }
 
@@ -248,20 +263,84 @@ class Exercise
         return preg_match('/^auto/',$this->sound);
     }
 
-    public function getSoundSrc(){
-        return 'exercise/records/'.$this->getSound();
+    public function getSoundDir(){
+        $return =  'exercise/records';        
+        return $return;
     }
     
-    public function getSoundRootSrc(){
-        return __DIR__.'/../../../web/'.$this->getSoundSrc();
+    public function getSoundRootDir(){
+        return __DIR__.'/../../../web/'.$this->getSoundDir();
     }
+
+    public function getSoundView(){
+        return $this->getSoundDir().'/'.$this->sound;
+    }
+
+    public function getFile(){
+        return $this->file;
+    }
+
+    public function setFile($file=null){
+        $this->file = $file;
+
+        if(!empty($this->sound)){
+            $this->tmp_sound = $this->sound;            
+        }
+       
+        if (null !== $this->file) {   
+                   
+            $this->sound = uniqid().'_'.$this->getFile()->getClientOriginalName();
+        }
+         
+       
+
+        return $this;
+
+    }
+
+
+    
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+
+        
+        if (null === $this->getFile()) {
+            return;
+        }
+       
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->getFile()->move($this->getSoundRootDir(), $this->sound);
+
+        // check if we have an old image
+        if (isset($this->tmp_sound)) {
+            // delete the old image
+            $this->removeSound($this->tmp_sound);
+            // clear the temp image path
+            $this->tmp_sound = null;
+        }
+        $this->file = null;
+    }
+
+    
 
     /**
      * @ORM\PostRemove()     
      */
-    public function removeSound(){
-        if(!empty($this->getSound())){
-            unlink($this->getSoundRootSrc());
+    public function removeSound($file=null){
+        if(!is_null($file))
+            $fileToDelete = $file;
+        else
+            $fileToDelete = $this->getSound();
+        
+        if(!empty($fileToDelete) && file_exists($this->getSoundRootDir().'/'.$fileToDelete)){
+            unlink($this->getSoundRootDir().'/'.$fileToDelete);
         }
     }
 

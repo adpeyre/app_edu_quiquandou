@@ -20,6 +20,7 @@
         width: 100%;
     }
 </style>
+
 <div class="row">
     <div class="col-lg-4">
         <div class="panel panel-default" style="margin-bottom: 0px;">
@@ -112,17 +113,16 @@
 
     <br>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Retourner à la liste des utilisateurs</a>
-        </li>
-        <li>
-            <a href="{{ path('user_edit', { 'id': user.id }) }}">Modifier cet utilisateur</a>
-        </li>
-        <li>
+    <div class="row">
+        <div class="col-xs-6">
+            <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Modifier cet utilisateur</a><br /><br />
             {{ form_start(delete_form) }}
-                <input type="submit" value="Supprimer cet utilisateur">
+                <button type="submit" class="btn btn-danger btn-sm" onClick="if(!confirm('Souhaitez-vous vraiment supprimer cet utilisateur') return false;"><i class="fa  fa-trash-o "></i> Supprimer cet utilisateur</button>
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </div>
+       
+    </div>
+
+
+    
 {% endblock %}
