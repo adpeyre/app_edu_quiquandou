@@ -96,6 +96,8 @@ class UserController extends Controller
 
         $deleteForm = $this->createDeleteForm($user);
 
+        // print_r($exercisesLastDone);
+
         return $this->render('SchoolBundle:user:show.html.twig', array(
             'user' => $user,
             'stats_user' => $stats_user,

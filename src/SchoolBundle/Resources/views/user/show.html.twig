@@ -61,14 +61,24 @@
 
     <div class="row">
 
-        {{ dump(stats_user) }}
+        {# dump(stats_user) #}
         
         <table class="table table-bordered"> 
         <tbody>
             {% for key,value in stats_user %}
                 <tr>
                     <td class="col-md-2">
-                        {{ key }} <br> 
+Exercices 
+{% if key == 1 %}
+    faciles
+{% elseif key == 2  %}
+    moyens
+{% elseif key == 3  %}
+    difficiles
+{% else %}
+    en total
+{% endif %}
+                         <br> 
                         Total : {{ value['nb_done'] }}
 
                     </td>
@@ -98,7 +108,7 @@
                     {% endif %}
 
                     <td class="col-md-3">
-                        Score Global : 
+                        Score global : 
                         <div class="progress">
                           <div class="progress-bar " role="progressbar" aria-valuenow="{{ value['score_global'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value['score_global'] }}%;">
                             {{ value['score_global'] }}%
@@ -113,9 +123,14 @@
 
     <br>
 
+     {% include 'SchoolBundle:user:lastdone.html.twig' 
+                            with {exercises_lastDone: exercises_lastDone} %}
+
+
     <div class="row">
         <div class="col-xs-6">
             <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Modifier cet utilisateur</a><br /><br />
+
             {{ form_start(delete_form) }}
                 <button type="submit" class="btn btn-danger btn-sm" onClick="if(!confirm('Souhaitez-vous vraiment supprimer cet utilisateur') return false;"><i class="fa  fa-trash-o "></i> Supprimer cet utilisateur</button>
             {{ form_end(delete_form) }}

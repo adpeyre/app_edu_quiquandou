@@ -52,46 +52,7 @@
 </div>
 
 
-<div class="row">
-    <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Derniers exercices
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Utilisateur</th>
-                                <th>Date</th>
-                                <th>Histoire</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-						{% for exercice in exercises_lastDone %}
-							<tr>
-                                <td><a href="{{ path('user_show', { 'id': exercice['user_id'] }) }}" target="_blank">{{ exercice['firstname'] }} {{ exercice['lastname'] }}</a></td>
-                                <td>{{ exercice['date']|date('Y-m-d') }}</td>
-                                <td><a href="{{ path('admin_exercise_edit', { 'id': exercice['exercise_id'] }) }}" target="_blank">{{ exercice['title'] }}</a></td>
-                                <td>{{ exercice['score'] }}/3</td>
-                            </tr>
-						{% endfor %}
-
-                            
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.table-responsive -->
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-    </div>
-    <!-- /.col-lg-6 -->
-</div>
+{% include 'SchoolBundle:user:lastdone.html.twig' 
+                            with {exercises_lastDone: exercises_lastDone} %}
 
 {% endblock %}
