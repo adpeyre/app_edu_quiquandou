@@ -65,11 +65,22 @@ class User implements UserInterface
      */
     private $password;
 
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="activity", type="datetime", nullable=true)
+     */
+    private $activity;
+
 
     /**
     * @ORM\Column(name="role", type="string", length=255)
     */
     private $role;
+
+    public function __construct(){
+        $this->activity = new \DateTime();
+    }
 
 
     /**
@@ -208,12 +219,39 @@ class User implements UserInterface
     }
 
 
+
+
     public function getUsername(){
         return $this->username;
     }
 
     public function setUsername($username){
         return $this->username = $username;
+    }
+
+
+    /**
+     * Set activity
+     *
+     * @param \DateTime $activity
+     *
+     * @return User
+     */
+    public function setActivity($date)
+    {
+        $this->activity = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get activity
+     *
+     * @return \DateTime
+     */
+    public function getActivity()
+    {
+        return $this->activity;
     }
 
 

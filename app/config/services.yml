@@ -13,3 +13,13 @@ services:
     app.save_exercise_done:
         class: AppBundle\Service\SaveExerciseDone
         arguments: ["@doctrine.orm.entity_manager","@=service('security.token_storage').getToken().getUser()"]
+
+    app.user_activity:
+        class: AppBundle\Service\UserActivity
+        arguments: ["@doctrine.orm.entity_manager","@=service('security.token_storage').getToken()"]
+
+    app.user_activity.listener:
+        class: AppBundle\EventListener\UserActivityListener
+        arguments: ["@app.user_activity"]
+        tags:
+          - { name: kernel.event_listener, event: kernel.response, method: processUpdate }
