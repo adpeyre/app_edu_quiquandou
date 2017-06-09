@@ -61,12 +61,13 @@
 
 <h2>Statistiques</h2>
 
-{{ form_start(form_analyse) }}
-    
-{{ form_row(form_analyse.period, {'attr': {'class': 'form-inline'}} )}}          
-       
-   
-{{ form_end(form_analyse) }}
+<div class="row">
+    <div class="col-lg-3 col-md-5 col-sm-8">
+        {{ form_start(form_analyse) }}    
+        {{ form_row(form_analyse.period, {'attr': {'class': 'form-inline'}} )}}  
+        {{ form_end(form_analyse) }}
+    </div>
+</div>
 
 
 <div class="row">
