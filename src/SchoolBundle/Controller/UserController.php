@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use SchoolBundle\Entity\Classroom;
 use SchoolBundle\Entity\ClassAssignment;
 use Symfony\Component\Validator\Constraints\Choice;
+
 /**
  * User controller.
  *
@@ -80,13 +81,41 @@ class UserController extends Controller
      * Finds and displays a user entity.
      *
      * @Route("/{id}", name="user_show")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      */
-    public function showAction(User $user)
+    public function showAction(Request $request,User $user)
     {
 
+        $form_analayse = $this->createFormBuilder(null, array('method'=>'POST'))        
+        ->add('period',ChoiceType::class, array(
+             'choices'=> array(
+                 'Dernière heure' => "PT1H",
+                 'Sur 1 semaine' => "P1W",
+                 'Sur 1 mois' => "P1M",
+                 'Sur 3 mois' => "P1M",
+                 'Sur 1 an' => "P1Y" 
+             ),
+            'label_format' => "Période d'analyse",
+            'data' => "P1M"
+        )) ->getForm()   ;    
 
-        $stats_user = $this->get('exercise.stats_user')->getSummary($user);
+        
+        $form_analayse->handleRequest($request);
+
+        $di_selected = "P1M";
+        
+        if ($form_analayse->isSubmitted() && $form_analayse->isValid()){
+            $form_data = $form_analayse->getData();
+            $di_selected = $form_data['period'];
+        }
+
+        $di = new \DateInterval($di_selected);
+        $date = new \DateTime();
+        $date->sub($di);
+          
+
+
+        $stats_user = $this->get('exercise.stats_user')->getSummary($user,$date);
 
         // Derniers exercices effectués (qui quand ou)
         $exercisesLastDone = $this->get('exercise.last_done')->getList(20,$user);
@@ -103,6 +132,7 @@ class UserController extends Controller
             'stats_user' => $stats_user,
             'exercises_lastDone' => $exercisesLastDone,
             'delete_form' => $deleteForm->createView(),
+            'form_analyse' => $form_analayse->createView()
         ));
     }
 

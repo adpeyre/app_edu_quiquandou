@@ -59,7 +59,16 @@
     </div>
 <br><br>
 
-<h2>Statistiques</h3>
+<h2>Statistiques</h2>
+
+{{ form_start(form_analyse) }}
+    
+{{ form_row(form_analyse.period, {'attr': {'class': 'form-inline'}} )}}          
+       
+   
+{{ form_end(form_analyse) }}
+
+
 <div class="row">
  {% include 'SchoolBundle:user:1score.html.twig' 
                             with {panel: 'panel-primary', title: 'Niveau global', 'type': stats_user[1] } %}
@@ -158,4 +167,15 @@ Exercices
 
 
     
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#form_period').on('change', function() {
+            this.form.submit();
+        });
+    });
+</script>
+
 {% endblock %}
