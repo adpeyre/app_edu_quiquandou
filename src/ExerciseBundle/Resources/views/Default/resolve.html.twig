@@ -14,7 +14,7 @@
 		<p >{{story.text | nl2br }}</p>
 
 		{% if not story.sound is empty %}
-			<p><audio src="{{asset(story.getSoundSrc())}}" controls>Veuillez mettre à jour votre navigateur !</audio></p>
+			<p><audio src="{{asset(story.getSoundView())}}" controls>Veuillez mettre à jour votre navigateur !</audio></p>
 		{% endif %}
 	</div>
 </div>

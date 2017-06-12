@@ -36,7 +36,7 @@ class GetExercise
             $level = $this->stats->getLevelAppropriate($this->user, $this->data->getDateBegining());
         }
         
-
+        
         $exercise = $this->em->getRepository('ExerciseBundle:ExerciseDone')->getNotDone($this->user,$level);
         
         return $exercise;

@@ -197,8 +197,7 @@ class DefaultController extends Controller
         $response_quand = $data->getThumbnailsQuand()[$form_quand];
         $response_ou = $data->getThumbnailsOu()[$form_ou];
 
-        echo $correct_qui."-";
-        echo "-".$response_qui;
+        
         $verdict_qui = $correct_qui == $response_qui ? 1 : 0;
         $verdict_quand = $correct_quand == $response_quand ? 1 : 0;
         $verdict_ou = $correct_ou == $response_ou ? 1 : 0;
@@ -301,7 +300,8 @@ class DefaultController extends Controller
         
         if(!is_null($data->getMode())){
             $nb = intval($data->getNb());
-            $html .= " [".$nb." terminé".($nb>1 ? 's' : '')."]";
+            //$html .= " [".$nb." terminé".($nb>1 ? 's' : '')."]";
+            $html.= " ".$nb;
         }
 
         return new Response($html);

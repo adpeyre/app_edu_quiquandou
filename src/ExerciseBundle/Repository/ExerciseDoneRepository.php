@@ -20,7 +20,8 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
         $subQ = $this->createQueryBuilder('eed')
         ->select('IDENTITY(eed.exercise)')
         ->innerJoin('AppBundle:ExerciseDone', 'ed', 'WITH', 'eed.exerciseDone = ed.id')
-        ->where('ed.user=:user')          
+        ->where('ed.user=:user')  
+        ->andWhere('eed.exercise IS NOT NULL')        
         ->groupBy('eed.exercise');
      
          $qb_notDone = $this->_em->createQueryBuilder();
@@ -38,10 +39,12 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 
         $results = ($qb_notDone->getQuery()->getResult());
 
-
+       
         if(count($results) >= 1){
             return $results[0];
         }
+
+      
 
 
         // Les moins faits sinon
