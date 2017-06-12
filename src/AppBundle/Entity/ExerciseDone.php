@@ -31,8 +31,8 @@ class ExerciseDone
 
 
     /**
-   * @ORM\ManyToOne(targetEntity="SchoolBundle\Entity\User")
-   * @ORM\JoinColumn(nullable=false)
+   * @ORM\ManyToOne(targetEntity="SchoolBundle\Entity\User", cascade={"persist"})
+   * @ORM\JoinColumn(nullable=false,  onDelete="CASCADE")
    */
     private $user;
 

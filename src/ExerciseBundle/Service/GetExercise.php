@@ -26,7 +26,7 @@ class GetExercise
 
         // Si exercice déjà choisi, on recharge le même (rechargement de page)
         if(is_a($this->data->getExercise(), 'ExerciseBundle\Entity\Exercise') ){
-            //return $this->data->getExercise();
+            return $this->data->getExercise();
         }        
        
         $level = $this->data->getDifficulty();

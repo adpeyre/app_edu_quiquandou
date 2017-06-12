@@ -46,10 +46,10 @@
                     <td>{{ exercise.getLevelName() }}</td>
                     <td>       
                         <a  href="{{ path('admin_exercise_edit', { 'id': exercise.id }) }}" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i> Modifier</a>
-                             
-                        <a href="{{ path('admin_exercise_delete', { 'id': exercise.id }) }}" onClick="if(!confirm('Etes-vous certain de vouloir supprimer cet exercice ?')) return false;" class="btn btn-danger btn-xs col- lg-6"><i class="fa fa-trash-o"></i> Supprimer</a>
 
                         <a href="{{ path('admin_exercise_toggle', { 'id': exercise.id }) }}" class="btn btn-xs btn-warning"><i class="fa fa-power-off "></i> {% if exercise.isActive() %}Désactiver {% else %} Activer {% endif %}</a>
+
+                         <a href="{{ path('admin_exercise_delete', { 'id': exercise.id }) }}" onClick="if(!confirm('Etes-vous certain de vouloir supprimer cet exercice ?')) return false;" class="btn btn-danger btn-xs col- lg-6"><i class="fa fa-trash-o"></i></a>
                             
                     </td>
                 </tr>

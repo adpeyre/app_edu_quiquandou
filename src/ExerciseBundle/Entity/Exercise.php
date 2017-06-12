@@ -334,12 +334,15 @@ class Exercise
      * @ORM\PostRemove()     
      */
     public function removeSound($file=null){
-        if(!is_null($file))
+        if(!is_null($file) && !is_object($file))
             $fileToDelete = $file;
         else
             $fileToDelete = $this->getSound();
+
+        
         
         if(!empty($fileToDelete) && file_exists($this->getSoundRootDir().'/'.$fileToDelete)){
+            
             unlink($this->getSoundRootDir().'/'.$fileToDelete);
         }
     }
@@ -363,6 +366,11 @@ class Exercise
             return 'danger';
         else
             return '';
+    }
+
+
+    public function __toString() {
+        return $this->title;
     }
 
 

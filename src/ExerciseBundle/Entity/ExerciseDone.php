@@ -19,13 +19,14 @@ class ExerciseDone
     /**
     * @ORM\Id
     * @ORM\OneToOne(targetEntity="AppBundle\Entity\ExerciseDone",cascade={"persist"})
+    * @ORM\JoinColumn(nullable=false,  onDelete="CASCADE")
     */
     private $exerciseDone;
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="ExerciseBundle\Entity\Exercise")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity="ExerciseBundle\Entity\Exercise", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true,  onDelete="SET NULL")
     */
     private $exercise;
 

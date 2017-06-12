@@ -48,6 +48,8 @@ class ClassroomController extends Controller
             $em->persist($classroom);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', "Nouvelle classe correctement crée.");
+
             return $this->redirectToRoute('admin_classroom_index');
         }
 
@@ -88,7 +90,8 @@ class ClassroomController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_classroom_edit', array('id' => $classroom->getId()));
+            $this->get('session')->getFlashBag()->add('success', "La classe a été modifiée.");
+            return $this->redirectToRoute('admin_classroom_index');
         }
 
         return $this->render('SchoolBundle:classroom:edit.html.twig', array(

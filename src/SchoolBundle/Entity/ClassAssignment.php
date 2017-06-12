@@ -23,13 +23,13 @@ class ClassAssignment
 
     /**
      * @ORM\ManyToOne(targetEntity="SchoolBundle\Entity\Classroom")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,  onDelete="CASCADE")
     */
     private $class;
 
     /**
      * @ORM\ManyToOne(targetEntity="SchoolBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,  onDelete="CASCADE")
     */
     private $user;
 

@@ -28,10 +28,17 @@
         
     {{ form_end(password_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Retourner à la liste des utilisateurs</a>
-        </li>
-        
-    </ul>
+    <hr>
+    <hr>
+
+     
+
+    <h3>Supprimer l'utilisateur</h3>
+    Pour supprimer l'utilisateur, <a onClick="$('#delete_form').slideDown(); return false;" href="#">cliquez ici</a>.<br />
+
+    <div id="delete_form" style="display:none;">
+        {{ form_start(delete_form) }}
+            <input type="submit" value="Supprimer définitivement" class="btn btn-danger" onClick="if(!confirm('Toutes les données seront perdues.')) return false;">
+        {{ form_end(delete_form) }}
+    </div>
 {% endblock %}

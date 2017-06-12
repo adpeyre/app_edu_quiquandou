@@ -9,17 +9,13 @@
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Modifier cette classe" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_classroom_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <hr>
+    <hr>
+
+    {{ form_start(delete_form) }}
+        <input type="submit" value="Supprimer la classe" class="btn btn-danger btn-sm" onClick="if(!confirm('Etes vous certain de vouloir supprimer cette classe ?')) return false;">
+    {{ form_end(delete_form) }}
 {% endblock %}

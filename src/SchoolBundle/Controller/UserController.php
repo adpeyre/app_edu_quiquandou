@@ -318,7 +318,7 @@ class UserController extends Controller
 
 
         
-        
+        $delete_form = $this->createDeleteForm($user);
         
 
 
@@ -329,6 +329,7 @@ class UserController extends Controller
             'edit_general_form' => $editGeneralForm->createView(),
             'edit_class_form' => $editClassesform->createView(),
             'password_form' => $passwordForm->createView(),
+            'delete_form' => $delete_form->createView()
             
         ));
     }

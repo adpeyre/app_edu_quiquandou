@@ -142,7 +142,7 @@ class ExerciseController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', $msg);
 
-            //return $this->redirectToRoute('admin_exercise_index');
+            return $this->redirectToRoute('admin_exercise_index');
         }
 
         return $this->render('ExerciseBundle:admin_exercise:new.html.twig', array(
@@ -175,12 +175,15 @@ class ExerciseController extends Controller
      * @Route("/{id}/delete", name="admin_exercise_delete")
      * @Method("GET")
      */
-    public function deleteAction(Request $request, Exercise $exercise)
+    public function deleteAction(Exercise $exercise)
     {
-       
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($exercise);
-        $em->flush();
+      
+        $em = $this->getDoctrine()->getEntityManager();       
+        
+        if(!empty($exercise)){
+            $em->remove($exercise);
+            $em->flush();
+        }
 
        
         $this->get('session')->getFlashBag()->add('success', "Histoire supprimée avec succès.");

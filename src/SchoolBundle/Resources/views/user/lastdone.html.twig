@@ -11,7 +11,7 @@
                         <thead>
                             <tr>
                                 {% if app.request.get('_route') == 'admin' %}
-                                <th>Utilisateur</th>
+                                <th>Elève</th>
                                 {% endif %}
                                 <th>Date</th>
                                 <th>Histoire</th>
@@ -23,10 +23,10 @@
 						{% for exercice in exercises_lastDone %}
 							<tr>
                                 {% if app.request.get('_route') == 'admin' %}
-                                <td><a href="{{ path('user_show', { 'id': exercice['user_id'] }) }}" target="_blank">{{ exercice['firstname'] }} {{ exercice['lastname'] }}</a></td>
+                                <td><a href="{{ path('user_show', { 'id': exercice['user_id'] }) }}">{{ exercice['firstname'] }} {{ exercice['lastname'] }}</a></td>
                                 {% endif %}
-                                <td>{{ exercice['date']|date('Y-m-d') }}</td>
-                                <td><a href="{{ path('admin_exercise_edit', { 'id': exercice['exercise_id'] }) }}" target="_blank">{{ exercice['title'] }}</a></td>
+                                <td>{{ exercice['date']|date('d/m/Y à H:i') }}</td>
+                                <td><a href="{{ path('admin_exercise_edit', { 'id': exercice['exercise_id'] }) }}" >{{ exercice['title'] }}</a></td>
                                 <td>{{ exercice['score'] }}/3</td>
                             </tr>
 						{% endfor %}

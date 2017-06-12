@@ -9,12 +9,8 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Ajouter cette classe" class="btn btn-primary" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_classroom_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    
 {% endblock %}
