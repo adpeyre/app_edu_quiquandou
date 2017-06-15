@@ -47,12 +47,12 @@ body{
   border-radius:6px;
   padding:10px;
   border:2px solid black;
-  background-image:url(https://static.vecteezy.com/system/resources/previews/000/139/911/original/vector-grey-gradient-abstract-background.jpg);
+  /*background-image:url(https://static.vecteezy.com/system/resources/previews/000/139/911/original/vector-grey-gradient-abstract-background.jpg);*/
 }
 
-.question label:hover{
+/*.question label:hover{
   border:2px dotted black;
-}
+}*/
 
 .question label img{
   border: 1px solid #bec2bb;

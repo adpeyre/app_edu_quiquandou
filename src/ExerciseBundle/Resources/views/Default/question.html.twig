@@ -11,9 +11,9 @@
 			{% for thumb in thumbnails_liste %}
 				<div class=" col-xs-6 col-sm-3 " style="text-align: center;">
 					
-					<label>
+					<label class="radio-andrei-label" for="{{thumb.id}}">
 						<div><img src="{{ asset( thumb.getImageView()) }}" class="img-thumbnail respimg"></div>
-						<div ><input class="radio" type="radio" name="data-{{form}}" id="{{thumb.id}}" value="{{thumb.id}}" required="required"></div>
+						<div ><input class="radio radio-andrei" type="radio" name="data-{{form}}" id="{{thumb.id}}" value="{{thumb.id}}" required="required"></div>
 					</label>
 					
 				</div>
