@@ -1,7 +1,7 @@
 body{
     background-color:#0b4211;
     color:white;
-    font-family: "BebasNeue", serif;
+    font-family: Verdana, Geneva, sans-serif;
     font-size:16px;
     
   }
@@ -17,11 +17,11 @@ body{
   }
 
   .story{
-    font-family: "belle_allure", serif;    
+    /*font-family: "belle_allure", serif;    */
   }
 
   .story p{
-    font-size:25px;
+    /*font-size:25px;*/
   }
 
   p.story::first-letter { 
@@ -47,12 +47,12 @@ body{
   border-radius:6px;
   padding:10px;
   border:2px solid black;
-  background-image:url(https://static.vecteezy.com/system/resources/previews/000/139/911/original/vector-grey-gradient-abstract-background.jpg);
+  /*background-image:url(https://static.vecteezy.com/system/resources/previews/000/139/911/original/vector-grey-gradient-abstract-background.jpg);*/
 }
 
-.question label:hover{
+/*.question label:hover{
   border:2px dotted black;
-}
+}*/
 
 .question label img{
   border: 1px solid #bec2bb;
@@ -112,3 +112,37 @@ h3.jumbo {
 
 right answer#336930
 */
+
+.padding-0 {
+  padding: 0px;
+}
+
+.padding-5 {
+  padding: 5px;
+}
+
+.padding-10 {
+  padding: 10px;
+}
+
+.padding-15 {
+  padding: 15px;
+}
+
+.padding-20 {
+  padding: 20px;
+}
+
+.padding-lr-30 {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.monaudio {
+  float: right;
+  padding-top: 20px;
+}
+
+.monaudio i {
+  font-size: 75px;
+}
