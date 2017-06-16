@@ -9,13 +9,22 @@
 
 
 <div class="row">
-	<div class="jumbotron story ">
+	<div class="jumbotron story padding-10 padding-lr-30">
+	{% if not story.sound is empty %}
+			<!-- <p><audio src="{{asset(story.getSoundView())}}" controls>Veuillez mettre à jour votre navigateur !</audio></p> -->
+			<div class="monaudio">
+				<a href="javascript:void(0)" onclick="aud_play_pause(this)">
+				    <i class="control glyphicon glyphicon-play"></i>
+				    <audio class="xnine-player" src="{{asset(story.getSoundView())}}" preload="auto"></audio>
+				</a>
+			</div>
+
+		{% endif %}
+
 		<h1 >{{story.title | capitalize }}</h1><br>
 		<p >{{story.text | nl2br }}</p>
 
-		{% if not story.sound is empty %}
-			<p><audio src="{{asset(story.getSoundView())}}" controls>Veuillez mettre à jour votre navigateur !</audio></p>
-		{% endif %}
+		
 	</div>
 </div>
 
@@ -28,8 +37,8 @@
 		with {icon : 'glyphicon glyphicon-hourglass', question: 'quand', form: 'quand', thumbnails_liste: thumbnails_quand} %}
 	{% include 'ExerciseBundle:Default:question.html.twig' 
 		with {icon : 'glyphicon glyphicon-screenshot', question: 'où', form: 'ou', thumbnails_liste: thumbnails_ou} %}
-
-
+<br clear="all">
+<br>
 	<div class="row" style="margin-top:25px;">
 		<div class="col-sm-6 col-sm-offset-3">
 			<button type="submit" class="btn btn-primary  btn-lg btn-block"> Valider mes réponses</button>

@@ -11,3 +11,16 @@ $(".radio-andrei-label input").change(function() {
 });
 
 
+function aud_play_pause(object) {
+    var myAudio = object.querySelector(".xnine-player");
+    var myIcon = object.querySelector(".control");
+    if (myAudio.paused) {
+        myIcon.className = "control glyphicon glyphicon-pause";
+        myAudio.play();
+    } else {
+        myIcon.className = "control glyphicon glyphicon-play";
+        myAudio.pause();
+    }
+}
+
+

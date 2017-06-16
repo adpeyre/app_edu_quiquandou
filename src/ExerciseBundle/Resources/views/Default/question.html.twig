@@ -6,10 +6,10 @@
 			<h3 class=""><span class="{{icon}}"></span> {{question|title}}?</h3>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row col-sm-8">
 		<div>
 			{% for thumb in thumbnails_liste %}
-				<div class=" col-xs-6 col-sm-3 " style="text-align: center;">
+				<div class=" col-xs-3 col-sm-3 padding-0" style="text-align: center;">
 					
 					<label class="radio-andrei-label" for="{{thumb.id}}">
 						<div><img src="{{ asset( thumb.getImageView()) }}" class="img-thumbnail respimg"></div>
