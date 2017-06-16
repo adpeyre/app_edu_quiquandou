@@ -122,39 +122,42 @@ class ExerciseDoneRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function getStatsForUser($user=1, $date=null){
+    public function getStatsForUser($user, $date=null){
         
-        $qb = $this->createQueryBuilder('eed')
-            //->select('ed.id')            
+        $qb = $this->createQueryBuilder('eed')      
+            // Niveau d'exercice               
             ->select('e.level')
-            ->addselect('COUNT(ed) as nb_exercises_done')    
-            //->addSelect('(CASE WHEN eed.qui > 1 THEN 1 ELSE 0 END) AS err_qui')   
-            //->addSelect('(CASE WHEN eed.quand > 1 THEN 1 ELSE 0 END) AS err_quand')  
-            
+            // Nombre d'exercices effectués
+            ->addselect('COUNT(ed) as nb_exercises_done')   
+            // Nombre d'exercices sans erreurs         
             ->addSelect('SUM(  (CASE WHEN eed.err_qui = 0 AND eed.err_quand = 0 AND eed.err_ou = 0 THEN 1 ELSE 0 END)  ) AS nb_successful')
+
+            // Nombre d'erreurs sur le qui, quand et où
             ->addSelect('SUM(eed.err_qui) AS nb_err_qui') 
             ->addSelect('SUM(eed.err_quand) AS nb_err_quand')
             ->addSelect('SUM(eed.err_ou) AS nb_err_ou')   
+
+            // Jointures avec d'autres entutés
             ->innerjoin('AppBundle:ExerciseDone','ed','WITH','eed.exerciseDone=ed.id')   
-            ->innerJoin('ExerciseBundle:Exercise','e','WITH','e.id = eed.exercise')           
-            ->where('ed.user=:user')
-            ->setParameter('user',$user)
+            ->innerJoin('ExerciseBundle:Exercise','e','WITH','e.id = eed.exercise')
+
+            // On groupe et ordonne les résultats par niveau n'exercice
             ->groupBy('e.level')
             ->orderBy('e.level')
-            // analyse sur les 20 derniers exercices effectués
-           
+
+            // On s'intéresse qu'à un utilisateur en particulier : on filtre
+            ->where('ed.user=:user')
+            ->setParameter('user',$user)                      
             ;
 
-            if(!is_null($date)){
-                $qb->andWhere('ed.date > :date')
-                    ->setParameter('date',$date);
-            }
-            
-
-        $results = $qb
+        // Si une date d'analyse est fournie, on ajoute un critère de recherche
+        if(!is_null($date)){
+            $qb->andWhere('ed.date > :date')
+                ->setParameter('date',$date);
+        }      
+        
+        return $qb
             ->getQuery()
             ->getArrayResult();
-        
-        return $results;
     }
 }
