@@ -33,19 +33,34 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $classroom = null;
+
+        
         
         if(!empty($class_id)){
             $result = $em->getRepository('SchoolBundle:Classroom')->getUsersByClass($class_id);
             $classroom = array_shift($result);          
             $users=$result;
+
+            
         }
         else{
             $users = $em->getRepository('SchoolBundle:User')->findAll();
-        }          
+        }
+
+        $usersList =  array_map(function($u){
+            $statsService = $this->get('exercise.stats_user');
+            $u2 = array();
+            $u2['infos']=$u;
+            $u2['stats']=$statsService->getSummary(
+                $u,                   
+                (new \DateTime())->sub(  new \DateInterval('P1W')  ) // Dernière semaine par défaut
+            );
+            return $u2;
+        }, $users);
 
         return $this->render('SchoolBundle:user:index.html.twig', array(
             'classroom' => $classroom,
-            'users' => $users,
+            'users' => $usersList,
         ));
     }
 
