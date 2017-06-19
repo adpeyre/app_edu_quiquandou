@@ -24,7 +24,8 @@ class UserType extends AbstractType
         
         $builder
         ->add('username',TextType::class, array(
-            'label_format' => "Nom d'utilisateur"
+            'label_format' => "Nom d'utilisateur (facultatif)",
+            'required' => false
         ))
         ->add('firstname',TextType::class, array(
             'label_format' => "Prénom"

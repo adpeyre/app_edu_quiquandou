@@ -4,6 +4,7 @@ namespace SchoolBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -25,7 +26,11 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z_]{3,20}$/",         
+     *     message="Le nom d'utilisateur doit faire au moins 3 caractères et ne peut pas en éxéder 20."
+     * )
      */
     private $username;
 
