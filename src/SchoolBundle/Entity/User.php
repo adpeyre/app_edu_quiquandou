@@ -286,6 +286,15 @@ class User implements UserInterface
         return ucfirst($this->firstname)." ".strtoupper($this->lastname);
     }
 
+    public function getLogin(){
+        if(!empty($this->username)){
+            return $this->username;
+        }
+        else{
+            return strtolower($this->firstname.'.'.$this->lastname);
+        }
+    }
+
 
     // For encoding password
     public function getSalt(){

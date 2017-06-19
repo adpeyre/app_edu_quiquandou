@@ -26,9 +26,8 @@
             <thead>
                 <tr>
                     <!--<th>Id</th>-->
-                    <th>Nom d'utilisateur</th>
-                    <th>Prénom</th>
                     <th>Nom</th>
+                    <th>Nom d'utilisateur</th>                   
                     <th>Date de naissance</th>
                     <th>Email</th>                
                     <th>Statut</th>                    
@@ -39,9 +38,9 @@
             {% for user in users %}
                 <tr>
                     <!--<td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>-->
-                    <td>{{ user.username }} {% if not user.password is empty %}<i class="fa fa-key" style="color:red;" title="Utilisateur protégé par mot de passe"></i>{% endif %}</td>
-                    <td>{{ user.firstname }}</td>
-                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.getFullName() }} {% if not user.password is empty %}<i class="fa fa-key" style="color:red;" title="Utilisateur protégé par mot de passe"></i>{% endif %}</td>
+                    <td>{{ user.getLogin() }} </td>                    
+                    
                     <td>{% if user.birthDate %}{{ user.birthDate|date('d/m/Y') }}{% endif %}</td>
                     <td>{{ user.email }}</td>                
                     <td>{% if user.role %}{{ user.getRoleName() }}{% endif %}</td>
