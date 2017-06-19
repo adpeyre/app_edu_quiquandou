@@ -1,12 +1,12 @@
 {% block question %}
 
-<div class="question">
-	<div class="row">
+<div class="question" id="q_{{form}}">
+	<div class="row title">
 		<div class=" col-lg-12">
 			<h3 class=""><span class="{{icon}}"></span> {{question|title}}?</h3>
 		</div>
 	</div>
-	<div class="row col-sm-8">
+	<div class="row answers">
 		<div>
 			{% for thumb in thumbnails_liste %}
 				<div class=" col-xs-3 col-sm-3 padding-0" style="text-align: center;">

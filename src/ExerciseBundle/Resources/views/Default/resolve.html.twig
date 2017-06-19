@@ -39,7 +39,7 @@
 		with {icon : 'glyphicon glyphicon-screenshot', question: 'où', form: 'ou', thumbnails_liste: thumbnails_ou} %}
 <br clear="all">
 <br>
-	<div class="row" style="margin-top:25px;">
+	<div class="row" style="margin-top:15px;">
 		<div class="col-sm-6 col-sm-offset-3">
 			<button type="submit" class="btn btn-primary  btn-lg btn-block"> Valider mes réponses</button>
 		</div>
@@ -51,6 +51,52 @@
 	
 </form>
 
-<br><br><br>
+<br>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script>
+
+var quest = ["qui","quand","ou"];
+
+function toggleQuestion(elt){
+	
+	$( ".question" ).each(function( index ) {
+
+		var select = '#'+$(this).attr('id') +' .answers'; 
+		//alert(  $(elt).attr('id') +'!='+ $(this).attr('id')   );
+		if( $(elt).attr('id') != $(this).attr('id') ){			
+			$(  select ).hide();
+		}
+		else{			
+			$( select ).show(500);
+		}
+	});
+
+	/*for(var 0= 1; i < 3; i++){
+		if(quest[i] != id){
+			$('#q_'+quest[i]).slideUp();
+		}
+		else{
+			$('#q_'+quest[i]).slideDown();
+		}
+	}*/
+
+}
+
+$( document ).ready(function() {
+	
+	$('.question .title').click(function(){		
+		toggleQuestion( $(this).parent() );
+	});
+    
+});
+
+
+
+</script>
 
 {% endblock %}

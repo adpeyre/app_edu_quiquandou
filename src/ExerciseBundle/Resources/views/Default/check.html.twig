@@ -8,15 +8,7 @@
 <div class="row">
 	<div class="jumbotron .col-md-8 ">
 		<h1 class="story">{{story.title}}</h1>
-		<br>
-		<p class="story">
-		{% if verdict_total %}
-		    Félicitations ! Toutes les réponses sont correctes !
-		{% else %}
-		    Toutes les réponses ne sont pas correctes ...
-		{% endif %}
-		</p>
-		<br>
+		
 	</div>
 </div>
 
@@ -28,17 +20,17 @@ with {icon: 'glyphicon glyphicon-user', question: 'qui', resp: response_qui, ver
 with {icon: 'glyphicon glyphicon-hourglass', question: 'quand', resp: response_quand, verdict : verdict_quand, correct : correct_quand} %}
 
 {% include 'ExerciseBundle:Default:answer.html.twig' 
-with {icon: 'glyphicon glyphicon-screenshot', question: 'ou', resp: response_ou, verdict : verdict_ou, correct : correct_ou} %}
+with {icon: 'glyphicon glyphicon-screenshot', question: 'où', resp: response_ou, verdict : verdict_ou, correct : correct_ou} %}
 </div>
 	
 
 
 
 <div class="row">
-	<div class="col-sm-6 col-sm-offset-2 col-xs-8">
+	<div class="col-sm-6 col-sm-offset-1 col-xs-8">
 		<a class="btn btn-primary btn-lg btn-block" href="{{path('start-exercise-eleve')}}">Continuer avec un autre exercice</a>
 	</div>
-	<div class="col-sm-2 col-xs-4">
+	<div class="col-sm-4 col-xs-4">
 		<a href="{{path('exercise-user-results')}}" class="btn btn-danger  btn-lg btn-block">J'arrête là</a>
 	</div>
 </div>
