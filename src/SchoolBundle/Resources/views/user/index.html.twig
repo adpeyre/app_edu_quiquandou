@@ -28,23 +28,24 @@
                     <!--<th>Id</th>-->
                     <th>Nom</th>
                     <th>Nom d'utilisateur</th>                   
-                    <th>Date de naissance</th>
-                    <th>Email</th>                
-                    <th>Statut</th>                    
+                    <th>Date de naissance</th>                         
+                    <th>Statut</th> 
+                    <th>Qui-Quand-Où</th>                   
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-            {% for user in users %}
+            {% for u in users %}
+                {% set user = u['infos'] %}
+                {% set userStats = u['stats'] %}
                 <tr>
                     <!--<td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>-->
                     <td>{{ user.getFullName() }} {% if not user.password is empty %}<i class="fa fa-key" style="color:red;" title="Utilisateur protégé par mot de passe"></i>{% endif %}</td>
                     <td>{{ user.getLogin() }} </td>                    
                     
-                    <td>{% if user.birthDate %}{{ user.birthDate|date('d/m/Y') }}{% endif %}</td>
-                    <td>{{ user.email }}</td>                
+                    <td>{% if user.birthDate %}{{ user.birthDate|date('d/m/Y') }}{% endif %}</td>                   
                     <td>{% if user.role %}{{ user.getRoleName() }}{% endif %}</td>
-                    
+                    <td>{% if userStats['global']['nb_done'] > 0 %} Niveau <span class="badge">{{ (userStats['global']['score_global']) | round }}%</span> {% else %} Aucune donnée{% endif %}</td>
                     <td>                    
                         <a href="{{ path('user_show', { 'id': user.id }) }}" class="btn btn-primary btn-xs "><i class="fa fa-user"></i> Consulter</a>
                         <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-warning btn-xs "><i class="fa fa-edit"></i> Modifier</a>     
