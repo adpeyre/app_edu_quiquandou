@@ -143,7 +143,7 @@ class DefaultController extends Controller
      */
     public function checkAction(Request $request){
 
-        $data = $data = $this->get('exercise.data');
+        $data = $this->get('exercise.data');
         
         $exercise = $data->getExercise();
 
@@ -283,7 +283,7 @@ class DefaultController extends Controller
 
     public function navbarAction(){
 
-        $choices = array_flip(Exercise::getLevelsAvailable());
+        /*$choices = array_flip(Exercise::getLevelsAvailable());
         $choices[0] = "Automatique";
         $data = $this->get('exercise.data');
         $level = $data->getDifficulty();
@@ -303,6 +303,20 @@ class DefaultController extends Controller
             //$html .= " [".$nb." terminé".($nb>1 ? 's' : '')."]";
             $html.= " ".$nb;
         }
+        */
+        $data = $this->get('exercise.data');
+        $dateBegining = $data->getDateBegining();
+        
+        $html='';
+
+        $val =  $this->get('exercise.stats_user')->getProgessingValue($this->getUser(), $dateBegining);
+
+         $html .='<div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar"
+            aria-valuenow="'.$val.'" aria-valuemin="0" aria-valuemax="100" style="width:'.$val.'%" title="'.$val.'%">
+                
+            </div>
+            </div>'; 
 
         return new Response($html);
 

@@ -135,4 +135,35 @@ class StatsUser
 
         //return rand(1,3);
     }
+
+    public function getProgessingValue($user, $date_begining){
+        $data = $this->getSummary($user, $date_begining);
+        $currentLevel = $this->getLevelAppropriate($user, $date_begining);
+        $value=0;
+
+        foreach(Exercise::getLevelsAvailable() as $l){
+
+            $tmp=0;
+
+            if($data['global']['nb_done'] == 0){
+                $value+= 0;
+            }
+           
+            if($l <= $currentLevel){
+
+                if($data[$l]['nb_done'] < 4)
+                    $tmp += $data[$l]['score_global']*($data[$l]['nb_done']/4);
+                elseif($data[$l]['score_global'] < 85)
+                    $tmp+= $data[$l]['score_global'];
+                else
+                    $tmp+=100;
+            }       
+
+            $value  += $tmp/3;       
+            
+        }
+
+        return ceil($value);
+
+    }
 }
