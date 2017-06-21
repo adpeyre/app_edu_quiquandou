@@ -158,9 +158,9 @@ class DefaultController extends Controller
             return $this->redirectToRoute('start-exercise-eleve');
         }
 
-        $form_qui = $request->request->get('data-qui');
-        $form_quand = $request->request->get('data-quand');
-        $form_ou = $request->request->get('data-ou');
+        $form_qui = $request->request->get('qui');
+        $form_quand = $request->request->get('quand');
+        $form_ou = $request->request->get('ou');
 
         // tmp
         /*$form_qui = 3;
@@ -313,7 +313,7 @@ class DefaultController extends Controller
 
          $html .='<div class="progress">
             <div class="progress-bar progress-bar-striped active" role="progressbar"
-            aria-valuenow="'.$val.'" aria-valuemin="0" aria-valuemax="100" style="width:'.$val.'%" title="'.$val.'%">
+            aria-valuenow="'.$val.'" aria-valuemin="0" aria-valuemax="100" style="width:'.$val.'%" title="'.$val.'%)">
                 
             </div>
             </div>'; 

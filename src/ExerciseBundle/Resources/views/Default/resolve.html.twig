@@ -28,20 +28,35 @@
 	</div>
 </div>
 
+<div class="row">
+	{% include 'ExerciseBundle:Default:resolve_choice.html.twig' 
+		with {icon: 'glyphicon glyphicon-user', question: 'qui', id: 'qui', thumbnails_liste: thumbnails_qui} %}
+	{% include 'ExerciseBundle:Default:resolve_choice.html.twig' 
+		with {icon: 'glyphicon glyphicon-hourglass', question: 'quand', id: 'quand', thumbnails_liste: thumbnails_qui} %}
+	{% include 'ExerciseBundle:Default:resolve_choice.html.twig' 
+		with {icon: 'glyphicon glyphicon-screenshot', question: 'où', id: 'ou', thumbnails_liste: thumbnails_qui} %}
 
-<form action="{{ path('quiquandou_check') }}" method="POST">
+	
+</div>
 
-	{% include 'ExerciseBundle:Default:question.html.twig' 
-		with {icon: 'glyphicon glyphicon-user', question: 'qui', form: 'qui', thumbnails_liste: thumbnails_qui} %}
-	{% include 'ExerciseBundle:Default:question.html.twig' 
-		with {icon : 'glyphicon glyphicon-hourglass', question: 'quand', form: 'quand', thumbnails_liste: thumbnails_quand} %}
-	{% include 'ExerciseBundle:Default:question.html.twig' 
-		with {icon : 'glyphicon glyphicon-screenshot', question: 'où', form: 'ou', thumbnails_liste: thumbnails_ou} %}
+<hr>
+
+<form action="{{ path('quiquandou_check') }}" method="POST" autocomplete="off">
+
+
+
+	{% include 'ExerciseBundle:Default:resolve_question.html.twig' 
+		with {id: 'qui', thumbnails_liste: thumbnails_qui} %}
+	{% include 'ExerciseBundle:Default:resolve_question.html.twig' 
+		with {id: 'quand', thumbnails_liste: thumbnails_quand} %}
+	{% include 'ExerciseBundle:Default:resolve_question.html.twig' 
+		with {id: 'ou', thumbnails_liste: thumbnails_ou} %}
 <br clear="all">
 <br>
 	<div class="row" style="margin-top:15px;">
 		<div class="col-sm-6 col-sm-offset-3">
-			<button type="submit" class="btn btn-primary  btn-lg btn-block"> Valider mes réponses</button>
+			<button type="submit" id="bt_submit" class="btn btn-primary  btn-lg btn-block" style="display:none;"> Valider mes réponses</button>
+			<button  id="bt_waiting" class="btn btn-danger  btn-lg btn-block" disabled>Tu dois répondre aux questions</button>
 		</div>
 		<!--<div class="col-sm-2">
 			<button type="submit" class="btn btn-danger  btn-lg btn-block">J'ai terminé</button>
@@ -62,38 +77,35 @@
 
 var quest = ["qui","quand","ou"];
 
-function toggleQuestion(elt){
+function toggleQuestion(type){
 	
-	$( ".question" ).each(function( index ) {
+	$( ".question_answers" ).each(function( index ) {
 
-		var select = '#'+$(this).attr('id') +' .answers'; 
-		//alert(  $(elt).attr('id') +'!='+ $(this).attr('id')   );
-		if( $(elt).attr('id') != $(this).attr('id') ){			
-			$(  select ).hide();
+		var q_type = $(this).attr('data-type');
+		
+		if(q_type  != type){			
+			$(  "#question_answers_"+q_type).hide(50);
 		}
-		else{			
-			$( select ).show(500);
+		else{		
+			
+			$( "#question_answers_"+q_type ).delay(50).show(300);
 		}
 	});
 
-	/*for(var 0= 1; i < 3; i++){
-		if(quest[i] != id){
-			$('#q_'+quest[i]).slideUp();
-		}
-		else{
-			$('#q_'+quest[i]).slideDown();
-		}
-	}*/
-
+	
 }
 
 $( document ).ready(function() {
 	
-	$('.question .title').click(function(){		
-		toggleQuestion( $(this).parent() );
+	
+
+	checkAnswered();
+	choiceThumb();
+
+	$('.question_choice').click(function(){		
+		var type = $(this).attr('data-type');		
+		toggleQuestion( type );
 	});
-    
-	toggleQuestion( $('.question:first') );
 });
 
 

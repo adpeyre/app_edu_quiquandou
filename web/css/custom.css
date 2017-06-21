@@ -34,32 +34,50 @@ body{
     color:black;
   }
 
-  .question h3{
-    background-color:#3f2929;
+  .question_title{
+    background-color:#3e1926;
     padding:4px 10px 2px 10px;
     border:1px solid grey;
     display:inline-block;
     border-radius:10px;
   }
 
-.question label{
+.question_choice, .question_answers .question_answer{
   background-color:white;
   border-radius:6px;
   padding:10px;
   border:2px solid black;
+  display:inline-block;
+  background-image:linear-gradient(white, #b0bdba);
   /*background-image:url(https://static.vecteezy.com/system/resources/previews/000/139/911/original/vector-grey-gradient-abstract-background.jpg);*/
+}
+
+.question_answers{
+  display:none;
+}
+.question_choice{  
+  width:200px;
+  max-width:200px;
+  min-width:150px;
+  cursor:pointer;
+  
+}
+
+.question_answers .selected{
+  background-color:yellow;
+  background-image:linear-gradient(white, yellow);
 }
 
 /*.question label:hover{
   border:2px dotted black;
 }*/
 
-.question label img{
+.question_answers label img{
   border: 1px solid #bec2bb;
 }
 
-.question input{
-  display:block;  
+.question_answer input{
+  display:none;  
   margin:auto;
 }
 

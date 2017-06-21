@@ -1,0 +1,21 @@
+
+
+<div class="question_answers" id="question_answers_{{id}}" data-type="{{id}}">	
+	
+	
+	{% for thumb in thumbnails_liste %}
+		<div class=" col-xs-3 col-sm-3 padding-0" style="text-align: center;">
+			
+			<div class="question_answer" id="question_answer_{{thumb.id}}">
+				<label class="radio-andrei-label" for="{{thumb.id}}">
+					<div><img src="{{ asset( thumb.getImageView()) }}" id="thumb_{{thumb.id}}" class="img-thumbnail respimg"></div>
+					<div><input class="radio radio-andrei" type="radio" name="{{id}}" id="{{thumb.id}}" value="{{thumb.id}}" required="required"></div>
+				</label>
+			</div>
+			
+		</div>
+	{% endfor %}
+	
+	
+</div>
+
