@@ -19,10 +19,10 @@ function choiceThumb(){
             if ($(this).is(":checked")) { 
                 $("#question_answer_"+$(this).val()).addClass('selected');
 
-                var thumb_src = $('.question_answers #thumb_'+$(this).val()).attr('src');
+                var thumb = $('.question_answers #thumb_'+$(this).val()).html();
 
             
-                selectChoiceThumb(name, thumb_src);
+                selectChoiceThumb(name, thumb);
             }
             else{            
                 $("#question_answer_"+$(this).val()).removeClass('selected'); 
@@ -33,9 +33,9 @@ function choiceThumb(){
 
 }
 
-function selectChoiceThumb(type, thumb_src){
+function selectChoiceThumb(type, thumb){
      
-    $('#choice_'+type+' img').attr('src',thumb_src);
+    $('#choice_'+type+' .thumb.user_choice').html(thumb);
 }
 
 

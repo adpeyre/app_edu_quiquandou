@@ -18,7 +18,9 @@ class LastDone
         $results = $this->em->getRepository('ExerciseBundle:ExerciseDone')->getLastDone($nb,$user);  
 
         $results = array_map(function($ed){
+
             $ed['score'] = 3 - $ed['err_qui'] - $ed['err_quand'] - $ed['err_ou'];
+           
             return $ed;
         }, $results);      
 

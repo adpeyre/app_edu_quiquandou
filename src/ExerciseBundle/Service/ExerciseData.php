@@ -90,12 +90,49 @@ class ExerciseData
         return $this;
     }
 
+    public function getAttempts($type=''){
+        return intval($this->get('attempts_'.$type));
+    }
+
+    public function setAttempts($type='',$attempts){
+        $this->set('attempts_'.$type,$attempts);
+        return $this;
+    }
+
+    public function getWrongThumb(){
+        $array = $this->get('wrong_thumb');
+        return empty($array) ? array() : $array;
+    }
+
+    public function setWrongThumb($wrong){
+        $this->set('wrong_thumb',$wrong);
+        return $this;
+    }
+
+    public function getThumbLastSelected(){
+        return $this->get('thumb_last_selected');
+    }
+
+    public function setThumbLastSelected($thumbs){
+        $this->set('thumb_last_selected',$thumbs);
+        return $this;
+    }
+
     public function getDateBegining(){
         return ($this->get('date_begining'));
     }
 
     public function setDateBegining($date){
         $this->set('date_begining',$date);
+        return $this;
+    }
+
+    public function exerciseIsEnded(){
+        return $this->get('exercise_ended');
+    }
+
+    public function setExerciseEnded($val=true){
+        $this->set('exercise_ended',$val);
         return $this;
     }
 
@@ -116,6 +153,13 @@ class ExerciseData
         $this->setThumbnailsQui(null);
         $this->setThumbnailsQuand(null);
         $this->setThumbnailsOu(null);
+        $this->setExerciseEnded(false);
+        $this->setWrongThumb(array());
+        $this->setAttempts('',0);
+        $this->setAttempts('qui',0);
+        $this->setAttempts('quand',0);
+        $this->setAttempts('ou',0);
+        $this->setThumbLastSelected(array());
     }
 
     public function resetSession(){

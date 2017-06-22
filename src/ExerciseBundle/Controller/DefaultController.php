@@ -88,7 +88,9 @@ class DefaultController extends Controller
      * @Route("/do", name="start-exercise-eleve")
      * @Method({"GET", "POST"})
      */
-    public function startAction(){
+    public function doAction($responses=null){
+
+       
 
          $data = $this->get('exercise.data');
         
@@ -121,7 +123,60 @@ class DefaultController extends Controller
             ->setThumbnailsQuand($thumbnails_quand)
             ->setThumbnailsOu($thumbnails_ou)
             ;
+
+        
        
+        
+        // Retour après formulaire
+        
+        $wrong_thumb = $data->getWrongThumb();
+        $right_thumb = array();
+        if($exercise->getQui() == $responses['qui'])
+            array_push($right_thumb,$responses['qui']);
+        if($exercise->getQuand() == $responses['quand'])
+            array_push($right_thumb,$responses['quand']);
+        if($exercise->getOu() == $responses['ou'])
+            array_push($right_thumb,$responses['ou']);
+        
+      
+      
+        // Terminé avec cet exercice : on reset
+        if($ended = $data->exerciseIsEnded()){
+
+            $this->get('exercise.save_result')->save($exercise,$data->getAttempts('qui'),$data->getAttempts('quand'),$data->getAttempts('ou'));
+            $data->setNb(  $data->getNb() + 1 );
+            
+
+            $correct = array(
+                'qui' => $exercise->getQui(),
+                'quand' => $exercise->getQuand(),
+                'ou' => $exercise->getOu(),
+            );
+
+
+            $data->clearCurrentExercise();
+
+        }
+
+        
+
+        if(is_null($responses)){
+            $responses = array(
+                'qui' => null,
+                'quand' =>null,
+                'ou' => null
+            );
+        }
+
+        if(empty($correct)){
+            $correct = array(
+                'qui' => null,
+                'quand' =>null,
+                'ou' => null
+            );
+        }
+
+
 
 
         //On envoie à la vue tout ça
@@ -130,7 +185,12 @@ class DefaultController extends Controller
             'story' => $exercise,
             'thumbnails_qui' => $thumbnails_qui,
             'thumbnails_quand' => $thumbnails_quand,
-            'thumbnails_ou' => $thumbnails_ou,
+            'thumbnails_ou' => $thumbnails_ou,   
+            'wrong_thumb'=>$wrong_thumb,    
+            'right_thumb'=>$right_thumb,     
+            'responses'=>$responses,
+            'correct'=>$correct,
+            'ended'=>$ended
             
         ));
 
@@ -150,10 +210,7 @@ class DefaultController extends Controller
        
 
         // Comparer réponses données et réponses correctes
-
-        if($request->getMethod() != 'POST' || empty($exercise)){
-            
-            // die('la methode n\'est pas POST');
+        if($request->getMethod() != 'POST' || empty($exercise)){          
             
             return $this->redirectToRoute('start-exercise-eleve');
         }
@@ -162,60 +219,73 @@ class DefaultController extends Controller
         $form_quand = $request->request->get('quand');
         $form_ou = $request->request->get('ou');
 
-        // tmp
-        /*$form_qui = 3;
-        $form_quand = 1;
-        $form_ou = 2;*/
-
-        
-
+        // Si aucune vignette choisie ou qu'elle n'est pas dans celles proposées : erreur
         if(
             empty($form_qui) || !array_key_exists($form_qui,$data->getThumbnailsQui()) ||
             empty($form_quand) || !array_key_exists($form_quand,$data->getThumbnailsQuand()) ||
             empty($form_ou) || !array_key_exists($form_ou,$data->getThumbnailsOu()) 
         
         ){
-            //echo "lala";
             
-            echo 'une des réponses est vide<br>';
-            print_r("<br>form qui: ".$form_qui);
-            print_r("<br>form quand: ".$form_quand);
-            print_r("<br>form ou: ".$form_ou);
-
-            // die();
-
             return $this->redirectToRoute('start-exercise-eleve');
         }
 
 
-
+        // Réponses attendues
         $correct_qui = $exercise->getQui();
         $correct_quand = $exercise->getQuand();
         $correct_ou = $exercise->getOu();
 
+        // Réponses soumises
         $response_qui = $data->getThumbnailsQui()[$form_qui];
         $response_quand = $data->getThumbnailsQuand()[$form_quand];
         $response_ou = $data->getThumbnailsOu()[$form_ou];
 
-        
-        $verdict_qui = $correct_qui == $response_qui ? 1 : 0;
-        $verdict_quand = $correct_quand == $response_quand ? 1 : 0;
-        $verdict_ou = $correct_ou == $response_ou ? 1 : 0;
+        $wrong_thumb = $data->getWrongThumb();
+        ;
 
-        if($verdict_ou && $verdict_quand && $verdict_qui) {
-            $verdict_total = 1;
+        // qui : mauvaise réponse
+        if($correct_qui != $response_qui){
+            $data->setAttempts('qui',   $data->getAttempts('qui')+1  );
+            array_push($wrong_thumb, $response_qui);
         }
-        else
-            $verdict_total = 0;
+        if($correct_quand != $response_quand){
+            $data->setAttempts('quand',   $data->getAttempts('quand')+1  );
+            array_push($wrong_thumb, $response_quand);
+        }
+        if($correct_ou != $response_ou){
+            $data->setAttempts('ou',   $data->getAttempts('ou')+1  );
+            array_push($wrong_thumb, $response_ou);
+        }
 
+        $data->setWrongThumb($wrong_thumb);
+        //$data->setThumbLastSelected(array($response_qui,$response_quand,$response_ou));
         
-        $this->get('exercise.save_result')->save($exercise,!$verdict_qui,!$verdict_quand,!$verdict_ou);
-        $data->setNb(  intval($data->getNb()) + 1 );
-        $data->clearCurrentExercise();
+
+        // Toutes les réponses sont bonnes
+        if(($correct_qui == $response_qui && $correct_quand == $response_quand && $correct_ou == $response_ou) || $data->getAttempts() >= 1){            
+            $data->setExerciseEnded(true);
+        }
+
+        $data->setAttempts('',  $data->getAttempts()+1   );
+
+        //return $this->redirectToRoute('start-exercise-eleve');
+        $response = $this->forward('ExerciseBundle:Default:do', array(
+            'responses' => array(
+                'qui'=>$response_qui,
+                'quand'=>$response_quand,
+                'ou' =>$response_ou
+            )
+            
+        ));
+
+        return $response;
+        
+        
 
 
         // Renvoyer à la vue réponses données et correction
-        // + message commentaire
+        // + message imgaire
         // + Boutons pour enchainer avec un autre exercise
 
 
@@ -250,7 +320,6 @@ class DefaultController extends Controller
         }
 
         $stats=  $this->get('exercise.stats_user')->getSummary($this->getUser(),$data->getDateBegining());
-
         
 
         $exercises_nb = $data->getNb();
@@ -260,21 +329,16 @@ class DefaultController extends Controller
         $exercises_note = round($exercises_successful / $stats['global']['nb_done'] * 10);
 
 
-        if($exercises_note >= 10)
-            $comment = "Excellent!";
-        elseif($exercises_note >= 8)
-            $comment = "Très bien!";
-        elseif($exercises_note >= 6)
-            $comment ="Bien!";
-        else
-            $comment ="Tu peux mieux faire!";
+        $exercisesDone = $this->get('exercise.last_done')->getList($data->getNb(),$this->getUser());
+
 
         return $this->render('ExerciseBundle:Default:results.html.twig',array(
             'exercises_nb' => $exercises_nb,
             'exercises_successful' => $exercises_successful,
             'exercises_missed' => $exercises_missed,
             'exercises_note' => $exercises_note,  
-            'comment' => $comment          
+            'exercise_done' => $exercisesDone
+              
             
         ));
 

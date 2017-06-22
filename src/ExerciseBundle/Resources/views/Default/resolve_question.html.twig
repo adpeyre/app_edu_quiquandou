@@ -6,11 +6,22 @@
 	{% for thumb in thumbnails_liste %}
 		<div class=" col-xs-3 col-sm-3 padding-0" style="text-align: center;">
 			
-			<div class="question_answer" id="question_answer_{{thumb.id}}">
+			<div class="question_answer  " id="question_answer_{{thumb.id}}">
+				
 				<label class="radio-andrei-label" for="{{thumb.id}}">
-					<div><img src="{{ asset( thumb.getImageView()) }}" id="thumb_{{thumb.id}}" class="img-thumbnail respimg"></div>
-					<div><input class="radio radio-andrei" type="radio" name="{{id}}" id="{{thumb.id}}" value="{{thumb.id}}" required="required"></div>
-				</label>
+					<div id="thumb_{{thumb.id}}" >
+						<div class="{% if thumb in wrong_thumb %} wrong_answer	{% endif %}" style="position:relative;">
+							<div>
+								<img src="{{ asset( thumb.getImageView()) }}"  class="img-thumbnail respimg">
+							</div>
+							<div>
+								{% if thumb in wrong_thumb %} <img src="http://www.icone-png.com/png/19/18859.png" class="answer_wrong" > {% endif %} 
+								{% if thumb in right_thumb %} <img src="https://s3-eu-west-1.amazonaws.com/younbin/assets/icons/checkmark.png" class="answer_wrong" > {% endif %} 
+							</div>
+						</div>						
+					</div>
+					<div><input class="radio radio-andrei" type="radio" name="{{id}}" id="{{thumb.id}}" value="{{thumb.id}}" required="required" {% if form == thumb %} checked="checked" {% endif %} ></div>
+				</label>				
 			</div>
 			
 		</div>

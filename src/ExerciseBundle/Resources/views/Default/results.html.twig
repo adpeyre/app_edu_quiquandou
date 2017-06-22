@@ -4,15 +4,59 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-8 ">
         <div class="jumbotron" style="text-align:center">
-            <h1>{{exercises_note}} / 10</h1>
-            <p>{{comment}}</p>
+            <img src="
+            {% if exercises_note >= 7 %}
+                {{ asset('img/note/very_good.png') }}
+            {% elseif exercises_note >= 4 %}
+                {{ asset('img/note/medium.png') }}
+            {% else %}
+                {{ asset('img/note/bad.png') }}
+            {% endif %}
+            " class="img-thumbnail">
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="table-responsive" style="text-align:center; color:black;">
+            <table class="table" >
+            
+
+                <tbody>
+                    {% for exercise in exercise_done %}
+
+                        {% if exercise.score >= 3 %}
+                            {% set color = 'success' %}
+                            {% set smiley = 'fa-smile-o' %}
+                        {% elseif exercise.score >= 1 %}
+                            {% set color = 'warning' %}
+                            {% set smiley = 'fa-meh-o' %}
+                        {% else %}
+                            {% set color = 'danger' %}
+                            {% set smiley = 'fa-frown-o' %}                    
+                        {% endif %}
+
+
+                        <tr class="{{color}}">
+                            <td>{{ exercise.title }}</td>
+                            <td><i class="fa {{smiley}}"></i></td>
+
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+
+
+    </div>
 </div>
+
+
+
 <div class="row">
-    <div class="col-sm-3 col-sm-offset-3">
+    <div class="col-sm-5 col-sm-offset-2">
         <a class="btn btn-success btn-lg btn-block" href="{{path('accueil-exercise-eleve')}}">Recommencer des exercices</a>
     </div>
     <div class="col-sm-3">

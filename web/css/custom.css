@@ -68,16 +68,20 @@ body{
   background-image:linear-gradient(white, yellow);
 }
 
+.question_answers .wrong_answer{
+  
+}
+
 /*.question label:hover{
   border:2px dotted black;
 }*/
 
-.question_answers label img{
+/*.question_answers label img{
   border: 1px solid #bec2bb;
-}
+}*/
 
 .question_answer input{
-  display:none;  
+  display:non;  
   margin:auto;
 }
 
