@@ -44,9 +44,9 @@ class StatsUser
                 $r = $results[$r_key];
                
                 $nb_exercises_done = $r['nb_exercises_done'];
-                $score_qui = $this->getPercentageSuccess($r['nb_err_qui'],$r['nb_exercises_done']);
-                $score_quand = $this->getPercentageSuccess($r['nb_err_quand'],$r['nb_exercises_done']);
-                $score_ou = $this->getPercentageSuccess($r['nb_err_ou'],$r['nb_exercises_done']);
+                $score_qui = $this->getPercentageSuccess(intval($r['nb_err_qui'] >0),$r['nb_exercises_done']);
+                $score_quand = $this->getPercentageSuccess(intval($r['nb_err_quand']>0),$r['nb_exercises_done']);
+                $score_ou = $this->getPercentageSuccess(intval($r['nb_err_ou']>0),$r['nb_exercises_done']);
                 $score_global = intval(($score_qui + $score_quand + $score_ou) * 100 / 300);
                 $nb_successful = $r['nb_successful'];
             }

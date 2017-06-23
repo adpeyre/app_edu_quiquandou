@@ -19,7 +19,7 @@ class LastDone
 
         $results = array_map(function($ed){
 
-            $ed['score'] = 3 - $ed['err_qui'] - $ed['err_quand'] - $ed['err_ou'];
+            $ed['score'] = 3 - intval($ed['err_qui']>0)  - intval($ed['err_quand']>0) - intval($ed['err_ou']>0);
            
             return $ed;
         }, $results);      
