@@ -1,5 +1,5 @@
 Application éducative
-Atelier "Qui? QUand? Où"
+Atelier "Qui? Quand? Où"
 =======
 
 
