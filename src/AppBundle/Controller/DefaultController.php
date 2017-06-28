@@ -26,6 +26,32 @@ class DefaultController extends Controller
                 return $this->redirectToRoute('accueil-exercise-eleve');
             }
         }
+        else{
+
+            // Création compte root si innexistant
+            
+
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('SchoolBundle:User')->findOneBy(array('role' => 'ROLE_TEACHER'));
+
+            if(empty($user)){
+
+                $user = new \SchoolBundle\Entity\User();
+                $user
+                    ->setUsername('root')
+                    ->setFirstname('root')
+                    ->setLastname('root')
+                    ->setPassword( $this->getParameter('root_password') )
+                    ->setRole('ROLE_TEACHER')   ;
+
+                $em->persist($user);
+                $em->flush();
+
+            }
+                
+            
+
+        }
 
          return $this->render('default/index.html.twig',array(
            

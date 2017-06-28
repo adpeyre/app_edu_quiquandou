@@ -29,9 +29,9 @@ class SecurityController extends Controller
             $form_username = $request->request->get('_username');
             $form_password = $request->request->get('_password');
 
-            // Crypter mdp
-            // .....
+            $user = null;
 
+            
             // Pas un prenom.nom donc c'est un username défini
             if(!stristr($form_username,'.')){
                 $user = $em->getRepository('SchoolBundle:User')->findOneBy(array('username'=>$form_username)); 
@@ -40,6 +40,9 @@ class SecurityController extends Controller
                 $name = explode('.',$form_username);
                 $user = $em->getRepository('SchoolBundle:User')->findOneBy(array('firstname'=>$name[0], 'lastname'=>$name[1])); 
             }
+
+
+            
             
             
 

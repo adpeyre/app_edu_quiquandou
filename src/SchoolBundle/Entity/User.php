@@ -231,7 +231,8 @@ class User implements UserInterface
     }
 
     public function setUsername($username){
-        return $this->username = $username;
+        $this->username = $username;
+        return $this;
     }
 
 
