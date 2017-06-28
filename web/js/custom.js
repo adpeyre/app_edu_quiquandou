@@ -67,7 +67,7 @@ function aud_play_pause(object) {
         myIcon.className = "control glyphicon glyphicon-pause";
         myAudio.play();
     } else {
-        myIcon.className = "control glyphicon glyphicon-play";
+        myIcon.className = "control  fa fa-microphone";
         myAudio.pause();
     }
 }

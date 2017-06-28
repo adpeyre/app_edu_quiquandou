@@ -10,6 +10,7 @@ imports:
 parameters:
     locale: fr
     root_password: projetmasterwic2017
+    api_voice_key: ffd188fbb5da4474b5d9538ddd355ed1
 
 framework:
     #esi:             ~

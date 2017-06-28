@@ -75,7 +75,7 @@ class ExerciseController extends Controller
                 
             ){
                 $fileName = empty($exercise_old->getSound()) ? 'auto_'.uniqid().'.mp3' : $exercise_old->getSound();
-                $url="http://api.voicerss.org/?key=ffd188fbb5da4474b5d9538ddd355ed1&hl=fr-fr&r=0&src=".urlencode($exercise->getText());                
+                $url="http://api.voicerss.org/?key=".$this->getParameter('api_voice_key')."&hl=fr-fr&r=0&src=".urlencode($exercise->getText());                
                 file_put_contents($exercise->getSoundRootDir().'/'.$fileName, fopen($url, 'r'));
                 
                 $exercise->setSound($fileName);

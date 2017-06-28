@@ -17,18 +17,18 @@
 
         <div class="row">
 
-          <div class="col-xs-4">
+          <div class="col-sm-4 hidden-xs">
             <span style="background-color:#dbdbdb; padding:2px 5px 2px 5px; border-radius:10px; border:1px solid grey;">
             <!--<a href="{#path('accueil-exercise-eleve')#}">Qui-Quand-Où?</a>-->
               <span>Qui-Quand-Où</span>
             </span>
           </div>
 
-          <div class="col-xs-4" style="text-align:center"> 
+          <div class="col-xs-6 col-sm-4" style="text-align:center"> 
           {{ render(controller('ExerciseBundle:Default:navbar' )) }}
           </div>
 
-          <div class="col-xs-4 " style="text-align:right; font-weight:bold;">
+          <div class="col-xs-6 col-sm-4 " style="text-align:right; font-weight:bold;">
             {{ app.user.getFullName() }} <a href="{{path('logout')}}"><i class="glyphicon glyphicon-log-out "></i></a>
             
           </div>
