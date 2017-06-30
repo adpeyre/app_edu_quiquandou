@@ -7,3 +7,6 @@ L’objectif de cet atelier est de réussir à identifier les éléments importa
 
 L'élève se connecte à l’application avec son identifiant et effectue les exercices qui lui sont proposés.
 L'enseignant peut gérer les classes, les élèves, les exercices proposés et analyser les statistiques sur les élèves.
+
+
+Application développée par Adrien PEYRE & Andrei CHIRTES
